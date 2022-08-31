@@ -24,7 +24,7 @@ public class Plane {
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "film_sequence"
+            generator = "plane_sequence"
     )
     private Long id; //5
     private String code; // TC-SOD
