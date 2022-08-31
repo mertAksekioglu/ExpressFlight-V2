@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "code": "TC-SEE",
+    "model": "737-800",
+    "yearOfProduct": 2006
+  },
+  {
+    "id": 2,
+    "code": "TC-SOD",
+    "model": "737-800",
+    "yearOfProduct": 2014
+  }
+]

@@ -26,10 +26,10 @@ public class Plane {
             strategy = GenerationType.SEQUENCE,
             generator = "film_sequence"
     )
-    private Long id;
-    private String code;
-    private String model;
-    private Integer yearOfProduction;
+    private Long id; //5
+    private String code; // TC-SOD
+    private String model; // 737
+    private Integer yearOfProduction; // 1998
 
 
     public void Plane(String code, String model,Integer yearOfProduction) {
