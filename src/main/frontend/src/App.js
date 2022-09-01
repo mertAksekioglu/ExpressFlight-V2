@@ -36,7 +36,7 @@ function App() {
     event.preventDefault();
 
     axios
-      .get("http://localhost:8080/api/v1/flight")
+      .get("http://localhost:8080/api/v1/flights")
       .then(function (response) {
         console.log(response);
       })
@@ -47,9 +47,19 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
+      <div style={{ height: 150, backgroundColor: "#F5D0A7" }}>
+        <img src={logo} className="App-logo" alt="logo" />{" "}
+      </div>
+      <div
+        style={{
+          height: 1500,
+          width: 1220,
+          alignItems: "center",
+          backgroundColor: "#FDEEDC",
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      >
         <form onSubmit={handleAddFormSubmit}>
           <div>
             <text>From </text>
@@ -69,7 +79,6 @@ function App() {
               onChange={handleAddFormChange}
             ></input>
           </div>
-
           <text> Departure Date </text>
           <input
             typle="text"
@@ -89,37 +98,19 @@ function App() {
           <button type="submit">Search Flights</button>
         </form>
 
-        <table>
-          <thead>
-            <tr>
-              {/* <th>airline</th>
-              <th>depAirport</th>
-              <th>desAirport</th>
-              <th>depDate</th>
-              <th>arvDate</th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {flights.map((flight, index) => (
-              <tr key={index}>
-                <td>{flight.airline}</td>
-                <td>{flight.depAirport}</td>
-                <td>{flight.desAirport}</td>
-                <td>{flight.depDate}</td>
-                <td>{flight.arvDate}</td>
-                <td>
-                  {/*<button
-                    type="button"
-                    onClick={() => handleDeleteFilmSubmit(flight.id)}
-                  >
-                    Delete
-            </button>*/}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </header>
+        <div
+          style={{
+            width: 1097,
+            height: 136,
+            borderRadius: 48,
+            backgroundColor: "#ffffff",
+            justifyContent: "center",
+          }}
+        >
+          <img></img>
+          <text>18:45 - 19:30</text>
+        </div>
+      </div>
     </div>
   );
 }

@@ -65,6 +65,29 @@ public class FlightService implements IFlightService {
         if(flight.getFlightCode() != null){
             existingFlight.setFlightCode(flight.getFlightCode());
         }
+        if(flight.getAirline() != null){
+            existingFlight.setAirline(flight.getAirline());
+        }
+        if(flight.getFlightPlane() != null){
+            existingFlight.setFlightPlane(flight.getFlightPlane());
+        }
+        if(flight.getDepAirport() != null){
+            existingFlight.setDepAirport(flight.getDepAirport());
+        }
+        if(flight.getDesAirport() != null){
+            existingFlight.setDesAirport(flight.getDesAirport());
+        }
+        if(flight.getDepDate() != null){
+            existingFlight.setDepDate(flight.getDepDate());
+        }
+        if(flight.getArvDate() != null){
+            existingFlight.setArvDate(flight.getArvDate());
+        }
+        if(flight.getPrice() != null){
+            existingFlight.setPrice(flight.getPrice());
+        }
+
+
 
 
         writer.write(flightRepository, DATA_PATH);

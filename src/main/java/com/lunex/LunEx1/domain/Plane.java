@@ -26,9 +26,13 @@ public class Plane {
             strategy = GenerationType.SEQUENCE,
             generator = "plane_sequence"
     )
+    @Column(name = "id")
     private Long id; //5
+    @Column(name = "code")
     private String code; // TC-SOD
+    @Column(name = "model")
     private String model; // 737
+    @Column(name = "year_of_production")
     private Integer yearOfProduction; // 1998
 
 

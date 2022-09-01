@@ -1,0 +1,58 @@
+
+[
+  {
+    "id": 1,
+    "flightCode": "XQ9192",
+    "airline": "Sunexpress",
+    "flightPlane": "TC-SEE",
+    "depAirport": "AYT",
+    "desAirport": "ADB",
+    "depDate": "31-08-2022 18:00",
+    "arvDate": "31-08-2022 18:45"
+  },
+  {
+    "id": 2,
+    "flightCode": "TK2957",
+    "airline": "Turkish Airlines",
+    "flightPlane": "TC-JJK",
+    "depAirport": "AYT",
+    "desAirport": "ADB",
+    "depDate": "31-08-2022 19:30",
+    "arvDate": "31-08-2022 20:15"
+  }
+]
+
+
+
+[
+  {
+    "id": 1,
+    "code": "TC-SEE",
+    "model": "737-800",
+    "yearOfProduct": 2006
+  },
+  {
+    "id": 2,
+    "code": "TC-SOD",
+    "model": "737-800",
+    "yearOfProduct": 2014
+  }
+]
+
+
+
+
+[
+  {
+    "id": 1,
+    "code": "AYT",
+    "terminalCount": 3,
+    "runwayCount": 3
+  },
+  {
+    "id": 2,
+    "code": "ADB",
+    "terminalCount":  2,
+    "runwayCount": 2
+  }
+]

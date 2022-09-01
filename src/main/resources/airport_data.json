@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "code": "AYT",
+    "terminalCount": 3,
+    "runwayCount": 3
+  },
+  {
+    "id": 2,
+    "code": "ADB",
+    "terminalCount":  2,
+    "runwayCount": 2
+  }
+]
