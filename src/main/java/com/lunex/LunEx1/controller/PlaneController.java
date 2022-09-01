@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/plane")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PlaneController {
 
     @Autowired
