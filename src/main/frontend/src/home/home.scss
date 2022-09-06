@@ -1,0 +1,86 @@
+/* Define standard variables and values for website */
+$bgcolor: rgb(27, 40, 44);
+$textcolor: darkblue;
+$fontsize: 18px;
+
+/* Use the variables */
+body {
+  background-color: $bgcolor;
+  color: $textcolor;
+  font-size: $fontsize;
+  margin: 0%;
+}
+
+.logo {
+  width: 150%;
+}
+
+.logo-container {
+  margin-left: 7%;
+  z-index: 3;
+}
+
+.header-text {
+  color: #fff;
+  margin: 2%;
+}
+
+.app-container {
+  position: absolute;
+  z-index: 2;
+}
+
+.top-tabs-container {
+  width: 450%;
+  display: flex;
+  padding-left: 8%;
+  align-items: center;
+}
+
+.search-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.search-text {
+  color: #fff;
+  margin: 2%;
+  font-size: 21px;
+}
+
+.result-header-text {
+  color: #fff;
+  font-size: 30px;
+}
+
+.top-container {
+  margin-top: 9%;
+  display: flex;
+  width: 100%;
+  height: 30%;
+}
+
+.flights-container {
+  margin-top: 9%;
+  width: 100%;
+  height: 100%;
+  z-index: 7;
+}
+
+.background-image {
+  filter: saturate(130%) brightness(30%);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.flight-card {
+  background-color: brown;
+  border-radius: 24px;
+  margin: 5px;
+  margin-bottom: 10px;
+  width: 40%;
+}

@@ -2,6 +2,7 @@ package com.lunex.LunEx1.controller;
 
 import com.lunex.LunEx1.domain.Airport;
 import com.lunex.LunEx1.domain.Flight;
+import com.lunex.LunEx1.dto.AirportDTO;
 import com.lunex.LunEx1.serviceInterface.IAirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +20,18 @@ public class AirportController {
     private IAirportService airportService;
 
     @GetMapping
-    public List<Airport> getAllAirports() {
+    public List<AirportDTO> getAllAirports() {
         return airportService.getAllAirports();
     }
 
     @GetMapping(value = "/get-id")
-    public Airport getAirport(@RequestParam(value = "id") Long airportId) {
+    public AirportDTO getAirport(@RequestParam(value = "id") Long airportId) {
         return airportService.getAirport(airportId);
     }
 
     @PostMapping(value = "add-airport")
-    public void addAirport(@RequestBody Airport airport) {
-        airportService.addAirport(airport);
+    public void addAirport(@RequestBody AirportDTO airportDto) {
+        airportService.addAirport(airportDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -39,8 +40,8 @@ public class AirportController {
     }
 
     @PutMapping(value = "/update-airport")
-    public void updateAirport(@RequestBody Airport airport) {
-        airportService.updateAirport(airport);
+    public void updateAirport(@RequestBody AirportDTO airportDto) {
+        airportService.updateAirport(airportDto);
     }
 
 

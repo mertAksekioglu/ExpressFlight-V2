@@ -4,7 +4,7 @@
     "id": 1,
     "flightCode": "XQ9192",
     "airline": "Sunexpress",
-    "flightPlane": "TC-SEE",
+    "planeId": "TC-SEE",
     "depAirport": "AYT",
     "desAirport": "ADB",
     "depDate": "31-08-2022 18:00",
@@ -14,7 +14,7 @@
     "id": 2,
     "flightCode": "TK2957",
     "airline": "Turkish Airlines",
-    "flightPlane": "TC-JJK",
+    "planeId": "TC-JJK",
     "depAirport": "AYT",
     "desAirport": "ADB",
     "depDate": "31-08-2022 19:30",
@@ -54,5 +54,73 @@
     "code": "ADB",
     "terminalCount":  2,
     "runwayCount": 2
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+[
+  {
+    "id": 1,
+    "flightCode": "XQ9192",
+    "airline": "Sunexpress",
+    "plane": {
+      "id": 1,
+      "code": "TC-SEE",
+      "model": "737-800",
+      "yearOfProduct": 2006
+    },
+    "depAirport": "AYT",
+    "desAirport": "ADB",
+    "depDate": "31-08-2022",
+    "depTime": "18:00",
+    "arvDate": "31-08-2022",
+    "arvTime": "18:45",
+    "price": 589
+  },
+  {
+    "id": 2,
+    "flightCode": "TK2957",
+    "airline": "Turkish Airlines",
+    "plane": {
+      "id": 4,
+      "code": "TC-JJK",
+      "model": "777-300ER",
+      "yearOfProduct": 2003
+    },
+    "depAirport": "AYT",
+    "desAirport": "ADB",
+    "depDate": "31-08-2022",
+    "depTime": "19:30",
+    "arvDate": "31-08-2022",
+    "arvTime": "20:15",
+    "price": 789
+  },
+  {
+    "id": 3,
+    "flightCode": "TK3957",
+    "airline": "Turkish Airlines",
+    "plane": {
+      "id": 3,
+      "code": "TC-JNK",
+      "model": "777-300ER",
+      "yearOfProduct": 2007
+    },
+    "depAirport": "AYT",
+    "desAirport": "SAW",
+    "depDate": "31-08-2022",
+    "depTime": "16:30",
+    "arvDate": "31-08-2022",
+    "arvTime": "17:45",
+    "price": 789
   }
 ]

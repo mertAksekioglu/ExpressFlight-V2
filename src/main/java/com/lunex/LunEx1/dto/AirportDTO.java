@@ -1,7 +1,11 @@
 package com.lunex.LunEx1.dto;
 
+import lombok.Data;
+
+@Data
 public class AirportDTO {
-    String code;
-    Integer terminalCount;
-    Integer runwayCount;
+    private Long id;
+    private String code;
+    private Integer terminalCount;
+    private Integer runwayCount;
 }

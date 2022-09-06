@@ -1,14 +1,16 @@
 package com.lunex.LunEx1.serviceInterface;
 
 import com.lunex.LunEx1.domain.Plane;
+import com.lunex.LunEx1.dto.PlaneDTO;
 
 import java.util.List;
 
 public interface IPlaneService {
 
-    public List<Plane> getAllPlanes();
-    public Plane getPlane(Long planeId);
-    public void addPlane(Plane plane);
+    public List<PlaneDTO> getAllPlanes();
+    public PlaneDTO getPlane(Long planeId);
+    public PlaneDTO getPlaneByCode(String planeCode);
+    public void addPlane(PlaneDTO plane);
     public void deletePlane(Long planeId);
-    public void updatePlane(Plane plane);
+    public void updatePlane(PlaneDTO plane);
 }

@@ -1,6 +1,7 @@
 package com.lunex.LunEx1.controller;
 
 import com.lunex.LunEx1.domain.Plane;
+import com.lunex.LunEx1.dto.PlaneDTO;
 import com.lunex.LunEx1.service.PlaneService;
 import com.lunex.LunEx1.serviceInterface.IPlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,23 @@ public class PlaneController {
     }
 
     @GetMapping
-    public List<Plane> getAllPlanes() {
+    public List<PlaneDTO> getAllPlanes() {
         return planeService.getAllPlanes();
     }
 
     @GetMapping(value = "/get-id")
-    public Plane getPlane(@RequestParam(value = "id") Long planeId) {
+    public PlaneDTO getPlane(@RequestParam(value = "id") Long planeId) {
         return planeService.getPlane(planeId);
     }
 
+    @GetMapping(value = "/get-code")
+    public PlaneDTO getPlane(@RequestParam(value = "code") String planeCode) {
+        return planeService.getPlaneByCode(planeCode);
+    }
+
     @PostMapping(value = "/add-plane")
-    public void addPlane(@RequestBody Plane plane) {
-        planeService.addPlane(plane);
+    public void addPlane(@RequestBody PlaneDTO planeDto) {
+        planeService.addPlane(planeDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -43,8 +49,8 @@ public class PlaneController {
     }
 
     @PutMapping(value = "/update-plane")
-    public void updatePlane(@RequestBody Plane plane) {
-        planeService.updatePlane(plane);
+    public void updatePlane(@RequestBody PlaneDTO planeDto) {
+        planeService.updatePlane(planeDto);
     }
 
 

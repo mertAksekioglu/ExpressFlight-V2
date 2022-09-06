@@ -1,24 +1,100 @@
 [
   {
     "id": 1,
-    "flightCode": "XQ9192",
-    "airline": "Sunexpress",
-    "flightPlane": "TC-SEE",
-    "depAirport": "AYT",
-    "desAirport": "ADB",
-    "depDate": "31-08-2022 18:00",
-    "arvDate": "31-08-2022 18:45",
+    "flightSegments": [
+      {
+      "id": 1,
+      "flightCode": "XQ9192",
+      "airline": "Sunexpress",
+      "planeId": 1,
+      "depAirport": "AYT",
+      "desAirport": "ADB",
+      "depDate": "31-08-2022",
+      "depTime": "18:00",
+      "arvDate": "31-08-2022",
+      "arvTime": "18:45"
+      }
+    ],
+    "isConnected": false,
     "price": 589
   },
   {
     "id": 2,
-    "flightCode": "TK2957",
-    "airline": "Turkish Airlines",
-    "flightPlane": "TC-JJK",
-    "depAirport": "AYT",
-    "desAirport": "ADB",
-    "depDate": "31-08-2022 19:30",
-    "arvDate": "31-08-2022 20:15",
+    "flightSegments": [
+      {
+      "id": 2,
+      "flightCode": "TK2957",
+      "airline": "Turkish Airlines",
+      "planeId": 3,
+      "depAirport": "AYT",
+      "desAirport": "ADB",
+      "depDate": "31-08-2022",
+      "depTime": "19:30",
+      "arvDate": "31-08-2022",
+      "arvTime": "20:15"
+      }
+    ],
+    "isConnected": false,
     "price": 789
+  },
+  {
+    "id": 3,
+    "flightSegments": [
+      {
+        "id": 3,
+        "airline": "Turkish Airlines",
+        "planeId": 3,
+        "depAirport": "AYT",
+        "desAirport": "IST",
+        "depDate": "31-08-2022",
+        "depTime": "16:30",
+        "arvDate": "31-08-2022",
+        "arvTime": "17:45"
+      },
+      {
+        "id": 4,
+        "airline": "Turkish Airlines",
+        "planeId": 4,
+        "depAirport": "IST",
+        "desAirport": "CDG",
+        "depDate": "31-08-2022",
+        "depTime": "18:30",
+        "arvDate": "31-08-2022",
+        "arvTime": "23:30"
+      }
+    ],
+    "isConnected": true,
+    "price": 2789
+  },
+  {
+    "id": 4,
+    "flightSegments": [
+      {
+        "id": 5,
+        "flightCode": "AD2771",
+        "airline": "AnadoluJet",
+        "planeId": 5,
+        "depAirport": "AYT",
+        "desAirport": "SAW",
+        "depDate": "31-08-2022",
+        "depTime": "10:00",
+        "arvDate": "31-08-2022",
+        "arvTime": "11:00"
+      },
+      {
+        "id": 6,
+        "flightCode": "AD2772",
+        "airline": "AnadoluJet",
+        "planeId": 6,
+        "depAirport": "SAW",
+        "desAirport": "ADB",
+        "depDate": "31-08-2022",
+        "depTime": "13:00",
+        "arvDate": "31-08-2022",
+        "arvTime": "13:45"
+      }
+    ],
+    "isConnected": true,
+    "price": 1089
   }
 ]

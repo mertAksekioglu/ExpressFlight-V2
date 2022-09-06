@@ -2,12 +2,16 @@ package com.lunex.LunEx1.service;
 
 import com.lunex.LunEx1.domain.Airport;
 import com.lunex.LunEx1.domain.Flight;
+import com.lunex.LunEx1.dto.AirportDTO;
 import com.lunex.LunEx1.repository.IAirportRepository;
 import com.lunex.LunEx1.serviceInterface.IAirportService;
 import com.lunex.LunEx1.util.IWriter;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,24 +24,38 @@ public class AirportService implements IAirportService {
     @Autowired
     private IWriter writer;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     private final String DATA_PATH = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\airport_data.json";
 
     @Override
-    public List<Airport> getAllAirports() {
-        return airportRepository.findAll();
+    public List<AirportDTO> getAllAirports() {
+        List<Airport> airports = airportRepository.findAll();
+        List<AirportDTO> airportDtos = new ArrayList<>();
+
+        for (Airport airport: airports) {
+            AirportDTO airportDto = modelMapper.map(airport, AirportDTO.class);
+            airportDtos.add(airportDto);
+        }
+
+
+        return airportDtos;
     }
 
     @Override
-    public Airport getAirport(Long airportId) {
+    public AirportDTO getAirport(Long airportId) {
         Airport airport = airportRepository.findById(airportId)
                 .orElseThrow(() -> new IllegalStateException(
                         "Airport with id " + airportId + " does not exist"
                 ));;
-        return airport;
+        AirportDTO airportDto = modelMapper.map(airport, AirportDTO.class);
+        return airportDto;
     }
 
     @Override
-    public void addAirport(Airport airport) {
+    public void addAirport(AirportDTO airportDto) {
+        Airport airport = modelMapper.map(airportDto, Airport.class);
         Optional<Airport> existingAirport = airportRepository.findByCode(airport.getCode());
         if(existingAirport.isPresent()) {
             throw new IllegalStateException("Airport with code " + airport.getCode() + " already exists.");
@@ -60,7 +78,9 @@ public class AirportService implements IAirportService {
     }
 
     @Override
-    public void updateAirport(Airport airport) {
+    @Transactional
+    public void updateAirport(AirportDTO airportDto) {
+        Airport airport = modelMapper.map(airportDto, Airport.class);
         Airport existingAirport = airportRepository.findById(airport.getId())
                 .orElseThrow(() -> new IllegalStateException(
                         "Airport with id " + airport.getId() + " does not exist"
