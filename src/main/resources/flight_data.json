@@ -96,5 +96,55 @@
     ],
     "isConnected": true,
     "price": 1089
+  },
+  {
+    "id": 5,
+    "flightSegments": [
+      {
+        "id": 6,
+        "flightCode": "XQ7190",
+        "airline": "Sunexpress",
+        "planeId": 5,
+        "depAirport": "AYT",
+        "desAirport": "FRA",
+        "depDate": "31-08-2022",
+        "depTime": "8:00",
+        "arvDate": "31-08-2022",
+        "arvTime": "11:00"
+      },
+      {
+        "id": 7,
+        "flightCode": "XQ7191",
+        "airline": "Sunexpress",
+        "planeId": 6,
+        "depAirport": "FRA",
+        "desAirport": "ADB",
+        "depDate": "31-08-2022",
+        "depTime": "11:00",
+        "arvDate": "31-08-2022",
+        "arvTime": "17:45"
+      }
+    ],
+    "isConnected": true,
+    "price": 1089
+  },
+  {
+    "id": 6,
+    "flightSegments": [
+      {
+        "id": 7,
+        "flightCode": "XQ9191",
+        "airline": "Sunexpress",
+        "planeId": 1,
+        "depAirport": "AYT",
+        "desAirport": "ADB",
+        "depDate": "31-08-2022",
+        "depTime": "9:20",
+        "arvDate": "31-08-2022",
+        "arvTime": "10:15"
+      }
+    ],
+    "isConnected": false,
+    "price": 789
   }
 ]

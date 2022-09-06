@@ -26,6 +26,8 @@ body {
 }
 
 .app-container {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   z-index: 2;
 }
@@ -39,9 +41,8 @@ body {
 
 .search-container {
   display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
+  flex-direction: column;
+  padding: 5%;
 }
 
 .search-text {
@@ -55,6 +56,11 @@ body {
   font-size: 30px;
 }
 
+.card-text {
+  color: #000;
+  margin: 2%;
+}
+
 .top-container {
   margin-top: 9%;
   display: flex;
@@ -63,24 +69,48 @@ body {
 }
 
 .flights-container {
+  display: flex;
+  flex-direction: column;
   margin-top: 9%;
   width: 100%;
   height: 100%;
   z-index: 7;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
 }
 
 .background-image {
   filter: saturate(130%) brightness(30%);
   width: 100%;
   height: 100%;
-  position: relative;
   z-index: 1;
+  position: fixed;
+}
+
+.background-container {
+  position: relative;
 }
 
 .flight-card {
-  background-color: brown;
+  background-color: #fff;
   border-radius: 24px;
-  margin: 5px;
-  margin-bottom: 10px;
+  gap: 15px;
   width: 40%;
+  display: flex;
+  padding: 1%;
+  justify-content: flex-start;
 }
+
+.flight-card-image {
+  width: 60px;
+  height: 60px;
+}
+
+// .text-input {
+//   padding: 0.3%;
+//   border-width: 0px;
+//   font-size: medium;
+//   gap: 5px;
+//   margin: 15px;
+// }

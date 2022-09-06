@@ -43,9 +43,9 @@ const Home = () => {
 
     axios
       .post("http://localhost:8080/api/v1/flight/search-flight", {
-        depAirport: "AYT",
-        desAirport: "ADB",
-        depDate: "31-08-2022",
+        depAirport: addFlightData.depAirport,
+        desAirport: addFlightData.desAirport,
+        depDate: addFlightData.depDate,
       })
       .then(function (response) {
         setFlights(response.data);
@@ -57,9 +57,22 @@ const Home = () => {
     setShowFlights(true);
   };
 
+  const handleResponseAirline = (flight) => {
+    let airline = flight.flightSegments[0].airline;
+    if (airline == "Sunexpress") {
+      return require("../assets/logos/sunex-logo.png");
+    }
+    if (airline == "Turkish Airlines") {
+      return require("../assets/logos/thy-logo.png");
+    }
+    if (airline == "AnadoluJet") {
+      return require("../assets/logos/andjet-logo.png");
+    }
+  };
+
   return (
     <div className="body">
-      <div>
+      <div className="background-container">
         <div className="app-container">
           <div className="top-container">
             <div className="logo-container">
@@ -77,27 +90,30 @@ const Home = () => {
               <div>
                 <text className="search-text">From </text>
                 <input
-                  typle="text"
+                  type="text"
                   name="depAirport"
                   required="required"
                   placeholder="Enter departure airport..."
+                  className="text-input"
                   onChange={handleAddFormChange}
                 ></input>
                 <text className="search-text"> To </text>
                 <input
-                  typle="text"
+                  type="text"
                   name="desAirport"
                   required="required"
                   placeholder="Enter destination airport..."
+                  className="text-input"
                   onChange={handleAddFormChange}
                 ></input>
               </div>
               <text className="search-text"> Departure Date </text>
               <input
-                typle="text"
+                type="text"
                 name="depDate"
                 required="required"
                 placeholder="Enter a departure date..."
+                className="text-input"
                 onChange={handleAddFormChange}
               ></input>
 
@@ -115,13 +131,36 @@ const Home = () => {
           <div className="flights-container">
             <text className="result-header-text">Departures:</text>
             {flights.map((flight, index) => (
-              <div style={{ backgro }} className="flight-card">
-                <text className="header-text">{flight.airline}</text>
-                <text className="header-text">
-                  {flight.desAirport} - {flight.depAirport}
+              <div
+                className="flight-card"
+                onClick={() => {
+                  console.log("Nice");
+                }}
+              >
+                <img
+                  src={handleResponseAirline(flight)}
+                  className="flight-card-image"
+                />
+                <text className="card-text">
+                  {flight.flightSegments[0].airline}
                 </text>
-                <text className="header-text">
-                  {flight.depTime} - {flight.arvTime}
+                <text className="card-text">
+                  {flight.flightSegments[0].depAirport} -{" "}
+                  {
+                    flight.flightSegments[flight.flightSegments.length - 1]
+                      .desAirport
+                  }
+                </text>
+                <text className="card-text">
+                  {flight.flightSegments[0].depTime} -{" "}
+                  {
+                    flight.flightSegments[flight.flightSegments.length - 1]
+                      .arvTime
+                  }
+                </text>
+
+                <text className="card-text">
+                  <b>{flight.isConnected ? "Connecting" : "Nonstop"}</b>
                 </text>
               </div>
             ))}
