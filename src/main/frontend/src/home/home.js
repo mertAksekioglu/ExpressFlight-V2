@@ -4,12 +4,14 @@ import logo from "../logo.png";
 import "./home.scss";
 import axios from "axios";
 const Home = () => {
-  const [flights, setFlights] = useState([]);
+  const [departureFlights, setDepartureFlights] = useState([]);
+  const [returnFlights, setReturnFlights] = useState([]);
   const [showFlights, setShowFlights] = useState(false);
   const [addFlightData, setAddFlightData] = useState({
     depAirport: "AYT",
     desAirport: "ADB",
     depDate: "31-08-2022",
+    retDate: "07-09-2022",
   });
 
   const getFlights = () => {
@@ -20,13 +22,13 @@ const Home = () => {
         depDate: "31-08-2022",
       })
       .then((response) => {
-        setFlights(response.data);
+        setDepartureFlights(response.data);
       })
       .catch((error) => console.error("Error: ${error}"));
   };
 
   useEffect(() => {
-    console.log(flights);
+    // console.log(departureflights);
   });
 
   const handleAddFormChange = (event) => {
@@ -48,7 +50,20 @@ const Home = () => {
         depDate: addFlightData.depDate,
       })
       .then(function (response) {
-        setFlights(response.data);
+        setDepartureFlights(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    axios
+      .post("http://localhost:8080/api/v1/flight/search-flight", {
+        depAirport: addFlightData.desAirport,
+        desAirport: addFlightData.depAirport,
+        depDate: addFlightData.retDate,
+      })
+      .then(function (response) {
+        setReturnFlights(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -86,8 +101,8 @@ const Home = () => {
             </div>
           </div>
           <div className="search-container">
-            <form onSubmit={handleAddFormSubmit}>
-              <div>
+            <form className="search-form" onSubmit={handleAddFormSubmit}>
+              <div className="search-column">
                 <text className="search-text">From </text>
                 <input
                   type="text"
@@ -97,6 +112,18 @@ const Home = () => {
                   className="text-input"
                   onChange={handleAddFormChange}
                 ></input>
+                <text className="search-text"> Departure Date </text>
+
+                <input
+                  type="text"
+                  name="depDate"
+                  required="required"
+                  placeholder="Enter a departure date..."
+                  className="text-input"
+                  onChange={handleAddFormChange}
+                ></input>
+              </div>
+              <div className="search-column">
                 <text className="search-text"> To </text>
                 <input
                   type="text"
@@ -106,31 +133,31 @@ const Home = () => {
                   className="text-input"
                   onChange={handleAddFormChange}
                 ></input>
-              </div>
-              <text className="search-text"> Departure Date </text>
-              <input
-                type="text"
-                name="depDate"
-                required="required"
-                placeholder="Enter a departure date..."
-                className="text-input"
-                onChange={handleAddFormChange}
-              ></input>
 
-              {/* <text className="search-text"> Arrival Date </text>
-              <input
-                typle="text"
-                name="arvDate"
-                required="required"
-                placeholder="Enter a destination date..."
-                onChange={handleAddFormChange}
-              ></input> */}
-              <button type="submit">Search Flights</button>
+                <text className="search-text"> Arrival Date </text>
+
+                <input
+                  typle="text"
+                  name="arvDate"
+                  required="required"
+                  placeholder="Enter a destination date..."
+                  className="text-input"
+                  onChange={handleAddFormChange}
+                ></input>
+              </div>
+              <button className="search-button" type="submit">
+                Search Flights
+              </button>
             </form>
           </div>
           <div className="flights-container">
-            <text className="result-header-text">Departures:</text>
-            {flights.map((flight, index) => (
+            <text className="result-header-text">
+              {" "}
+              <b>{showFlights ? "Departures" : ""}</b>
+            </text>
+            {showFlights ? <div className="horizontal-white-line"></div> : null}
+
+            {departureFlights.map((flight, index) => (
               <div
                 className="flight-card"
                 onClick={() => {
@@ -144,6 +171,13 @@ const Home = () => {
                 <text className="card-text">
                   {flight.flightSegments[0].airline}
                 </text>
+                <text className="card-time-text">
+                  {flight.flightSegments[0].depTime} -{" "}
+                  {
+                    flight.flightSegments[flight.flightSegments.length - 1]
+                      .arvTime
+                  }
+                </text>
                 <text className="card-text">
                   {flight.flightSegments[0].depAirport} -{" "}
                   {
@@ -151,17 +185,52 @@ const Home = () => {
                       .desAirport
                   }
                 </text>
+
                 <text className="card-text">
+                  <b>{flight.isConnected ? "Connecting" : "Nonstop"}</b>
+                </text>
+
+                <text className="card-large-text">{flight.price} TRY</text>
+              </div>
+            ))}
+            <text className="result-header-text">
+              <b>{showFlights ? "Return Flights" : ""}</b>
+            </text>
+            {showFlights ? <div className="horizontal-white-line"></div> : null}
+            {returnFlights.map((flight, index) => (
+              <div
+                className="flight-card"
+                onClick={() => {
+                  console.log("Nice");
+                }}
+              >
+                <img
+                  src={handleResponseAirline(flight)}
+                  className="flight-card-image"
+                />
+                <text className="card-text">
+                  {flight.flightSegments[0].airline}
+                </text>
+                <text className="card-time-text">
                   {flight.flightSegments[0].depTime} -{" "}
                   {
                     flight.flightSegments[flight.flightSegments.length - 1]
                       .arvTime
                   }
                 </text>
+                <text className="card-text">
+                  {flight.flightSegments[0].depAirport} -{" "}
+                  {
+                    flight.flightSegments[flight.flightSegments.length - 1]
+                      .desAirport
+                  }
+                </text>
 
                 <text className="card-text">
                   <b>{flight.isConnected ? "Connecting" : "Nonstop"}</b>
                 </text>
+
+                <text className="card-large-text">{flight.price} TRY</text>
               </div>
             ))}
           </div>

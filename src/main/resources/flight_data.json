@@ -146,5 +146,43 @@
     ],
     "isConnected": false,
     "price": 789
+  },
+  {
+    "id": 7,
+    "flightSegments": [
+      {
+        "id": 8,
+        "flightCode": "XQ9092",
+        "airline": "Sunexpress",
+        "planeId": 1,
+        "depAirport": "ADB",
+        "desAirport": "AYT",
+        "depDate": "07-09-2022",
+        "depTime": "9:20",
+        "arvDate": "07-09-2022",
+        "arvTime": "10:15"
+      }
+    ],
+    "isConnected": false,
+    "price": 589
+  },
+  {
+    "id": 8,
+    "flightSegments": [
+      {
+        "id": 9,
+        "flightCode": "XQ9290",
+        "airline": "Sunexpress",
+        "planeId": 2,
+        "depAirport": "ADB",
+        "desAirport": "AYT",
+        "depDate": "07-09-2022",
+        "depTime": "21:20",
+        "arvDate": "07-09-2022",
+        "arvTime": "22:15"
+      }
+    ],
+    "isConnected": false,
+    "price": 589
   }
 ]
