@@ -10,7 +10,7 @@ public interface IPlaneService {
     public List<PlaneDTO> getAllPlanes();
     public PlaneDTO getPlane(Long planeId);
     public PlaneDTO getPlaneByCode(String planeCode);
-    public void addPlane(PlaneDTO plane);
-    public void deletePlane(Long planeId);
-    public void updatePlane(PlaneDTO plane);
+    public PlaneDTO addPlane(PlaneDTO plane);
+    public PlaneDTO deletePlane(Long planeId);
+    public PlaneDTO updatePlane(PlaneDTO plane, Long planeId);
 }

@@ -10,7 +10,6 @@ import java.util.List;
 
 @Data
 public class FlightDTO {
-    private Long id;
     private List<FlightSegment> flightSegments;
     private Boolean isConnected;
     private Integer price;

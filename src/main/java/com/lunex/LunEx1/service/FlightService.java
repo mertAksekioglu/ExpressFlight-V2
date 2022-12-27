@@ -1,6 +1,7 @@
 package com.lunex.LunEx1.service;
 
 import com.lunex.LunEx1.domain.Flight;
+import com.lunex.LunEx1.dto.AirportDTO;
 import com.lunex.LunEx1.dto.FlightDTO;
 import com.lunex.LunEx1.dto.FlightSearchRequestDTO;
 import com.lunex.LunEx1.dto.FlightSegmentDTO;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FlightService implements IFlightService {
@@ -46,14 +48,25 @@ public class FlightService implements IFlightService {
     }
     @Override
     public FlightDTO getFlight(Long flightId) {
-        Flight flight = flightRepository.findById(flightId)
-                .orElseThrow(() -> new IllegalStateException(
-                        "Flight with id " + flightId + " does not exist"
-                ));;
-                FlightDTO flightDto = modelMapper.map(flight,FlightDTO.class);
-        return flightDto;
+        Optional<Flight> flight = flightRepository.findById(flightId);
+        if(!flight.isPresent()) {
+            throw new IllegalStateException("Flight with id " + flightId + " does not exist");
+        }
+        FlightDTO returningFlightDto = modelMapper.map(flight.get(), FlightDTO.class);
+        return returningFlightDto;
     }
 
+/*
+    @Override
+    public FlightDTO getFlightByCode(String flightCode) {
+        Optional<Flight> flight = flightRepository.findByFlightCode(flightCode);
+        if(!flight.isPresent()) {
+            throw new IllegalStateException("Flight with code " + flightCode + " does not exist");
+        }
+        FlightDTO returningFlightDto = modelMapper.map(flight.get(), FlightDTO.class);
+        return returningFlightDto;
+    }
+*/
     @Override
     public List<FlightDTO> searchFlight(FlightSearchRequestDTO flightSearchRequestDto) {
 
@@ -65,68 +78,71 @@ public class FlightService implements IFlightService {
             String firstFlightDate = flight.getFlightSegments()[0].getDepDate();
             String firstDepAirport = flight.getFlightSegments()[0].getDepAirport();
             String lastDesAirport = flight.getFlightSegments()[flight.getFlightSegments().length-1].getDesAirport();
+
             if(firstDepAirport.equals(flightSearchRequestDto.getDepAirport()) &&
                lastDesAirport.equals(flightSearchRequestDto.getDesAirport()) &&
                firstFlightDate.equals(flightSearchRequestDto.getDepDate())){
-
                 resultFlightDtos.add(modelMapper.map(flight,FlightDTO.class));
-
             }
 
         }
-
-
 
         return resultFlightDtos;
     }
 
 
 
-
-
-
     @Override
-    public void addFlight(FlightDTO flightDto) {
+    public FlightDTO addFlight(FlightDTO flightDto) {
         Flight flight = modelMapper.map(flightDto,Flight.class);
-        /*Optional<Flight> existingFlight = flightRepository.findByFlightSegments(flight.getFlightSegments());
+        Optional<Flight> existingFlight = flightRepository.findById(flight.getId());
         if(existingFlight.isPresent()) {
-            throw new IllegalStateException("Flight with the code " + flight.getFlightSegments().get(0).getFlightCode() + "already exists.");
-        }*/
+            throw new IllegalStateException("Flight with the id " + flight.getId()  + "already exists.");
+        }
         flightRepository.save(flight);
         writer.write(flightRepository, DATA_PATH);
+        FlightDTO returningFlightDto = modelMapper.map(flight, FlightDTO.class);
+        return returningFlightDto;
+
     }
 
     @Override
-    public void deleteFlight(Long flightId) {
-        if(!flightRepository.existsById(flightId)) {
+    public FlightDTO deleteFlight(Long flightId) {
+        Optional<Flight> flight = flightRepository.findById(flightId);
+        if(!flight.isPresent()) {
             throw new IllegalStateException("Flight with the id " + flightId + " does not exist");
         }
         flightRepository.deleteById(flightId);
         writer.write(flightRepository, DATA_PATH);
+
+
+        FlightDTO returningFlightDto = modelMapper.map(flight.get(), FlightDTO.class);
+        return returningFlightDto;
     }
 
     @Override
     @Transactional
-    public void updateFlight(FlightDTO flightDto) {
+    public FlightDTO updateFlight(FlightDTO flightDto, Long flightId) {
         Flight flight = modelMapper.map(flightDto,Flight.class);
-        Flight existingFlight = flightRepository.findById(flight.getId())
-                .orElseThrow(() -> new IllegalStateException(
-                        "Flight with id " + flight.getId() + " does not exist"));;
+        Optional<Flight> existingFlight = flightRepository.findById(flightId);
+        if(!existingFlight.isPresent()) {
+            throw new IllegalStateException("Flight with the id " + existingFlight.get().getId() + " does not exist");
+        }
 
         if(flight.getFlightSegments() != null){
-            existingFlight.setFlightSegments(flight.getFlightSegments());
+            existingFlight.get().setFlightSegments(flight.getFlightSegments());
         }
         if(flight.getIsConnected() != null){
-            existingFlight.setIsConnected(flight.getIsConnected());
+            existingFlight.get().setIsConnected(flight.getIsConnected());
         }
         if(flight.getPrice() != null){
-            existingFlight.setPrice(flight.getPrice());
+            existingFlight.get().setPrice(flight.getPrice());
         }
 
-
-
-
         writer.write(flightRepository, DATA_PATH);
+        FlightDTO returningFlightDto = modelMapper.map(existingFlight.get(), FlightDTO.class);
+        return returningFlightDto;
+
 
     }
 }

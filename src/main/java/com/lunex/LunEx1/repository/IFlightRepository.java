@@ -15,8 +15,6 @@ import java.util.Optional;
 @Service
 public interface IFlightRepository extends JpaRepository<Flight,Long> {
 
-
-
-
+   // Optional<Flight> findByFlightCode(String flightCode);
 }
 

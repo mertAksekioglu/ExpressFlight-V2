@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/flight")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class FlightController {
 
 
@@ -45,18 +45,18 @@ public class FlightController {
 
 
     @PostMapping(value = "/add-flight")
-    public void addFlight(@RequestBody FlightDTO flightDto) {
-        flightService.addFlight(flightDto);
+    public FlightDTO addFlight(@RequestBody FlightDTO flightDto) {
+        return flightService.addFlight(flightDto);
     }
 
     @DeleteMapping(value = "/delete-id")
-    public void deleteFlight(@RequestParam(value = "id") Long flightId) {
-        flightService.deleteFlight(flightId);
+    public FlightDTO deleteFlight(@RequestParam(value = "id") Long flightId) {
+        return flightService.deleteFlight(flightId);
     }
 
     @PutMapping(value = "/update-flight")
-    public void updateFlight(@RequestBody FlightDTO flightDto) {
-        flightService.updateFlight(flightDto);
+    public FlightDTO updateFlight(@RequestBody FlightDTO flightDto, @RequestParam(value = "id") Long flightId) {
+        return flightService.updateFlight(flightDto, flightId);
     }
 
 

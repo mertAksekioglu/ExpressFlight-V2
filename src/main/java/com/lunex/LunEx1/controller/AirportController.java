@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/airport")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class AirportController {
 
     @Autowired
@@ -29,19 +29,24 @@ public class AirportController {
         return airportService.getAirport(airportId);
     }
 
+    @GetMapping(value = "/get-code")
+    public AirportDTO getAirportByCode(@RequestParam(value = "code") String airportCode) {
+        return airportService.getAirportByCode(airportCode);
+    }
+
     @PostMapping(value = "add-airport")
-    public void addAirport(@RequestBody AirportDTO airportDto) {
-        airportService.addAirport(airportDto);
+    public AirportDTO addAirport(@RequestBody AirportDTO airportDto) {
+        return airportService.addAirport(airportDto);
     }
 
     @DeleteMapping(value = "/delete-id")
-    public void deleteAirport(@RequestParam(value = "id") Long airportId) {
-        airportService.deleteAirport(airportId);
+    public AirportDTO deleteAirport(@RequestParam(value = "id") Long airportId) {
+        return airportService.deleteAirport(airportId);
     }
 
     @PutMapping(value = "/update-airport")
-    public void updateAirport(@RequestBody AirportDTO airportDto) {
-        airportService.updateAirport(airportDto);
+    public AirportDTO updateAirport(@RequestBody AirportDTO airportDto, @RequestParam(value = "id") Long airportId) {
+        return airportService.updateAirport(airportDto, airportId);
     }
 
 

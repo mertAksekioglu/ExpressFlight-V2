@@ -1,6 +1,7 @@
 package com.lunex.LunEx1.service;
 
 import com.lunex.LunEx1.domain.Plane;
+import com.lunex.LunEx1.dto.FlightDTO;
 import com.lunex.LunEx1.dto.PlaneDTO;
 import com.lunex.LunEx1.repository.IPlaneRepository;
 import com.lunex.LunEx1.serviceInterface.IPlaneService;
@@ -43,27 +44,30 @@ public class PlaneService implements IPlaneService {
     }
     @Override
     public PlaneDTO getPlane(Long planeId) {
-        Plane plane = planeRepository.findById(planeId)
-                .orElseThrow(() -> new IllegalStateException(
-                "Plane with id " + planeId + " does not exist"
-        ));;
-        PlaneDTO planeDto = modelMapper.map(plane, PlaneDTO.class);
-        return planeDto;
+        Optional<Plane> plane = planeRepository.findById(planeId);
+        if(!plane.isPresent()) {
+            throw new IllegalStateException("Plane with the id " + planeId + " does not exist");
+        }
+        PlaneDTO returningPlaneDto = modelMapper.map(plane.get(), PlaneDTO.class);
+        return returningPlaneDto;
     }
 
 
     @Override
     public PlaneDTO getPlaneByCode(String planeCode) {
-        Plane plane = planeRepository.findByCode(planeCode)
-                .orElseThrow(() -> new IllegalStateException(
-                        "Plane with id " + planeCode + " does not exist"
-                ));;
-        PlaneDTO planeDto = modelMapper.map(plane, PlaneDTO.class);
-        return planeDto;
+        Optional<Plane> plane = planeRepository.findByCode(planeCode);
+        if(!plane.isPresent()) {
+            throw new IllegalStateException("Plane with the code " + plane.get().getCode() + "does not exist.");
+        }
+        PlaneDTO returningPlaneDto = modelMapper.map(plane.get(), PlaneDTO.class);
+        return returningPlaneDto;
     }
 
+
+
+
     @Override
-    public void addPlane(PlaneDTO planeDto) {
+    public PlaneDTO addPlane(PlaneDTO planeDto) {
         Plane plane = modelMapper.map(planeDto,Plane.class);
         Optional<Plane> existingPlane = planeRepository.findByCode(plane.getCode());
         if(existingPlane.isPresent()) {
@@ -71,35 +75,43 @@ public class PlaneService implements IPlaneService {
         }
         planeRepository.save(plane);
         writer.write(planeRepository, DATA_PATH);
+        PlaneDTO returningPlaneDto = modelMapper.map(plane, PlaneDTO.class);
+        return returningPlaneDto;
     }
 
     @Override
-    public void deletePlane(Long planeId) {
-        if(!planeRepository.existsById(planeId)) {
-            throw new IllegalStateException("Plane with the id " +planeId + " does not exist");
+    public PlaneDTO deletePlane(Long planeId) {
+        Optional<Plane> plane = planeRepository.findById(planeId);
+        if(!plane.isPresent()) {
+            throw new IllegalStateException("Plane with the id " + planeId + " does not exist");
         }
         planeRepository.deleteById(planeId);
         writer.write(planeRepository, DATA_PATH);
+        PlaneDTO returningPlaneDto = modelMapper.map(plane.get(), PlaneDTO.class);
+        return returningPlaneDto;
     }
 
     @Override
     @Transactional
-    public void updatePlane(PlaneDTO planeDto) {
+    public PlaneDTO updatePlane(PlaneDTO planeDto, Long planeId) {
         Plane plane = modelMapper.map(planeDto,Plane.class);
-        Plane existingPlane = planeRepository.findById(plane.getId())
-                .orElseThrow(() -> new IllegalStateException(
-                        "Plane with id " + plane.getId() + " does not exist"));;
+        Optional<Plane> existingPlane = planeRepository.findById(planeId);
+        if(!existingPlane.isPresent()) {
+            throw new IllegalStateException("Plane with the code " + existingPlane.get().getCode() + " does not exist.");
+        }
         if(plane.getCode() != null){
-            existingPlane.setCode(plane.getCode());
+            existingPlane.get().setCode(planeDto.getCode());
         }
         if(plane.getModel() != null){
-            existingPlane.setModel(plane.getModel());
+            existingPlane.get().setModel(planeDto.getModel());
         }
         if(plane.getYearOfProduction() != null){
-            existingPlane.setYearOfProduction(plane.getYearOfProduction());
+            existingPlane.get().setYearOfProduction(planeDto.getYearOfProduction());
         }
 
         writer.write(planeRepository, DATA_PATH);
+        PlaneDTO returningPlaneDto = modelMapper.map(existingPlane.get(), PlaneDTO.class);
+        return returningPlaneDto;
 
     }
 

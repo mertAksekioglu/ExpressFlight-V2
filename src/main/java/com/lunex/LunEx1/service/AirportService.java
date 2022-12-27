@@ -45,16 +45,26 @@ public class AirportService implements IAirportService {
 
     @Override
     public AirportDTO getAirport(Long airportId) {
-        Airport airport = airportRepository.findById(airportId)
-                .orElseThrow(() -> new IllegalStateException(
-                        "Airport with id " + airportId + " does not exist"
-                ));;
-        AirportDTO airportDto = modelMapper.map(airport, AirportDTO.class);
-        return airportDto;
+        Optional<Airport> airport = airportRepository.findById(airportId);
+        if(!airport.isPresent()) {
+            throw new IllegalStateException("Airport with id " + airportId + " does not exist");
+        }
+        AirportDTO returningAirportDto = modelMapper.map(airport.get(), AirportDTO.class);
+        return returningAirportDto;
     }
 
     @Override
-    public void addAirport(AirportDTO airportDto) {
+    public AirportDTO getAirportByCode(String airportCode) {
+        Optional<Airport> airport = airportRepository.findByCode(airportCode);
+        if(!airport.isPresent()) {
+            throw new IllegalStateException("Airport with code " + airportCode + " does not exist");
+        }
+        AirportDTO returningAirportDto = modelMapper.map(airport.get(), AirportDTO.class);
+        return returningAirportDto;
+    }
+
+    @Override
+    public AirportDTO addAirport(AirportDTO airportDto) {
         Airport airport = modelMapper.map(airportDto, Airport.class);
         Optional<Airport> existingAirport = airportRepository.findByCode(airport.getCode());
         if(existingAirport.isPresent()) {
@@ -62,42 +72,46 @@ public class AirportService implements IAirportService {
         }
         airportRepository.save(airport);
         writer.write(airportRepository,DATA_PATH);
+        AirportDTO returningAirportDto = modelMapper.map(airport, AirportDTO.class);
+        return returningAirportDto;
 
     }
 
     @Override
-    public void deleteAirport(Long airportId) {
-        Airport airport = airportRepository.findById(airportId)
-                .orElseThrow(() -> new IllegalStateException(
-                        "Airport with id " + airportId + " does not exist"
-                ));;
+    public AirportDTO deleteAirport(Long airportId) {
+        Optional<Airport> airport = airportRepository.findById(airportId);
+        if(!airport.isPresent()) {
+            throw new IllegalStateException( "Airport with id " + airportId + " does not exist");
+        }
 
-
-                airportRepository.deleteById(airportId);
+        airportRepository.deleteById(airportId);
         writer.write(airportRepository,DATA_PATH);
+        AirportDTO returningAirportDto = modelMapper.map(airport.get(), AirportDTO.class);
+        return returningAirportDto;
     }
 
     @Override
     @Transactional
-    public void updateAirport(AirportDTO airportDto) {
+    public AirportDTO updateAirport(AirportDTO airportDto, Long airportId) {
         Airport airport = modelMapper.map(airportDto, Airport.class);
-        Airport existingAirport = airportRepository.findById(airport.getId())
-                .orElseThrow(() -> new IllegalStateException(
-                        "Airport with id " + airport.getId() + " does not exist"
-                ));;
+        Optional<Airport> existingAirport = airportRepository.findById(airportId);
+        if(!existingAirport.isPresent()) {
+            throw new IllegalStateException( "Airport with id " + airport.getId() + " does not exist");
+        }
         if(airport.getCode() != null) {
-          existingAirport.setCode(airport.getCode());
+          existingAirport.get().setCode(airport.getCode());
         }
 
         if(airport.getRunwayCount() != null) {
-            existingAirport.setRunwayCount(airport.getRunwayCount());
+            existingAirport.get().setRunwayCount(airport.getRunwayCount());
         }
 
         if(airport.getTerminalCount() != null) {
-            existingAirport.setTerminalCount(airport.getTerminalCount());
+            existingAirport.get().setTerminalCount(airport.getTerminalCount());
         }
 
         writer.write(airportRepository,DATA_PATH);
-
+        AirportDTO returningAirportDto = modelMapper.map(existingAirport.get(), AirportDTO.class);
+        return returningAirportDto;
     }
 }

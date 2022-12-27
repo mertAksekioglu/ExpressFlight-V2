@@ -15,6 +15,9 @@ function App() {
     arvDate: "",
   });
 
+  var sayi = 1;
+  const pisayisi = 3.14;
+
   const getFlights = () => {
     axios
       .get("http://localhost:8080/api/v1/search/flight")
@@ -39,10 +42,10 @@ function App() {
 
     axios
       .get("http://localhost:8080/api/v1/flights")
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };

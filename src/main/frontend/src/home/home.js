@@ -18,7 +18,7 @@ const Home = () => {
     axios
       .post("http://localhost:8080/api/v1/flight/search-flight", {
         depAirport: "AYT",
-        desAirport: "ADB",
+        desAirport: "",
         depDate: "31-08-2022",
       })
       .then((response) => {
@@ -29,7 +29,7 @@ const Home = () => {
 
   useEffect(() => {
     // console.log(departureflights);
-  });
+  }, []);
 
   const handleAddFormChange = (event) => {
     event.preventDefault();

@@ -13,10 +13,12 @@ public interface IFlightService {
     public List<FlightDTO> getAllFlights();
     public FlightDTO getFlight(Long flightId);
 
+ //   public FlightDTO getFlightByCode(String flightCode);
+
     public List<FlightDTO> searchFlight(FlightSearchRequestDTO flightSearchRequestDTO);
 
-    public void addFlight(FlightDTO flightDto);
-    public void deleteFlight(Long flightId);
-    public void updateFlight(FlightDTO flightDto);
+    public FlightDTO addFlight(FlightDTO flightDto);
+    public FlightDTO deleteFlight(Long flightId);
+    public FlightDTO updateFlight(FlightDTO flightDto, Long flightId);
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/plane")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class PlaneController {
 
     @Autowired
@@ -39,18 +39,18 @@ public class PlaneController {
     }
 
     @PostMapping(value = "/add-plane")
-    public void addPlane(@RequestBody PlaneDTO planeDto) {
-        planeService.addPlane(planeDto);
+    public PlaneDTO addPlane(@RequestBody PlaneDTO planeDto) {
+        return planeService.addPlane(planeDto);
     }
 
     @DeleteMapping(value = "/delete-id")
-    public void deletePlane(@RequestParam(value = "id") Long planeId) {
-        planeService.deletePlane(planeId);
+    public PlaneDTO deletePlane(@RequestParam(value = "id") Long planeId) {
+        return planeService.deletePlane(planeId);
     }
 
     @PutMapping(value = "/update-plane")
-    public void updatePlane(@RequestBody PlaneDTO planeDto) {
-        planeService.updatePlane(planeDto);
+    public PlaneDTO updatePlane(@RequestBody PlaneDTO planeDto, @RequestParam(value = "id") Long planeId) {
+        return planeService.updatePlane(planeDto, planeId);
     }
 
 

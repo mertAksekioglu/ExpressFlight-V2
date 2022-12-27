@@ -13,9 +13,11 @@ public interface IAirportService {
 
     public AirportDTO getAirport(Long airportId);
 
-    public void addAirport(AirportDTO airportDto);
+    public AirportDTO getAirportByCode(String airportCode);
 
-    public void deleteAirport(Long airportId);
+    public AirportDTO addAirport(AirportDTO airportDto);
 
-    public void updateAirport(AirportDTO airportDto);
+    public AirportDTO deleteAirport(Long airportId);
+
+    public AirportDTO updateAirport(AirportDTO airportDto, Long airportId);
 }
