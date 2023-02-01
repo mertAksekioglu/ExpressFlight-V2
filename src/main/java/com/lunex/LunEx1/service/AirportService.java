@@ -1,5 +1,6 @@
 package com.lunex.LunEx1.service;
 
+import com.google.gson.Gson;
 import com.lunex.LunEx1.domain.Airport;
 import com.lunex.LunEx1.domain.Flight;
 import com.lunex.LunEx1.dto.AirportDTO;
@@ -21,6 +22,8 @@ public class AirportService implements IAirportService {
     @Autowired
     private IAirportRepository airportRepository;
 
+    @Autowired
+    private Gson gson;
     @Autowired
     private IWriter writer;
 

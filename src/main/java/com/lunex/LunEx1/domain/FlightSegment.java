@@ -29,7 +29,7 @@ public class FlightSegment implements Serializable {
     private String depAirport;
 
     @Column(name = "des_airport")
-    private String desAirport;
+    private String arvAirport;
 
     @Column(name = "dep_date")
     private String depDate;
@@ -54,15 +54,14 @@ public class FlightSegment implements Serializable {
     private Long planeId;
 
 
-    public FlightSegment(String depAirport, String desAirport, String depDate, String depTime,
+    public FlightSegment(String depAirport, String arvAirport, String depDate, String depTime,
                          String arvDate, String arvTime, String flightCode, String airline, Long planeId) {
         this.depAirport = depAirport;
-        this.desAirport = desAirport;
+        this.arvAirport = arvAirport;
         this.depDate = depDate;
         this.depTime = depTime;
         this.arvDate = arvDate;
         this.arvTime = arvTime;
-
         this.flightCode = flightCode;
         this.airline = airline;
         this.planeId = planeId;
@@ -74,7 +73,7 @@ public class FlightSegment implements Serializable {
         return "FlightSegment{" +
                 "id=" + id +
                 ", depAirport='" + depAirport + '\'' +
-                ", desAirport='" + desAirport + '\'' +
+                ", arvAirport='" + arvAirport + '\'' +
                 ", depDate='" + depDate + '\'' +
                 ", depTime='" + depTime + '\'' +
                 ", arvDate='" + arvDate + '\'' +

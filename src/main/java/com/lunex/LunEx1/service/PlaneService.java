@@ -1,5 +1,6 @@
 package com.lunex.LunEx1.service;
 
+import com.google.gson.Gson;
 import com.lunex.LunEx1.domain.Plane;
 import com.lunex.LunEx1.dto.FlightDTO;
 import com.lunex.LunEx1.dto.PlaneDTO;
@@ -22,6 +23,8 @@ public class PlaneService implements IPlaneService {
     @Autowired
     private IPlaneRepository planeRepository;
 
+    @Autowired
+    private Gson gson;
     @Autowired
     private IWriter writer;
 

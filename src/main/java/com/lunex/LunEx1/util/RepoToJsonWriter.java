@@ -1,7 +1,6 @@
 package com.lunex.LunEx1.util;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -17,7 +16,8 @@ import java.io.IOException;
 public class RepoToJsonWriter implements IWriter {
 
     @Autowired
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson;
+
 
 
 

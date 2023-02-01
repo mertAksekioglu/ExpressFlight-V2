@@ -1,5 +1,6 @@
 package com.lunex.LunEx1.service;
 
+import com.google.gson.Gson;
 import com.lunex.LunEx1.domain.Flight;
 import com.lunex.LunEx1.dto.AirportDTO;
 import com.lunex.LunEx1.dto.FlightDTO;
@@ -25,6 +26,8 @@ public class FlightService implements IFlightService {
     private IFlightRepository flightRepository;
 
 
+    @Autowired
+    private Gson gson;
     @Autowired
     private IWriter writer;
 
@@ -75,9 +78,9 @@ public class FlightService implements IFlightService {
         List<FlightDTO> resultFlightDtos = new ArrayList<>();
 
         for (Flight flight: allFlights) {
-            String firstFlightDate = flight.getFlightSegments()[0].getDepDate();
-            String firstDepAirport = flight.getFlightSegments()[0].getDepAirport();
-            String lastDesAirport = flight.getFlightSegments()[flight.getFlightSegments().length-1].getDesAirport();
+            String firstFlightDate = flight.getDepDate();
+            String firstDepAirport = flight.getDepAirport();
+            String lastDesAirport = flight.getArvAirport();
 
             if(firstDepAirport.equals(flightSearchRequestDto.getDepAirport()) &&
                lastDesAirport.equals(flightSearchRequestDto.getDesAirport()) &&
@@ -129,11 +132,29 @@ public class FlightService implements IFlightService {
             throw new IllegalStateException("Flight with the id " + existingFlight.get().getId() + " does not exist");
         }
 
-        if(flight.getFlightSegments() != null){
-            existingFlight.get().setFlightSegments(flight.getFlightSegments());
+        if(flight.getDepAirport() != null){
+            existingFlight.get().setDepAirport(flight.getDepAirport());
         }
-        if(flight.getIsConnected() != null){
-            existingFlight.get().setIsConnected(flight.getIsConnected());
+        if(flight.getArvAirport() != null){
+            existingFlight.get().setArvAirport(flight.getArvAirport());
+        }
+        if(flight.getDepDate() != null){
+            existingFlight.get().setDepDate(flight.getDepDate());
+        }
+        if(flight.getDepTime() != null){
+            existingFlight.get().setDepTime(flight.getDepTime());
+        }
+        if(flight.getArvDate() != null){
+            existingFlight.get().setArvDate(flight.getArvDate());
+        }
+        if(flight.getArvTime() != null){
+            existingFlight.get().setArvTime(flight.getArvTime());
+        }
+        if(flight.getFlightCode() != null){
+            existingFlight.get().setFlightCode(flight.getFlightCode());
+        }
+        if(flight.getAirline() != null){
+            existingFlight.get().setAirline(flight.getAirline());
         }
         if(flight.getPrice() != null){
             existingFlight.get().setPrice(flight.getPrice());
