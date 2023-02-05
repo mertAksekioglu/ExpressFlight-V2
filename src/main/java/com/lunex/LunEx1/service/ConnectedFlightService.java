@@ -3,6 +3,7 @@ package com.lunex.LunEx1.service;
 import com.google.gson.Gson;
 import com.lunex.LunEx1.domain.ConnectedFlight;
 
+import com.lunex.LunEx1.domain.Flight;
 import com.lunex.LunEx1.dto.AirportDTO;
 import com.lunex.LunEx1.dto.ConnectedFlightDTO;
 import com.lunex.LunEx1.dto.FlightSearchRequestDTO;
@@ -134,39 +135,22 @@ public class ConnectedFlightService implements IConnectedFlightService {
         if(!existingConnectedFlight.isPresent()) {
             throw new IllegalStateException("ConnectedFlight with the id " + existingConnectedFlight.get().getId() + " does not exist");
         }
-/*
-        if(connectedFlight.getDepAirport() != null){
-            existingConnectedFlight.get().setDepAirport(connectedFlight.getDepAirport());
+        if(connectedFlight.getFlightLegs() != null){
+            existingConnectedFlight.get().setFlightLegs(connectedFlight.getFlightLegs());
         }
-        if(connectedFlight.getArvAirport() != null){
-            existingConnectedFlight.get().setArvAirport(connectedFlight.getArvAirport());
-        }
-        if(connectedFlight.getDepDate() != null){
-            existingConnectedFlight.get().setDepDate(connectedFlight.getDepDate());
-        }
-        if(connectedFlight.getDepTime() != null){
-            existingConnectedFlight.get().setDepTime(connectedFlight.getDepTime());
-        }
-        if(connectedFlight.getArvDate() != null){
-            existingConnectedFlight.get().setArvDate(connectedFlight.getArvDate());
-        }
-        if(connectedFlight.getArvTime() != null){
-            existingConnectedFlight.get().setArvTime(connectedFlight.getArvTime());
-        }
-        if(connectedFlight.getConnectedFlightCode() != null){
-            existingConnectedFlight.get().setConnectedFlightCode(connectedFlight.getConnectedFlightCode());
-        }
-        if(connectedFlight.getAirline() != null){
-            existingConnectedFlight.get().setAirline(connectedFlight.getAirline());
+        if(connectedFlight.getStopCount() != null){
+            existingConnectedFlight.get().setStopCount(connectedFlight.getStopCount());
         }
         if(connectedFlight.getPrice() != null){
             existingConnectedFlight.get().setPrice(connectedFlight.getPrice());
+        }
+        if(connectedFlight.getLayoverMinutes() != null){
+            existingConnectedFlight.get().setLayoverMinutes(connectedFlight.getLayoverMinutes());
         }
 
         writer.write(connectedFlightRepository, DATA_PATH);
         ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(existingConnectedFlight.get(), ConnectedFlightDTO.class);
         return returningConnectedFlightDto;
-*/
-        return null;
+
     }
 }

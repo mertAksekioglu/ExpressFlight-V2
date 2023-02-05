@@ -1,5 +1,6 @@
 package com.lunex.LunEx1.domain;
 
+import com.lunex.LunEx1.util.Coordinate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,15 +28,25 @@ public class Airport implements Serializable {
     )
     @Column(name = "id")
     private Long id;
-    @Column(name = "code")
-    private String code;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "code_IATA")
+    private String codeIATA;
+    @Column(name = "code_ICAO")
+    private String codeICAO;
+    @Column(name = "location")
+    private Coordinate location;
     @Column(name = "terminal_count")
     private Integer terminalCount;
     @Column(name = "runway_count")
     private Integer runwayCount;
 
-    public Airport(String code, Integer terminalCount, Integer runwayCount) {
-        this.code = code;
+
+    public Airport(String name, String codeIATA, String codeICAO, Coordinate location, Integer terminalCount, Integer runwayCount) {
+        this.name = name;
+        this.codeIATA = codeIATA;
+        this.codeICAO = codeICAO;
+        this.location = location;
         this.terminalCount = terminalCount;
         this.runwayCount = runwayCount;
     }
@@ -45,12 +56,12 @@ public class Airport implements Serializable {
     public String toString() {
         return "Airport{" +
                 "id=" + id +
-                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", codeIATA='" + codeIATA + '\'' +
+                ", codeICAO='" + codeICAO + '\'' +
+                ", location=" + location +
                 ", terminalCount=" + terminalCount +
                 ", runwayCount=" + runwayCount +
                 '}';
     }
-
-
-
 }

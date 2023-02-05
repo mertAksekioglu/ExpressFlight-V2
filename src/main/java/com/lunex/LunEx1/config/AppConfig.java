@@ -32,8 +32,7 @@ public class AppConfig {
     private DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
     private DateTimeFormatter yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private DateTimeFormatter HH_mm_ss = DateTimeFormatter.ofPattern("HH:mm:ss");
-
+    private DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
     @Bean
     public Gson gson() {
         return new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, typeOfSrc, context) -> {
@@ -50,9 +49,16 @@ public class AppConfig {
             if (src == null) {
                 return JsonNull.INSTANCE;
             }
-            return new JsonPrimitive(src.format(HH_mm_ss));
+            return new JsonPrimitive(src.format(HH_mm));
         }).create();
     }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
+
 
 
     @Bean
@@ -65,13 +71,6 @@ public class AppConfig {
     JPARepoPopulator populator;
 
     String resource_path = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\";
-
-
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
 
 
     @Bean

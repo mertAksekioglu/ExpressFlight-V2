@@ -29,7 +29,7 @@
     ],
     "stopCount": 1,
     "price": 1940,
-    "layoverDuration" : "01.10.00"
+    "layoverMinutes" : 70
   }
 
 ]

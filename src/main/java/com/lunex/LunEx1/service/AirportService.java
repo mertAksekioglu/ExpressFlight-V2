@@ -69,9 +69,9 @@ public class AirportService implements IAirportService {
     @Override
     public AirportDTO addAirport(AirportDTO airportDto) {
         Airport airport = modelMapper.map(airportDto, Airport.class);
-        Optional<Airport> existingAirport = airportRepository.findByCode(airport.getCode());
+        Optional<Airport> existingAirport = airportRepository.findByCode(airport.getCodeIATA());
         if(existingAirport.isPresent()) {
-            throw new IllegalStateException("Airport with code " + airport.getCode() + " already exists.");
+            throw new IllegalStateException("Airport with code " + airport.getCodeIATA() + " already exists.");
         }
         airportRepository.save(airport);
         writer.write(airportRepository,DATA_PATH);
@@ -101,10 +101,15 @@ public class AirportService implements IAirportService {
         if(!existingAirport.isPresent()) {
             throw new IllegalStateException( "Airport with id " + airport.getId() + " does not exist");
         }
-        if(airport.getCode() != null) {
-          existingAirport.get().setCode(airport.getCode());
+        if(airport.getName() != null) {
+            existingAirport.get().setName(airport.getName());
         }
-
+        if(airport.getCodeIATA() != null) {
+          existingAirport.get().setCodeIATA(airport.getCodeIATA());
+        }
+        if(airport.getCodeICAO() != null) {
+            existingAirport.get().setCodeICAO(airport.getCodeICAO());
+        }
         if(airport.getRunwayCount() != null) {
             existingAirport.get().setRunwayCount(airport.getRunwayCount());
         }

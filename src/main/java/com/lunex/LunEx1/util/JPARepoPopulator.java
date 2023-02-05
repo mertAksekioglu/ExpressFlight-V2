@@ -1,6 +1,7 @@
 package com.lunex.LunEx1.util;
 
 import com.google.gson.*;
+import com.lunex.LunEx1.util.IRepoPopulator;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -18,7 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 @Service
 public class JPARepoPopulator implements IRepoPopulator {
-
 
 
     private Gson gson;

@@ -1,5 +1,6 @@
 package com.lunex.LunEx1.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,19 +36,19 @@ public class ConnectedFlight implements Serializable {
     private Flight[] flightLegs;
 
     @Column(name = "stop_count")
-    private int stopCount;
+    private Integer stopCount;
 
     @Column(name = "price")
-    private double price;
+    private Double price;
 
-    @Column(name = "layover_duration")
-    private LocalTime layoverDuration;
+    @Column(name = "layover_minutes")
+    private Integer layoverMinutes;
 
-    public ConnectedFlight(Flight[] flightLegs, int stopCount, double price, LocalTime layoverDuration) {
+    public ConnectedFlight(Flight[] flightLegs, Integer stopCount, Double price, Integer layoverMinutes) {
         this.flightLegs = flightLegs;
         this.stopCount = stopCount;
         this.price = price;
-        this.layoverDuration = layoverDuration;
+        this.layoverMinutes = layoverMinutes;
     }
 
     @Override
@@ -57,7 +58,7 @@ public class ConnectedFlight implements Serializable {
                 ", flightLegs=" + Arrays.toString(flightLegs) +
                 ", stopCount=" + stopCount +
                 ", price=" + price +
-                ", layoverDuration=" + layoverDuration +
+                ", layoverMinutes=" + layoverMinutes +
                 '}';
     }
 }

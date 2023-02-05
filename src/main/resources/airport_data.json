@@ -1,1 +1,40 @@
-[{"id":1,"code":"TC-SEE","terminalCount":3,"runwayCount":3},{"id":4,"code":"ADB","terminalCount":2,"runwayCount":2},{"id":2,"code":"ADB","terminalCount":4,"runwayCount":3}]
+[
+  {
+    "id":1,
+    "name": "Antalya Airport",
+    "codeIATA":"AYT",
+    "codeICAO": "LTAI",
+    "location" : {
+      "latitude": 36.904333,
+      "longitude": 30.801884
+    },
+    "terminalCount":3,
+    "runwayCount":3
+  },
+  {
+    "id":2,
+    "name": "İzmir Adnan Menderes Airport",
+    "codeIATA":"ADB",
+    "codeICAO": "LTBJ",
+    "location" : {
+      "latitude": 38.293758,
+      "longitude": 27.152025
+    },
+    "terminalCount":4,
+    "runwayCount":2
+  },
+  {
+    "id":3,
+    "name": "İstanbul Sabiha Gökçen International Airport",
+    "codeIATA":"SAW",
+    "codeICAO": "LTFJ",
+    "location" : {
+      "latitude": 40.905373,
+      "longitude": 29.316871
+    },
+    "terminalCount":2,
+    "runwayCount":2
+  }
+]
+
+

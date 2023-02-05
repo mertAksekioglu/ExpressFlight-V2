@@ -10,7 +10,7 @@ public class ConnectedFlightDTO {
 
 
     private Flight[] flightLegs;
-    private int stopCount;
-    private double price;
-    private LocalTime layoverDuration;
+    private Integer stopCount;
+    private Double price;
+    private Integer layoverMinutes;
 }
