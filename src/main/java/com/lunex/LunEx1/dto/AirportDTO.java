@@ -1,6 +1,6 @@
 package com.lunex.LunEx1.dto;
 
-import com.lunex.LunEx1.util.Coordinate;
+import com.lunex.LunEx1.domain.Coordinate;
 import lombok.Data;
 
 @Data

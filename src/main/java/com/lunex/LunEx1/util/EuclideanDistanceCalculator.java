@@ -1,5 +1,7 @@
 package com.lunex.LunEx1.util;
 
+import com.lunex.LunEx1.domain.Coordinate;
+
 public class EuclideanDistanceCalculator implements IDistanceCalculator {
 
     @Override

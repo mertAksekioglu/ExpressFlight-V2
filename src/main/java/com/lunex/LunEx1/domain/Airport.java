@@ -1,6 +1,5 @@
 package com.lunex.LunEx1.domain;
 
-import com.lunex.LunEx1.util.Coordinate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

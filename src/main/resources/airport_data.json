@@ -13,7 +13,7 @@
   },
   {
     "id":2,
-    "name": "İzmir Adnan Menderes Airport",
+    "name": "Izmir Adnan Menderes Airport",
     "codeIATA":"ADB",
     "codeICAO": "LTBJ",
     "location" : {
@@ -25,7 +25,7 @@
   },
   {
     "id":3,
-    "name": "İstanbul Sabiha Gökçen International Airport",
+    "name": "Istanbul Sabiha Gökçen International Airport",
     "codeIATA":"SAW",
     "codeICAO": "LTFJ",
     "location" : {

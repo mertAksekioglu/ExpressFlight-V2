@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface IAirportRepository extends JpaRepository<Airport, Long> {
 
 
-    Optional<Airport> findByCode(String code);
+    Optional<Airport> findByCodeIATA(String codeIATA);
 }
