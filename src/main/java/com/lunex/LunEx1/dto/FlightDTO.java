@@ -5,21 +5,20 @@ import com.lunex.LunEx1.domain.Plane;
 import lombok.Data;
 
 import javax.persistence.Column;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class FlightDTO {
 
-    private String depAirport;
-    private String arvAirport;
-    private String depDate;
-    private String depTime;
-    private String arvDate;
-    private String arvTime;
+    private Long depAirport;
+    private Long arvAirport;
+    private LocalDateTime depDateTime;
+    private LocalDateTime arvDateTime;
     private String flightCode;
     private String airline;
-    private Integer price;
+    private Double price;
 
 
 }

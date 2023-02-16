@@ -17,9 +17,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -29,7 +31,7 @@ public class AppConfig {
 
 
 
-    private DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+    private DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
     private DateTimeFormatter yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
@@ -40,6 +42,12 @@ public class AppConfig {
                 return JsonNull.INSTANCE;
             }
             return new JsonPrimitive(src.format(yyyy_MM_dd_HH_mm_ss));
+        }).registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+            @Override
+            public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+               // return ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()).toLocalDateTime();
+                return LocalDateTime.parse(json.getAsJsonPrimitive().getAsString());
+            }
         }).registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, typeOfSrc, context) -> {
             if (src == null) {
                 return JsonNull.INSTANCE;
@@ -78,12 +86,17 @@ public class AppConfig {
                                         IAirportRepository airportRepo,
                                         IFlightRepository flightRepo,
                                         IConnectedFlightRepository connectedFlightRepo) {
+
+
+        //System.out.println(yyyy_MM_dd_HH_mm_ss.format(LocalDateTime.of(1999,01,01,17,30,00)));
+      //  System.out.println( (LocalDateTime.of(1999,01,01,17,30,00)));
         var gson = gson();
         return args -> {
            populator.populateRepo(planeRepo, resource_path + "plane_data.json", Plane[].class,gson);
             populator.populateRepo(airportRepo, resource_path + "airport_data.json", Airport[].class,gson);
+
             populator.populateRepo(flightRepo, resource_path + "flight_data.json", Flight[].class,gson);
-            populator.populateRepo(connectedFlightRepo, resource_path + "connected_flight_data.json", ConnectedFlight[].class,gson);
+          //  populator.populateRepo(connectedFlightRepo, resource_path + "connected_flight_data.json", ConnectedFlight[].class,gson);
         };
     }
 

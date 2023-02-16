@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -78,13 +79,13 @@ public class FlightService implements IFlightService {
         List<FlightDTO> resultFlightDtos = new ArrayList<>();
 
         for (Flight flight: allFlights) {
-            String firstFlightDate = flight.getDepDate();
-            String firstDepAirport = flight.getDepAirport();
-            String lastDesAirport = flight.getArvAirport();
+            LocalDateTime firstFlightDateTime = flight.getDepDateTime();
+            Long firstDepAirport = flight.getDepAirport();
+            Long lastDesAirport = flight.getArvAirport();
 
             if(firstDepAirport.equals(flightSearchRequestDto.getDepAirport()) &&
                lastDesAirport.equals(flightSearchRequestDto.getDesAirport()) &&
-               firstFlightDate.equals(flightSearchRequestDto.getDepDate())){
+               firstFlightDateTime.equals(flightSearchRequestDto.getDepDateTime())){
                 resultFlightDtos.add(modelMapper.map(flight,FlightDTO.class));
             }
 
@@ -138,17 +139,11 @@ public class FlightService implements IFlightService {
         if(flight.getArvAirport() != null){
             existingFlight.get().setArvAirport(flight.getArvAirport());
         }
-        if(flight.getDepDate() != null){
-            existingFlight.get().setDepDate(flight.getDepDate());
+        if(flight.getDepDateTime() != null){
+            existingFlight.get().setDepDateTime(flight.getDepDateTime());
         }
-        if(flight.getDepTime() != null){
-            existingFlight.get().setDepTime(flight.getDepTime());
-        }
-        if(flight.getArvDate() != null){
-            existingFlight.get().setArvDate(flight.getArvDate());
-        }
-        if(flight.getArvTime() != null){
-            existingFlight.get().setArvTime(flight.getArvTime());
+        if(flight.getArvDateTime() != null){
+            existingFlight.get().setArvDateTime(flight.getArvDateTime());
         }
         if(flight.getFlightCode() != null){
             existingFlight.get().setFlightCode(flight.getFlightCode());
