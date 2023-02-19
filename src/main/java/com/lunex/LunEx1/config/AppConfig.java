@@ -1,6 +1,9 @@
 package com.lunex.LunEx1.config;
 
+
 import com.google.gson.*;
+import com.lunex.LunEx1.deserializer.LocalDateDeserializer;
+import com.lunex.LunEx1.deserializer.LocalDateTimeDeserializer;
 import com.lunex.LunEx1.domain.Airport;
 import com.lunex.LunEx1.domain.ConnectedFlight;
 import com.lunex.LunEx1.domain.Flight;
@@ -9,6 +12,8 @@ import com.lunex.LunEx1.repository.IAirportRepository;
 import com.lunex.LunEx1.repository.IConnectedFlightRepository;
 import com.lunex.LunEx1.repository.IFlightRepository;
 import com.lunex.LunEx1.repository.IPlaneRepository;
+import com.lunex.LunEx1.serializer.LocalDateSerializer;
+import com.lunex.LunEx1.serializer.LocalDateTimeSerializer;
 import com.lunex.LunEx1.util.JPARepoPopulator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,42 +36,24 @@ public class AppConfig {
 
 
 
-    private DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    private DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
     private DateTimeFormatter yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
     @Bean
     public Gson gson() {
-        return new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, typeOfSrc, context) -> {
-            if (src == null) {
-                return JsonNull.INSTANCE;
-            }
-            return new JsonPrimitive(src.format(yyyy_MM_dd_HH_mm_ss));
-        }).registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
-            @Override
-            public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-               // return ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()).toLocalDateTime();
-                return LocalDateTime.parse(json.getAsJsonPrimitive().getAsString());
-            }
-        }).registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, typeOfSrc, context) -> {
-            if (src == null) {
-                return JsonNull.INSTANCE;
-            }
-            return new JsonPrimitive(src.format(yyyy_MM_dd));
-        }).registerTypeAdapter(LocalTime.class, (JsonSerializer<LocalTime>) (src, typeOfSrc, context) -> {
-            if (src == null) {
-                return JsonNull.INSTANCE;
-            }
-            return new JsonPrimitive(src.format(HH_mm));
-        }).create();
+        return new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer(yyyy_MM_dd_HH_mm_ss))
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer(yyyy_MM_dd_HH_mm_ss))
+                .registerTypeAdapter(LocalDate.class, new LocalDateSerializer(yyyy_MM_dd))
+                .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer(yyyy_MM_dd))
+                .setPrettyPrinting().create();
     }
 
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
-
 
 
     @Bean

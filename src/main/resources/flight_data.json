@@ -3,8 +3,8 @@
     "id":1,
     "depAirport": 1,
     "arvAirport": 2,
-    "depDateTime" : "2023-01-01T18:15:00Z",
-    "arvDateTime" : "2023-01-01T19:25:00Z",
+    "depDateTime" : "2023-01-01T18:15:00",
+    "arvDateTime" : "2023-01-01T19:25:00",
     "flightCode" : "XQ9191",
     "airline" : "Sunexpress Airlines",
     "price" : 1350
