@@ -30,8 +30,8 @@ public class AirportController {
     }
 
     @GetMapping(value = "/get-code")
-    public AirportDTO getAirportByCode(@RequestParam(value = "code") String airportCode) {
-        return airportService.getAirportByCode(airportCode);
+    public AirportDTO getAirportByCode(@RequestParam(value = "code") String airportCodeIATA) {
+        return airportService.getAirportByCodeIATA(airportCodeIATA);
     }
 
     @PostMapping(value = "add-airport")

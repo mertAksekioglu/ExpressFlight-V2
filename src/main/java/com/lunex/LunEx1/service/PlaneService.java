@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.lunex.LunEx1.domain.Plane;
 import com.lunex.LunEx1.dto.FlightDTO;
 import com.lunex.LunEx1.dto.PlaneDTO;
+import com.lunex.LunEx1.integration.SunExpressIntegration;
 import com.lunex.LunEx1.repository.IPlaneRepository;
 import com.lunex.LunEx1.serviceInterface.IPlaneService;
 import com.lunex.LunEx1.util.IWriter;
@@ -31,6 +32,11 @@ public class PlaneService implements IPlaneService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    SunExpressIntegration xqintegration;
+
+
+
     private final String DATA_PATH = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\plane_data.json";
 
     @Override
@@ -42,6 +48,15 @@ public class PlaneService implements IPlaneService {
             PlaneDTO planeDto = modelMapper.map(plane, PlaneDTO.class);
             planeDtos.add(planeDto);
         }
+
+
+        xqintegration.getData();
+        xqintegration.addData();
+
+
+
+
+
 
          return planeDtos;
     }

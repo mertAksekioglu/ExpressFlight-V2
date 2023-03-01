@@ -1,11 +1,9 @@
 package com.lunex.LunEx1.controller;
 
-import com.lunex.LunEx1.domain.Plane;
 import com.lunex.LunEx1.dto.PlaneDTO;
 import com.lunex.LunEx1.service.PlaneService;
 import com.lunex.LunEx1.serviceInterface.IPlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

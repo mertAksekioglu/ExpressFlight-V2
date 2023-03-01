@@ -57,10 +57,10 @@ public class AirportService implements IAirportService {
     }
 
     @Override
-    public AirportDTO getAirportByCode(String airportCode) {
-        Optional<Airport> airport = airportRepository.findByCodeIATA(airportCode);
+    public AirportDTO getAirportByCodeIATA(String airportCodeIATA) {
+        Optional<Airport> airport = airportRepository.findByCodeIATA(airportCodeIATA);
         if(!airport.isPresent()) {
-            throw new IllegalStateException("Airport with code " + airportCode + " does not exist");
+            throw new IllegalStateException("Airport with IATA code " + airportCodeIATA + " does not exist");
         }
         AirportDTO returningAirportDto = modelMapper.map(airport.get(), AirportDTO.class);
         return returningAirportDto;

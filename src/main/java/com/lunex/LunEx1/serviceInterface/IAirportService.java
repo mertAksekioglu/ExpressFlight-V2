@@ -13,7 +13,7 @@ public interface IAirportService {
 
     public AirportDTO getAirport(Long airportId);
 
-    public AirportDTO getAirportByCode(String airportCode);
+    public AirportDTO getAirportByCodeIATA(String airportCode);
 
     public AirportDTO addAirport(AirportDTO airportDto);
 

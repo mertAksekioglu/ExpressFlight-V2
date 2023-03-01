@@ -10,24 +10,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.lang.reflect.Type;
+import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
-public class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
+public class LocalTimeDeserializer implements JsonDeserializer<LocalTime> {
 
-    private DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    public LocalDateDeserializer(DateTimeFormatter defaultFormatter) {
-        this.defaultFormatter = defaultFormatter;
-    }
+
 
     @Override
-    public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    public LocalTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
-        return LocalDate.parse(json.getAsString(),
+        return LocalTime.parse(json.getAsString(),
                 defaultFormatter.withLocale(Locale.ENGLISH));
     }
 }

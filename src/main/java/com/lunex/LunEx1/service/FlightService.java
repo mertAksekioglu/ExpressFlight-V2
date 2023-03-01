@@ -6,11 +6,13 @@ import com.lunex.LunEx1.dto.AirportDTO;
 import com.lunex.LunEx1.dto.FlightDTO;
 import com.lunex.LunEx1.dto.FlightSearchRequestDTO;
 import com.lunex.LunEx1.dto.FlightSegmentDTO;
+import com.lunex.LunEx1.integration.SunExpressIntegration;
 import com.lunex.LunEx1.repository.IFlightRepository;
 import com.lunex.LunEx1.serviceInterface.IFlightService;
 import com.lunex.LunEx1.util.IWriter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,6 +28,7 @@ public class FlightService implements IFlightService {
     @Autowired
     private IFlightRepository flightRepository;
 
+    private final boolean UPDATE_JSON_DATA = false;
 
     @Autowired
     private Gson gson;
@@ -34,6 +37,9 @@ public class FlightService implements IFlightService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+
+
 
     private final String DATA_PATH = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\flight_data.json";
 
@@ -48,6 +54,11 @@ public class FlightService implements IFlightService {
             flightDtos.add(flightDto);
         }
 
+
+
+
+
+
         return flightDtos;
     }
     @Override
@@ -57,6 +68,12 @@ public class FlightService implements IFlightService {
             throw new IllegalStateException("Flight with id " + flightId + " does not exist");
         }
         FlightDTO returningFlightDto = modelMapper.map(flight.get(), FlightDTO.class);
+
+
+
+
+
+
         return returningFlightDto;
     }
 
@@ -104,7 +121,10 @@ public class FlightService implements IFlightService {
             throw new IllegalStateException("Flight with the id " + flight.getId()  + "already exists.");
         }
         flightRepository.save(flight);
-        writer.write(flightRepository, DATA_PATH);
+        if(UPDATE_JSON_DATA){
+            writer.write(flightRepository, DATA_PATH);
+        }
+
         FlightDTO returningFlightDto = modelMapper.map(flight, FlightDTO.class);
         return returningFlightDto;
 

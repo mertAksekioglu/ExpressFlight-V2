@@ -5,9 +5,10 @@ import com.google.gson.*;
 import com.lunex.LunEx1.deserializer.LocalDateDeserializer;
 import com.lunex.LunEx1.deserializer.LocalDateTimeDeserializer;
 import com.lunex.LunEx1.domain.Airport;
-import com.lunex.LunEx1.domain.ConnectedFlight;
 import com.lunex.LunEx1.domain.Flight;
 import com.lunex.LunEx1.domain.Plane;
+import com.lunex.LunEx1.integration.SunExpressIntegration;
+import com.lunex.LunEx1.provider.SunExpressFlightProvider;
 import com.lunex.LunEx1.repository.IAirportRepository;
 import com.lunex.LunEx1.repository.IConnectedFlightRepository;
 import com.lunex.LunEx1.repository.IFlightRepository;
@@ -19,19 +20,19 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-@Configuration
+
 @Service
+@Configuration
 public class AppConfig {
 
 
@@ -62,6 +63,11 @@ public class AppConfig {
         return new JPARepoPopulator(gson);
     }
 
+    @Bean
+    public RestTemplate restTemplate() {return new RestTemplate();}
+
+
+
     @Autowired
     JPARepoPopulator populator;
 
@@ -79,11 +85,12 @@ public class AppConfig {
       //  System.out.println( (LocalDateTime.of(1999,01,01,17,30,00)));
         var gson = gson();
         return args -> {
-           populator.populateRepo(planeRepo, resource_path + "plane_data.json", Plane[].class,gson);
-            populator.populateRepo(airportRepo, resource_path + "airport_data.json", Airport[].class,gson);
+           populator.populateRepo(planeRepo, resource_path + "data/plane_data.json", Plane[].class,gson);
+            populator.populateRepo(airportRepo, resource_path + "data/airport_data.json", Airport[].class,gson);
 
-            populator.populateRepo(flightRepo, resource_path + "flight_data.json", Flight[].class,gson);
+            populator.populateRepo(flightRepo, resource_path + "data/flight_data.json", Flight[].class,gson);
           //  populator.populateRepo(connectedFlightRepo, resource_path + "connected_flight_data.json", ConnectedFlight[].class,gson);
+
         };
     }
 
