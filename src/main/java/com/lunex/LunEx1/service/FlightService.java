@@ -116,10 +116,6 @@ public class FlightService implements IFlightService {
     @Override
     public FlightDTO addFlight(FlightDTO flightDto) {
         Flight flight = modelMapper.map(flightDto,Flight.class);
-        Optional<Flight> existingFlight = flightRepository.findById(flight.getId());
-        if(existingFlight.isPresent()) {
-            throw new IllegalStateException("Flight with the id " + flight.getId()  + "already exists.");
-        }
         flightRepository.save(flight);
         if(UPDATE_JSON_DATA){
             writer.write(flightRepository, DATA_PATH);

@@ -37,6 +37,7 @@ public class Flight implements Serializable {
 
     @Column(name = "arrival_airport")
     private Long arvAirport;
+    
     @Column(name = "departure_date_time")
     private LocalDateTime depDateTime;
 
