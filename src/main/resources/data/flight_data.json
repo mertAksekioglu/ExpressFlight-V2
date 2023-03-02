@@ -1,13 +1,13 @@
 [
   {
     "id":1,
+    "airline" : "Sunexpress Airlines",
+    "flightCode" : "XQ9191",
+    "price" : 1350,
     "depAirport": 1,
     "arvAirport": 2,
     "depDateTime" : "2023-01-01T18:15:00",
-    "arvDateTime" : "2023-01-01T19:25:00",
-    "flightCode" : "XQ9191",
-    "airline" : "Sunexpress Airlines",
-    "price" : 1350
+    "arvDateTime" : "2023-01-01T19:25:00"
   }
 
 ]

@@ -14,13 +14,16 @@ import java.util.List;
 @NoArgsConstructor
 public class FlightDTO {
 
+    private String airline;
+    private String flightCode;
+    private Double price;
     private Long depAirport;
     private Long arvAirport;
     private LocalDateTime depDateTime;
     private LocalDateTime arvDateTime;
-    private String flightCode;
-    private String airline;
-    private Double price;
+
+
+
 
 
 }
