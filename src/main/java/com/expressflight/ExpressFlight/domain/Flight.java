@@ -31,26 +31,18 @@ public class Flight implements Serializable {
     )
     @Column(name = "id")
     private Long id;
-
     @Column(name = "airline")
     private String airline;
-
     @Column(name = "flight_code")
     private String flightCode;
-
     @Column(name = "price")
     private Double price;
-
-
     @Column(name = "departure_airport")
     private Long depAirport;
-
     @Column(name = "arrival_airport")
     private Long arvAirport;
-
     @Column(name = "departure_date_time")
     private LocalDateTime depDateTime;
-
     @Column(name = "arrival_date_time")
     private LocalDateTime arvDateTime;
 
