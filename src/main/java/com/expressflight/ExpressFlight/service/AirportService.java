@@ -18,6 +18,7 @@ import java.util.Optional;
 @Service
 public class AirportService implements IAirportService {
 
+    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\airport_data.json";
     private final boolean UPDATE_JSON = false;
 
     @Autowired
@@ -31,7 +32,7 @@ public class AirportService implements IAirportService {
     @Autowired
     private ModelMapper modelMapper;
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\airport_data.json";
+
 
     @Override
     public List<AirportDTO> getAllAirports() {

@@ -1,9 +1,11 @@
 package com.expressflight.ExpressFlight.service;
 
 import com.expressflight.ExpressFlight.domain.ConnectedFlight;
+import com.expressflight.ExpressFlight.domain.Flight;
 import com.expressflight.ExpressFlight.dto.ConnectedFlightDTO;
 import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.repository.IConnectedFlightRepository;
+import com.expressflight.ExpressFlight.repository.IFlightRepository;
 import com.expressflight.ExpressFlight.serviceInterface.IConnectedFlightService;
 import com.expressflight.ExpressFlight.util.IWriter;
 import com.google.gson.Gson;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,11 +24,14 @@ import java.util.Optional;
 public class ConnectedFlightService implements IConnectedFlightService {
 
 
+    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\connected_flight_data.json";
     private final boolean UPDATE_JSON = false;
 
     @Autowired
     private IConnectedFlightRepository connectedFlightRepository;
 
+    @Autowired
+    private IFlightRepository flightRepository;
 
     @Autowired
     private Gson gson;
@@ -36,7 +42,7 @@ public class ConnectedFlightService implements IConnectedFlightService {
     @Autowired
     private ModelMapper modelMapper;
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\connectedFlight_data.json";
+
 
     @Override
     public List<ConnectedFlightDTO> getAllConnectedFlights() {
@@ -61,40 +67,31 @@ public class ConnectedFlightService implements IConnectedFlightService {
         return returningConnectedFlightDto;
     }
 
-    /*
-        @Override
-        public ConnectedFlightDTO getConnectedFlightByCode(String connectedFlightCode) {
-            Optional<ConnectedFlight> connectedFlight = connectedFlightRepository.findByConnectedFlightCode(connectedFlightCode);
-            if(!connectedFlight.isPresent()) {
-                throw new IllegalStateException("ConnectedFlight with code " + connectedFlightCode + " does not exist");
-            }
-            ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(connectedFlight.get(), ConnectedFlightDTO.class);
-            return returningConnectedFlightDto;
-        }
-    */
     @Override
     public List<ConnectedFlightDTO> searchConnectedFlight(FlightSearchRequestDTO connectedFlightSearchRequestDto) {
 
-/*
+
         List<ConnectedFlight> allConnectedFlights = connectedFlightRepository.findAll();
         List<ConnectedFlightDTO> resultConnectedFlightDtos = new ArrayList<>();
 
         for (ConnectedFlight connectedFlight: allConnectedFlights) {
-            String firstConnectedFlightDate = connectedFlight.getDepDate();
-            String firstDepAirport = connectedFlight.getDepAirport();
-            String lastDesAirport = connectedFlight.getArvAirport();
+            Flight firstFlight = flightRepository.findById(connectedFlight.getFlightLegs()[0]).get();
+            Flight lastFlight = flightRepository.findById(
+                    connectedFlight.getFlightLegs()[connectedFlight.getFlightLegs().length-1]).get();
+            LocalDate firstConnectedFlightDate = firstFlight.getDepDateTime().toLocalDate();
+            Long firstDepAirport = firstFlight.getDepAirport();
+            Long lastDesAirport = lastFlight.getDepAirport();
 
             if(firstDepAirport.equals(connectedFlightSearchRequestDto.getDepAirport()) &&
                     lastDesAirport.equals(connectedFlightSearchRequestDto.getDesAirport()) &&
-                    firstConnectedFlightDate.equals(connectedFlightSearchRequestDto.getDepDate())){
+                    firstConnectedFlightDate.equals(connectedFlightSearchRequestDto.getDepDateTime().toLocalDate())){
                 resultConnectedFlightDtos.add(modelMapper.map(connectedFlight,ConnectedFlightDTO.class));
             }
 
         }
 
         return resultConnectedFlightDtos;
-        */
-        return null;
+
     }
 
 

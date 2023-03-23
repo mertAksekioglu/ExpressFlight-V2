@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class PlaneService implements IPlaneService {
 
-
+    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\plane_data.json";
     private final boolean UPDATE_JSON = false;
 
     @Autowired
@@ -33,12 +33,11 @@ public class PlaneService implements IPlaneService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    SunExpressIntegration xqintegration;
 
 
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\plane_data.json";
+
+
 
     @Override
     public List<PlaneDTO> getAllPlanes() {
@@ -49,15 +48,6 @@ public class PlaneService implements IPlaneService {
             PlaneDTO planeDto = modelMapper.map(plane, PlaneDTO.class);
             planeDtos.add(planeDto);
         }
-
-
-        xqintegration.getData();
-        xqintegration.addData();
-
-
-
-
-
 
          return planeDtos;
     }

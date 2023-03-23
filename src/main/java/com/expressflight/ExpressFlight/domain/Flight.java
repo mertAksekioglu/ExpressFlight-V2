@@ -45,10 +45,11 @@ public class Flight implements Serializable {
     private LocalDateTime depDateTime;
     @Column(name = "arrival_date_time")
     private LocalDateTime arvDateTime;
+    @Column(name="seat_config")
+    private Long seatConfig;
 
-
-    public Flight(String airline, String flightCode, Double price, Long depAirport, Long arvAirport,
-                  LocalDateTime depDateTime, LocalDateTime arvDateTime) {
+    public Flight(String airline, String flightCode, Double price,
+                  Long depAirport, Long arvAirport, LocalDateTime depDateTime, LocalDateTime arvDateTime, Long seatConfig) {
         this.airline = airline;
         this.flightCode = flightCode;
         this.price = price;
@@ -56,7 +57,9 @@ public class Flight implements Serializable {
         this.arvAirport = arvAirport;
         this.depDateTime = depDateTime;
         this.arvDateTime = arvDateTime;
+        this.seatConfig = seatConfig;
     }
+
 
     @Override
     public String toString() {
@@ -69,6 +72,11 @@ public class Flight implements Serializable {
                 ", arvAirport=" + arvAirport +
                 ", depDateTime=" + depDateTime +
                 ", arvDateTime=" + arvDateTime +
+                ", seatConfig=" + seatConfig +
                 '}';
     }
+
+
+
+
 }

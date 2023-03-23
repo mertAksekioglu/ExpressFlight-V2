@@ -7,7 +7,7 @@ import lombok.Data;
 public class ConnectedFlightDTO {
 
 
-    private Flight[] flightLegs;
+    private Long[] flightLegs;
     private Integer stopCount;
     private Double price;
     private Integer layoverMinutes;

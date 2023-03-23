@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 public class SeatService implements ISeatService {
 
-
+    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\seat_data.json";
     private final boolean UPDATE_JSON = false;
 
     @Autowired
@@ -35,7 +35,7 @@ public class SeatService implements ISeatService {
     private ModelMapper modelMapper;
     
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\seat_data.json";
+
 
     @Override
     public List<SeatDTO> getAllSeats() {

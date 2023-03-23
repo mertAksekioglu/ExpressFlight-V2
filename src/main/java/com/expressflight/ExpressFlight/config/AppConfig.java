@@ -1,6 +1,8 @@
 package com.expressflight.ExpressFlight.config;
 
 
+import com.expressflight.ExpressFlight.domain.ConnectedFlight;
+import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
 import com.google.gson.*;
 import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
 import com.expressflight.ExpressFlight.deserializer.LocalDateTimeDeserializer;
@@ -68,7 +70,10 @@ public class AppConfig {
     @Autowired
     JPARepoPopulator populator;
 
-    String resource_path = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\";
+    /*@Autowired
+    SunExpressFlightIntegrationService sunExpressFlightIntegrationService;*/
+
+    String resource_path = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\";
 
 
     @Bean
@@ -78,15 +83,14 @@ public class AppConfig {
                                         IConnectedFlightRepository connectedFlightRepo) {
 
 
-        //System.out.println(yyyy_MM_dd_HH_mm_ss.format(LocalDateTime.of(1999,01,01,17,30,00)));
-      //  System.out.println( (LocalDateTime.of(1999,01,01,17,30,00)));
+
         var gson = gson();
         return args -> {
            populator.populateRepo(planeRepo, resource_path + "data/plane_data.json", Plane[].class,gson);
             populator.populateRepo(airportRepo, resource_path + "data/airport_data.json", Airport[].class,gson);
 
             populator.populateRepo(flightRepo, resource_path + "data/flight_data.json", Flight[].class,gson);
-          //  populator.populateRepo(connectedFlightRepo, resource_path + "connected_flight_data.json", ConnectedFlight[].class,gson);
+            populator.populateRepo(connectedFlightRepo, resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
 
         };
     }

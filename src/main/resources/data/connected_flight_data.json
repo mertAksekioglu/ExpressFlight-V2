@@ -1,32 +1,7 @@
 [
   {
     "id":1,
-    "flightLegs": [
-      {
-        "id":5,
-        "depAirport": "AYT",
-        "arvAirport": "ADB",
-        "depDate" : "02-01-2023",
-        "depTime" : "09:05",
-        "arvDate" : "02-01-2023",
-        "arvTime" : "10:15",
-        "flightCode" : "XQ9091",
-        "airline" : "Sunexpress Airlines",
-        "price" : 1150
-      },
-      {
-        "id":12,
-        "depAirport": "ADB",
-        "arvAirport": "FRA",
-        "depDate" : "02-01-2023",
-        "depTime" : "11:45",
-        "arvDate" : "02-01-2023",
-        "arvTime" : "13:10",
-        "flightCode" : "XQ970",
-        "airline" : "Sunexpress Airlines",
-        "price" : 790
-      }
-    ],
+    "flightLegs": [1,1],
     "stopCount": 1,
     "price": 1940,
     "layoverMinutes" : 70
