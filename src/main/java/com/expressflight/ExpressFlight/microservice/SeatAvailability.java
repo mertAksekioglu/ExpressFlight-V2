@@ -31,7 +31,7 @@ public class SeatAvailability {
         // This function will look at a ticket and then decide
         // if the flight in the ticket has the seat in the ticket available
 
-        Optional<Flight> flight = flightRepository.findById(ticket.getFlight());
+    /*    Optional<Flight> flight = flightRepository.findById(ticket.getFlight());
         Optional<Seat> seat = seatRepository.findById(ticket.getSeat());
 
         if(seat.isPresent() && flight.isPresent()) {
@@ -50,7 +50,8 @@ public class SeatAvailability {
         else { throw new RuntimeException("The given ticket parameter does not have a flight or a seat"); }
 
 
-
+*/
+        return false;
     }
 
 

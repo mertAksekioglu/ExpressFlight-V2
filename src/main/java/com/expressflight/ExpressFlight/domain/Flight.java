@@ -46,10 +46,10 @@ public class Flight implements Serializable {
     @Column(name = "arrival_date_time")
     private LocalDateTime arvDateTime;
     @Column(name="seat_config")
-    private Long seatConfig;
+    private SeatConfiguration seatConfig;
 
     public Flight(String airline, String flightCode, Double price,
-                  Long depAirport, Long arvAirport, LocalDateTime depDateTime, LocalDateTime arvDateTime, Long seatConfig) {
+                  Long depAirport, Long arvAirport, LocalDateTime depDateTime, LocalDateTime arvDateTime, SeatConfiguration seatConfig) {
         this.airline = airline;
         this.flightCode = flightCode;
         this.price = price;

@@ -72,7 +72,7 @@ public class TicketService implements ITicketService {
     public TicketDTO addTicket(TicketDTO ticketDto) {
         Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
 
-        // Code that finds the flight and seat of the ticketDTO then checks if the seat is free
+        // Todo Code that finds the flight and seat of the ticketDTO then checks if the seat is free
 
         if(seatAvailability.getSeatAvailability(ticket)) {
             String seatCode = seatRepository.findById(ticket.getSeat()).get().getCode();

@@ -19,7 +19,6 @@ import java.io.Serializable;
 public class Seat implements Serializable {
 
 
-
     @Id
     @SequenceGenerator(
             name = "seat_sequence",

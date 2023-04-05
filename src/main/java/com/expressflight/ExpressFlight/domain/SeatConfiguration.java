@@ -1,9 +1,11 @@
 package com.expressflight.ExpressFlight.domain;
 
+import com.expressflight.ExpressFlight.util.seatMapper.SeatConfigurationFactory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -40,10 +42,25 @@ public class SeatConfiguration implements Serializable {
     @Column(name = "seat_configuration")
     private Seat[][] seatConfiguration;
 
+
+
     public SeatConfiguration(String configPlane, String configName, Seat[][] seatConfiguration) {
         this.configPlane = configPlane;
         this.configName = configName;
         this.seatConfiguration = seatConfiguration;
+    }
+
+
+    public SeatConfiguration(Long id, String configPlane, String configName) {
+        this.id = id;
+        this.configPlane = configPlane;
+        this.configName = configName;
+
+    }
+
+    public SeatConfiguration(String configPlane, String configName) {
+        this.configPlane = configPlane;
+        this.configName = configName;
     }
 
     @Override

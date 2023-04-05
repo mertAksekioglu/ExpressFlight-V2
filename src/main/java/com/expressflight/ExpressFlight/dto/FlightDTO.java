@@ -1,5 +1,6 @@
 package com.expressflight.ExpressFlight.dto;
 
+import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ public class FlightDTO {
     private Long arvAirport;
     private LocalDateTime depDateTime;
     private LocalDateTime arvDateTime;
+    private SeatConfiguration seatConfig;
 
 
 

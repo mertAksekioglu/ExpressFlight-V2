@@ -1,14 +1,12 @@
 package com.expressflight.ExpressFlight.config;
 
 
-import com.expressflight.ExpressFlight.domain.ConnectedFlight;
+import com.expressflight.ExpressFlight.domain.*;
 import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
+import com.expressflight.ExpressFlight.service.FlightService;
 import com.google.gson.*;
 import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
 import com.expressflight.ExpressFlight.deserializer.LocalDateTimeDeserializer;
-import com.expressflight.ExpressFlight.domain.Airport;
-import com.expressflight.ExpressFlight.domain.Flight;
-import com.expressflight.ExpressFlight.domain.Plane;
 import com.expressflight.ExpressFlight.repository.IAirportRepository;
 import com.expressflight.ExpressFlight.repository.IConnectedFlightRepository;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
@@ -66,7 +64,6 @@ public class AppConfig {
     public RestTemplate restTemplate() {return new RestTemplate();}
 
 
-
     @Autowired
     JPARepoPopulator populator;
 
@@ -84,6 +81,9 @@ public class AppConfig {
 
 
 
+
+
+
         var gson = gson();
         return args -> {
            populator.populateRepo(planeRepo, resource_path + "data/plane_data.json", Plane[].class,gson);
@@ -91,6 +91,9 @@ public class AppConfig {
 
             populator.populateRepo(flightRepo, resource_path + "data/flight_data.json", Flight[].class,gson);
             populator.populateRepo(connectedFlightRepo, resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
+
+
+
 
         };
     }
