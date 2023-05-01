@@ -1,5 +1,6 @@
 package com.expressflight.ExpressFlight.mapper;
 
+import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import com.expressflight.ExpressFlight.dto.SunExpressFlightDTO;
 import com.expressflight.ExpressFlight.repository.IAirportRepository;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
@@ -30,6 +31,7 @@ public class SunExpressFlightDTOToFlightDTOMapper implements IMapper {
         flightDto.setFlightCode(sunExpressFlightDto.getFlightCode());
         flightDto.setAirline(sunExpressFlightDto.getAirline());
         flightDto.setPrice(sunExpressFlightDto.getPrice());
+        flightDto.setSeatConfig(new SeatConfiguration("737-800","SunExpress7378HC"));
         return flightDto;
         // then it maps via property mapper
 

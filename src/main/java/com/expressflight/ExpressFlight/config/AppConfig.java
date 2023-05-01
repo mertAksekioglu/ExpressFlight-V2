@@ -81,10 +81,10 @@ public class AppConfig {
 
 
 
+        // TODO Burada Repo değil de service ile çalışan bir populator lazım
 
 
-
-        var gson = gson();
+        var gson = gson(); // TODO Nesen gson declare ediyoruz
         return args -> {
            populator.populateRepo(planeRepo, resource_path + "data/plane_data.json", Plane[].class,gson);
             populator.populateRepo(airportRepo, resource_path + "data/airport_data.json", Airport[].class,gson);

@@ -2,6 +2,7 @@ package com.expressflight.ExpressFlight.controller;
 
 import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
+import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
 import com.expressflight.ExpressFlight.service.FlightService;
 import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,16 @@ public class FlightController {
     private IFlightService flightService;
 
     @Autowired
+    SunExpressFlightIntegrationService sunExpressFlightIntegrationService;
+
+    @Autowired
     public FlightController(FlightService flightService) {
         this.flightService = flightService;
     }
 
     @GetMapping
-    public List<FlightDTO> getAllPlanes() {
+    public List<FlightDTO> getAllFlights() {
+        sunExpressFlightIntegrationService.integrate();
         return flightService.getAllFlights();
     }
 

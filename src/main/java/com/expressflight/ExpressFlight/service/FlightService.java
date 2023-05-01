@@ -4,6 +4,7 @@ import com.expressflight.ExpressFlight.domain.Flight;
 import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
 import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
+import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
 import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
 import com.expressflight.ExpressFlight.util.seatMapper.SeatConfigurationFactory;
@@ -40,9 +41,6 @@ public class FlightService implements IFlightService {
 
     @Autowired
     SeatConfigurationFactory seatConfigurationFactory;
-
-
-
 
     @Override
     public List<FlightDTO> getAllFlights() {
@@ -187,11 +185,6 @@ public class FlightService implements IFlightService {
         List<FlightDTO> flightDtos = new ArrayList<>();
         List<Flight> unconfiguredFlights = new ArrayList<>();
         for(int i = 0; i < flights.size(); i++){
-            System.out.println("#############################################");
-            System.out.println("#############################################");
-            System.out.println("#############################################");
-            System.out.println("#############################################");
-
             if(flights.get(i).getSeatConfig() != null && flights.get(i).getSeatConfig().getSeatConfiguration() == null) {
                 SeatConfiguration tempConfig = flights.get(i).getSeatConfig();
                 tempConfig.setSeatConfiguration(

@@ -1,0 +1,52 @@
+[
+  {
+    "id":1,
+    "name": "Antalya Airport",
+    "codeIATA": "AYT",
+    "codeICAO": "LTAI",
+    "location" : {
+      "latitude": 36.904333,
+      "longitude": 30.801884
+    },
+    "terminalCount":3,
+    "runwayCount":3
+  },
+  {
+    "id":2,
+    "name": "Izmir Adnan Menderes Airport",
+    "codeIATA": "ADB",
+    "codeICAO": "LTBJ",
+    "location" : {
+      "latitude": 38.293758,
+      "longitude": 27.152025
+    },
+    "terminalCount":4,
+    "runwayCount":2
+  },
+  {
+    "id":3,
+    "name": "Istanbul Sabiha Gökçen International Airport",
+    "codeIATA": "SAW",
+    "codeICAO": "LTFJ",
+    "location" : {
+      "latitude": 40.905373,
+      "longitude": 29.316871
+    },
+    "terminalCount":2,
+    "runwayCount":2
+  },
+  {
+    "id":4,
+    "name": "Frankfurt Airport",
+    "codeIATA": "FRA",
+    "codeICAO": "EDDF",
+    "location" : {
+      "latitude": 50.037931,
+      "longitude": 8.562137
+    },
+    "terminalCount":3,
+    "runwayCount":4
+  }
+]
+
+
