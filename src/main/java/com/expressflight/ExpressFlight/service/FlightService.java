@@ -129,8 +129,6 @@ public class FlightService implements IFlightService {
         }
         flightRepository.deleteById(flightId);
         writer.write(flightRepository, DATA_PATH, UPDATE_JSON);
-
-
         FlightDTO returningFlightDto = modelMapper.map(flight.get(), FlightDTO.class);
         return returningFlightDto;
     }
