@@ -3,7 +3,9 @@ package com.expressflight.ExpressFlight.util.seatMapper;
 import com.expressflight.ExpressFlight.domain.Seat;
 import com.expressflight.ExpressFlight.enums.SeatStatus;
 import com.expressflight.ExpressFlight.enums.SeatType;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PegasusA320251N implements ISeatMapper {
 
 

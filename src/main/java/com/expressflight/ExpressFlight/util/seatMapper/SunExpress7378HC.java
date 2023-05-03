@@ -4,15 +4,21 @@ import com.expressflight.ExpressFlight.domain.Seat;
 import com.expressflight.ExpressFlight.dto.SeatDTO;
 import com.expressflight.ExpressFlight.enums.SeatStatus;
 import com.expressflight.ExpressFlight.enums.SeatType;
+import com.expressflight.ExpressFlight.repository.ISeatRepository;
 import com.expressflight.ExpressFlight.service.SeatService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SunExpress7378HC implements ISeatMapper {
 
 
     @Autowired
     SeatService seatService;
+
+    @Autowired
+    ISeatRepository seatRepository;
 
 
     @Autowired
@@ -25,9 +31,6 @@ public class SunExpress7378HC implements ISeatMapper {
             for (int j = 0; j < seats[i].length; j++) {
                 String seatCode = String.valueOf(i+1) + String.valueOf((char) (j + 65));
 
-
-                // TODO Find a way to id seats.
-                // TODO Give up
 
                 if(i == 14 || i == 15) {
                     seats[i][j] = new Seat(seatCode,SeatType.PREMIUM_ECONOMY,SeatStatus.FREE);
@@ -48,7 +51,9 @@ public class SunExpress7378HC implements ISeatMapper {
                     seats[i][j] = new Seat(seatCode,SeatType.ECONOMY,SeatStatus.FREE);
                 }
 
-
+                if(seats[i][j] != null) {
+                    seats[i][j] = seatRepository.save(seats[i][j]);
+                }
 
             }
 

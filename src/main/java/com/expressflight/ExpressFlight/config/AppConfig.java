@@ -77,18 +77,17 @@ public class AppConfig {
     CommandLineRunner commandLineRunner(IPlaneRepository planeRepo,
                                         IAirportRepository airportRepo,
                                         IFlightRepository flightRepo,
-                                        IConnectedFlightRepository connectedFlightRepo) {
+                                        IConnectedFlightRepository connectedFlightRepo,
+                                        Gson gson) {
 
 
 
         // TODO Burada Repo değil de service ile çalışan bir populator lazım
 
 
-        var gson = gson(); // TODO Nesen gson declare ediyoruz
         return args -> {
            populator.populateRepo(planeRepo, resource_path + "data/plane_data.json", Plane[].class,gson);
             populator.populateRepo(airportRepo, resource_path + "data/airport_data.json", Airport[].class,gson);
-
             populator.populateRepo(flightRepo, resource_path + "data/flight_data.json", Flight[].class,gson);
             populator.populateRepo(connectedFlightRepo, resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
 

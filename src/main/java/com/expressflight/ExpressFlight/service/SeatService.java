@@ -76,10 +76,13 @@ public class SeatService implements ISeatService {
     @Override
     public SeatDTO addSeat(SeatDTO seatDto) {
         Seat seat = modelMapper.map(seatDto,Seat.class);
+        /*
         Optional<Seat> existingSeat = seatRepository.findByCode(seat.getCode());
         if(existingSeat.isPresent()) {
             throw new IllegalStateException("Seat with the code " + seat.getCode() + "already exists.");
         }
+        */
+
         seatRepository.save(seat);
         writer.write(seatRepository, DATA_PATH,UPDATE_JSON);
         SeatDTO returningSeatDto = modelMapper.map(seat, SeatDTO.class);
