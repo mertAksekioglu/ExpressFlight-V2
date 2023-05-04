@@ -115,8 +115,11 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         if(seatConfiguration.getConfigPlane() != null){
             existingSeatConfiguration.get().setConfigPlane(seatConfigurationDto.getConfigName());
         }
-        if(seatConfiguration.getSeatConfiguration() != null){
-            existingSeatConfiguration.get().setSeatConfiguration(seatConfigurationDto.getSeatConfiguration());
+        if(seatConfiguration.getConfigPlane() != null){
+            existingSeatConfiguration.get().setConfigPlane(seatConfigurationDto.getConfigName());
+        }
+        if(seatConfiguration.getSeatMap() != null){
+            existingSeatConfiguration.get().setSeatMap(seatConfigurationDto.getSeatMap());
         }
 
         writer.write(seatConfigurationRepository, DATA_PATH, UPDATE_JSON);

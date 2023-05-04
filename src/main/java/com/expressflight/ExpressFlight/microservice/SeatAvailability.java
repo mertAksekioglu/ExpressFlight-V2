@@ -43,7 +43,7 @@ public class SeatAvailability {
             Optional<SeatConfiguration> seatConfig = Optional.ofNullable(flight.get().getSeatConfig());
 
             if(seatConfig.isPresent()){
-                return seatConfig.get().getSeatConfiguration()[seatRow][seatCol].getStatus() == SeatStatus.FREE;
+                return seatConfig.get().getSeatMap()[seatRow][seatCol].getStatus() == SeatStatus.FREE;
             }
             else { throw new RuntimeException("The given seat configuration does not exist"); }
         }

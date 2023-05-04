@@ -31,7 +31,7 @@ public class SunExpressFlightDTOToFlightDTOMapper implements IMapper {
         flightDto.setFlightCode(sunExpressFlightDto.getFlightCode());
         flightDto.setAirline(sunExpressFlightDto.getAirline());
         flightDto.setPrice(sunExpressFlightDto.getPrice());
-        flightDto.setSeatConfig(new SeatConfiguration("737-800","SunExpress7378HC"));
+        flightDto.setSeatConfig(new SeatConfiguration("737-800","SunExpress7378HC", false));
         return flightDto;
         // then it maps via property mapper
 

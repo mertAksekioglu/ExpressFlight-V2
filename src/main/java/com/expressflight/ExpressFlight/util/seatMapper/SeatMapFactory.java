@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SeatConfigurationFactory {
+public class SeatMapFactory {
 
 
     @Autowired
@@ -14,15 +14,15 @@ public class SeatConfigurationFactory {
     PegasusA320251N pegasusA320251N;
 
 
-    public ISeatMapper createSeatConfiguration(String configType) {
-        switch (configType) {
+    public ISeatMapper createSeatMap(String mapType) {
+        switch (mapType) {
             case "SunExpress7378HC":
                 return sunExpress7378HC;
             case "PegasusA320251N":
                 return pegasusA320251N;
             // TODO Add THY Config
             default:
-                throw new IllegalArgumentException("Invalid seat configuration type: " + configType);
+                throw new IllegalArgumentException("Invalid seat map type: " + mapType);
         }
     }
 }

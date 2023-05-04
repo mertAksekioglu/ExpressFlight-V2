@@ -29,7 +29,7 @@ public class FlightController {
 
     @GetMapping
     public List<FlightDTO> getAllFlights() {
-        sunExpressFlightIntegrationService.integrate();
+        //sunExpressFlightIntegrationService.integrate();
         return flightService.getAllFlights();
     }
 

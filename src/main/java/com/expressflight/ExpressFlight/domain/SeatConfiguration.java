@@ -1,6 +1,6 @@
 package com.expressflight.ExpressFlight.domain;
 
-import com.expressflight.ExpressFlight.util.seatMapper.SeatConfigurationFactory;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,37 +39,35 @@ public class SeatConfiguration implements Serializable {
     @Column(name = "config_name")
     private String configName;
 
-    @Column(name = "seat_configuration")
-    private Seat[][] seatConfiguration;
+    @Column(name = "is_configured")
+    private Boolean isConfigured;
+
+    @Column(name = "seat_map")
+    private Seat[][] seatMap;
 
 
 
-    public SeatConfiguration(String configPlane, String configName, Seat[][] seatConfiguration) {
+    public SeatConfiguration(String configPlane, String configName, Boolean isConfigured, Seat[][] seatMap) {
         this.configPlane = configPlane;
         this.configName = configName;
-        this.seatConfiguration = seatConfiguration;
+        this.isConfigured = isConfigured;
+        this.seatMap = seatMap;
     }
 
 
-    public SeatConfiguration(Long id, String configPlane, String configName) {
+    public SeatConfiguration(Long id, String configPlane, String configName, Boolean isConfigured) {
         this.id = id;
         this.configPlane = configPlane;
         this.configName = configName;
+        this.isConfigured = isConfigured;
 
     }
 
-    public SeatConfiguration(String configPlane, String configName) {
+    public SeatConfiguration(String configPlane, String configName, Boolean isConfigured) {
         this.configPlane = configPlane;
         this.configName = configName;
+        this.isConfigured = isConfigured;
     }
 
-    @Override
-    public String toString() {
-        return "SeatConfiguration{" +
-                "id=" + id +
-                ", configPlane='" + configPlane + '\'' +
-                ", configName='" + configName + '\'' +
-                ", seatConfiguration=" + Arrays.toString(seatConfiguration) +
-                '}';
-    }
+
 }

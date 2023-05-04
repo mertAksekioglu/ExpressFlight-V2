@@ -7,7 +7,7 @@ import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
 import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
-import com.expressflight.ExpressFlight.util.seatMapper.SeatConfigurationFactory;
+import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
 import com.google.gson.Gson;
 import com.expressflight.ExpressFlight.util.IWriter;
 import org.modelmapper.ModelMapper;
@@ -40,7 +40,7 @@ public class FlightService implements IFlightService {
     private ModelMapper modelMapper;
 
     @Autowired
-    SeatConfigurationFactory seatConfigurationFactory;
+    SeatMapFactory seatMapFactory;
 
     @Override
     public List<FlightDTO> getAllFlights() {
@@ -106,10 +106,10 @@ public class FlightService implements IFlightService {
     @Override
     public FlightDTO addFlight(FlightDTO flightDto) {
         Flight flight = modelMapper.map(flightDto,Flight.class);
-        if(flight.getSeatConfig() != null && flight.getSeatConfig().getSeatConfiguration() == null) {
+        if(flight.getSeatConfig() != null && flight.getSeatConfig().getSeatMap() == null) {
             SeatConfiguration tempConfig = flight.getSeatConfig();
-            tempConfig.setSeatConfiguration(
-                    seatConfigurationFactory.createSeatConfiguration(flight.getSeatConfig().getConfigName()).mapSeats());
+            tempConfig.setSeatMap(
+                    seatMapFactory.createSeatMap(flight.getSeatConfig().getConfigName()).mapSeats());
             flight.setSeatConfig(tempConfig);
         }
 
@@ -183,11 +183,16 @@ public class FlightService implements IFlightService {
         List<FlightDTO> flightDtos = new ArrayList<>();
         List<Flight> unconfiguredFlights = new ArrayList<>();
         for(int i = 0; i < flights.size(); i++){
-            if(flights.get(i).getSeatConfig() != null && flights.get(i).getSeatConfig().getSeatConfiguration() == null) {
-                SeatConfiguration tempConfig = flights.get(i).getSeatConfig();
-                tempConfig.setSeatConfiguration(
-                        seatConfigurationFactory.createSeatConfiguration(flights.get(i).getSeatConfig().getConfigName()).mapSeats());
-                flights.get(i).setSeatConfig(tempConfig);
+            SeatConfiguration seatConfig = flights.get(i).getSeatConfig();
+            if(seatConfig != null
+                    && (seatConfig.getIsConfigured() == null
+                    || seatConfig.getIsConfigured().equals(false)
+                    )) {
+                seatConfig.setSeatMap(
+                        seatMapFactory.createSeatMap(
+                                flights.get(i).getSeatConfig().getConfigName()).mapSeats());
+                seatConfig.setIsConfigured(true);
+                flights.get(i).setSeatConfig(seatConfig);
                 unconfiguredFlights.add(flights.get(i));
             }
 
