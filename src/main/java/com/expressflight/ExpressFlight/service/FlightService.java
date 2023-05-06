@@ -4,8 +4,10 @@ import com.expressflight.ExpressFlight.domain.Flight;
 import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
 import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
+import com.expressflight.ExpressFlight.dto.SeatConfigurationDTO;
 import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
+import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
 import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
 import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
 import com.google.gson.Gson;
@@ -32,6 +34,12 @@ public class FlightService implements IFlightService {
     private IFlightRepository flightRepository;
 
     @Autowired
+    private ISeatConfigurationRepository seatConfigurationRepository;
+
+    @Autowired
+    private SeatConfigurationService seatConfigurationService;
+
+    @Autowired
     private Gson gson;
     @Autowired
     private IWriter writer;
@@ -44,7 +52,7 @@ public class FlightService implements IFlightService {
 
     @Override
     public List<FlightDTO> getAllFlights() {
-        configureFlightSeats();
+        seatConfigurationService.configureSeatConfiguration(1L);
         List<Flight> flights = flightRepository.findAll();
         List<FlightDTO> flightDtos = new ArrayList<>();
         for (Flight existingFlight : flights)
@@ -54,14 +62,13 @@ public class FlightService implements IFlightService {
         }
         return flightDtos;
     }
+
+
     @Override
     public FlightDTO getFlight(Long flightId) {
         Optional<Flight> flight = flightRepository.findById(flightId);
-        if(!flight.isPresent()) {
-            throw new IllegalStateException("Flight with id " + flightId + " does not exist");
-        }
-        FlightDTO returningFlightDto = modelMapper.map(flight.get(), FlightDTO.class);
-        return returningFlightDto;
+        checkFlightExistence(flightId);
+        return convertFlightToDTO(flight.get());
     }
 
 
@@ -77,9 +84,9 @@ public class FlightService implements IFlightService {
             FlightDTO flightDto = modelMapper.map(existingFlight,FlightDTO.class);
             flightDtos.add(flightDto);
         }
-
         return flightDtos;
     }
+
 
     @Override
     public List<FlightDTO> searchFlight(FlightSearchRequestDTO flightSearchRequestDto) {
@@ -102,46 +109,30 @@ public class FlightService implements IFlightService {
     }
 
 
-
     @Override
     public FlightDTO addFlight(FlightDTO flightDto) {
         Flight flight = modelMapper.map(flightDto,Flight.class);
-        if(flight.getSeatConfig() != null && flight.getSeatConfig().getSeatMap() == null) {
-            SeatConfiguration tempConfig = flight.getSeatConfig();
-            tempConfig.setSeatMap(
-                    seatMapFactory.createSeatMap(flight.getSeatConfig().getConfigName()).mapSeats());
-            flight.setSeatConfig(tempConfig);
-        }
-
-
         flightRepository.save(flight);
-        writer.write(flightRepository, DATA_PATH,UPDATE_JSON);
-        FlightDTO returningFlightDto = modelMapper.map(flight, FlightDTO.class);
-        return returningFlightDto;
-
+        updateJsonDatabase();
+        return convertFlightToDTO(flight);
     }
+
 
     @Override
     public FlightDTO deleteFlight(Long flightId) {
-        Optional<Flight> flight = flightRepository.findById(flightId);
-        if(!flight.isPresent()) {
-            throw new IllegalStateException("Flight with the id " + flightId + " does not exist");
-        }
+        checkFlightExistence(flightId);
         flightRepository.deleteById(flightId);
-        writer.write(flightRepository, DATA_PATH, UPDATE_JSON);
-        FlightDTO returningFlightDto = modelMapper.map(flight.get(), FlightDTO.class);
-        return returningFlightDto;
+        updateJsonDatabase();
+        return convertFlightToDTO(flightRepository.findById(flightId).get());
     }
+
 
     @Override
     @Transactional
     public FlightDTO updateFlight(FlightDTO flightDto, Long flightId) {
         Flight flight = modelMapper.map(flightDto,Flight.class);
         Optional<Flight> existingFlight = flightRepository.findById(flightId);
-        if(!existingFlight.isPresent()) {
-            throw new IllegalStateException("Flight with the id " + existingFlight.get().getId() + " does not exist");
-        }
-
+        checkFlightExistence(flightId);
         if(flight.getDepAirport() != null){
             existingFlight.get().setDepAirport(flight.getDepAirport());
         }
@@ -167,36 +158,39 @@ public class FlightService implements IFlightService {
             existingFlight.get().setSeatConfig(flight.getSeatConfig());
         }
 
-        writer.write(flightRepository, DATA_PATH, UPDATE_JSON);
-        FlightDTO returningFlightDto = modelMapper.map(existingFlight.get(), FlightDTO.class);
-        return returningFlightDto;
-
-
+        updateJsonDatabase();
+        return convertFlightToDTO(existingFlight.get());
     }
 
-
-
     @Override
-    public List<FlightDTO> configureFlightSeats() {
+    public List<FlightDTO> configureAllFlightSeats() {
 
         List<Flight> flights = flightRepository.findAll();
         List<FlightDTO> flightDtos = new ArrayList<>();
         List<Flight> unconfiguredFlights = new ArrayList<>();
+
+
         for(int i = 0; i < flights.size(); i++){
-            SeatConfiguration seatConfig = flights.get(i).getSeatConfig();
-            if(seatConfig != null
-                    && (seatConfig.getIsConfigured() == null
-                    || seatConfig.getIsConfigured().equals(false)
-                    )) {
-                seatConfig.setSeatMap(
-                        seatMapFactory.createSeatMap(
-                                flights.get(i).getSeatConfig().getConfigName()).mapSeats());
+            SeatConfigurationDTO seatConfig = seatConfigurationService.getSeatConfiguration(flights.get(i).getId());
+            System.out.println(seatConfig);
+            if(seatConfig != null && (seatConfig.getIsConfigured() == null || seatConfig.getIsConfigured() == false)) {
+                //seatConfig.setSeatMap(seatMapFactory.createSeatMap();
                 seatConfig.setIsConfigured(true);
-                flights.get(i).setSeatConfig(seatConfig);
+                seatConfigurationService.updateSeatConfiguration(seatConfig,flights.get(i).getId());
+                //flights.get(i).setSeatConfig(seatConfig);
+                //FlightDTO flightDTO = new FlightDTO();
+                //flightDTO.setSeatConfig(seatConfig);
+                //updateFlight(flightDTO, flights.get(i).getId());
+                System.out.println(flightRepository.findById(flights.get(i).getId()).get().getSeatConfig());
+
+
                 unconfiguredFlights.add(flights.get(i));
+
             }
 
         }
+
+
         for (Flight existingFlight : unconfiguredFlights)
         {
             FlightDTO flightDto = modelMapper.map(existingFlight,FlightDTO.class);
@@ -205,6 +199,50 @@ public class FlightService implements IFlightService {
         return flightDtos;
     }
 
+
+    @Override
+    public FlightDTO configureFlightSeats(Flight flight) {
+       /* SeatConfiguration seatConfig = flight.getSeatConfig();
+        if(seatConfig != null) {
+            System.out.println("Seat configuration at flight ID " + flight.getId() + " is not found.");
+        }
+        else if(!seatConfig.getIsConfigured()) {
+
+            seatConfig.setSeatMap(seatMapFactory.createSeatMap(
+                    flight.getSeatConfig().getConfigName()).mapSeats());
+            seatConfig.setIsConfigured(true);
+            flight.setSeatConfig(seatConfig);
+
+
+            FlightDTO flightDTO = new FlightDTO();
+            flightDTO.setSeatConfig(seatConfig);
+            updateFlight(flightDTO, flight.getId());
+            }
+
+
+        return convertFlightToDTO(flight);*/
+        return null;
+    }
+
+
+    @Override
+    public void updateJsonDatabase() {
+        writer.write(flightRepository, DATA_PATH, UPDATE_JSON);
+    }
+
+
+    public void checkFlightExistence(Long flightId) {
+        Optional<Flight> flight = flightRepository.findById(flightId);
+        if(!flight.isPresent()) {
+            throw new IllegalStateException("Flight with the id " + flightId + " does not exist");
+        }
+    }
+
+
+    public FlightDTO convertFlightToDTO(Flight flight) {
+        FlightDTO returningFlightDto = modelMapper.map(flight, FlightDTO.class);
+        return returningFlightDto;
+    }
 
 
 }

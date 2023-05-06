@@ -1,5 +1,6 @@
 package com.expressflight.ExpressFlight.serviceInterface;
 
+import com.expressflight.ExpressFlight.domain.Flight;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
 import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
 
@@ -19,6 +20,11 @@ public interface IFlightService {
     public FlightDTO deleteFlight(Long flightId);
     public FlightDTO updateFlight(FlightDTO flightDto, Long flightId);
 
-    public List<FlightDTO> configureFlightSeats();
+    public List<FlightDTO> configureAllFlightSeats();
+
+    public FlightDTO configureFlightSeats(Flight flight);
+
+    public void updateJsonDatabase();
+
 
 }

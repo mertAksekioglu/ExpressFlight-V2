@@ -70,4 +70,14 @@ public class SeatConfiguration implements Serializable {
     }
 
 
+    @Override
+    public String toString() {
+        return "SeatConfiguration{" +
+                "id=" + id +
+                ", configPlane='" + configPlane + '\'' +
+                ", configName='" + configName + '\'' +
+                ", isConfigured=" + isConfigured +
+                ", seatMap=" + Arrays.toString(seatMap) +
+                '}';
+    }
 }

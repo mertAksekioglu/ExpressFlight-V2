@@ -13,4 +13,6 @@ public interface ISeatConfigurationService {
     public SeatConfigurationDTO deleteSeatConfiguration(Long seatConfigurationId);
     public SeatConfigurationDTO updateSeatConfiguration(SeatConfigurationDTO seatConfiguration, Long seatConfigurationId);
 
+    public SeatConfigurationDTO configureSeatConfiguration(Long seatConfigurationId);
+
 }

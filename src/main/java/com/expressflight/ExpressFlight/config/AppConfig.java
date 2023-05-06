@@ -3,14 +3,11 @@ package com.expressflight.ExpressFlight.config;
 
 import com.expressflight.ExpressFlight.domain.*;
 import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
+import com.expressflight.ExpressFlight.repository.*;
 import com.expressflight.ExpressFlight.service.FlightService;
 import com.google.gson.*;
 import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
 import com.expressflight.ExpressFlight.deserializer.LocalDateTimeDeserializer;
-import com.expressflight.ExpressFlight.repository.IAirportRepository;
-import com.expressflight.ExpressFlight.repository.IConnectedFlightRepository;
-import com.expressflight.ExpressFlight.repository.IFlightRepository;
-import com.expressflight.ExpressFlight.repository.IPlaneRepository;
 import com.expressflight.ExpressFlight.serializer.LocalDateSerializer;
 import com.expressflight.ExpressFlight.serializer.LocalDateTimeSerializer;
 import com.expressflight.ExpressFlight.util.JPARepoPopulator;
@@ -78,6 +75,7 @@ public class AppConfig {
                                         IAirportRepository airportRepo,
                                         IFlightRepository flightRepo,
                                         IConnectedFlightRepository connectedFlightRepo,
+                                        ISeatConfigurationRepository seatConfigurationRepository,
                                         Gson gson) {
 
 
@@ -90,7 +88,7 @@ public class AppConfig {
             populator.populateRepo(airportRepo, resource_path + "data/airport_data.json", Airport[].class,gson);
             populator.populateRepo(flightRepo, resource_path + "data/flight_data.json", Flight[].class,gson);
             populator.populateRepo(connectedFlightRepo, resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
-
+            populator.populateRepo(seatConfigurationRepository, resource_path + "data/seat_configuration_data.json", SeatConfiguration[].class,gson);
 
 
 

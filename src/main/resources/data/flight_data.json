@@ -8,11 +8,7 @@
     "arvAirport": 2,
     "depDateTime" : "2023-01-01T18:15:00",
     "arvDateTime" : "2023-01-01T19:25:00",
-    "seatConfig" : {
-      "id": 1,
-      "configName" : "SunExpress7378HC",
-      "configPlane" : "737-800"
-      }
+    "seatConfig" : 1
   }
 
 ]

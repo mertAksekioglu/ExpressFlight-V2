@@ -5,6 +5,7 @@ import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import com.expressflight.ExpressFlight.dto.SeatConfigurationDTO;
 import com.expressflight.ExpressFlight.integration.SunExpressIntegration;
 import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
+import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
 import com.google.gson.Gson;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatConfigurationService;
 import com.expressflight.ExpressFlight.util.IWriter;
@@ -34,7 +35,8 @@ public class SeatConfigurationService implements ISeatConfigurationService {
     @Autowired
     private ModelMapper modelMapper;
 
-
+    @Autowired
+    SeatMapFactory seatMapFactory;
 
 
 
@@ -127,6 +129,29 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         return returningSeatConfigurationDto;
 
     }
+
+
+
+    @Override
+    @Transactional
+    public SeatConfigurationDTO configureSeatConfiguration(Long seatConfigurationId) {
+
+        SeatConfiguration seatConfig = seatConfigurationRepository.findById(seatConfigurationId).get();
+        if(seatConfig.getIsConfigured() == true){
+            System.out.println("SEAT ALREADY CONFIGURED");
+        }
+        else {
+            seatConfig.setSeatMap(seatMapFactory.createSeatMap(seatConfig.getConfigName()).mapSeats());
+            seatConfig.setIsConfigured(true);
+        }
+
+
+        //flight.getSeatConfig().getConfigName()).mapSeats()
+        return null;
+    }
+
+
+
 
 }
 

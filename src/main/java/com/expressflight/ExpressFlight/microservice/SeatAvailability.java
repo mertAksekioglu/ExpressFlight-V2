@@ -25,7 +25,7 @@ public class SeatAvailability {
 
     @Autowired
     ISeatConfigurationRepository seatConfigurationRepository;
-
+/*
     public Boolean getSeatAvailability(Ticket ticket) {
 
         // This function will look at a ticket and then decide
@@ -40,7 +40,7 @@ public class SeatAvailability {
             int seatRow = Integer.parseInt(seatCode.substring(1));
             int seatCol = seatCode.charAt(0) - 65;
 
-            Optional<SeatConfiguration> seatConfig = Optional.ofNullable(flight.get().getSeatConfig());
+           Optional<SeatConfiguration> seatConfig = Optional.ofNullable(flight.get().getSeatConfig());
 
             if(seatConfig.isPresent()){
                 return seatConfig.get().getSeatMap()[seatRow][seatCol].getStatus() == SeatStatus.FREE;
@@ -53,7 +53,7 @@ public class SeatAvailability {
 
 
 
-
+*/
 
 
 }

@@ -74,10 +74,10 @@ public class TicketService implements ITicketService {
 
         // Todo Code that finds the flight and seat of the ticketDTO then checks if the seat is free
 
-        if(seatAvailability.getSeatAvailability(ticket)) {
+       /* if(seatAvailability.getSeatAvailability(ticket)) {
             String seatCode = seatRepository.findById(ticket.getSeat()).get().getCode();
             throw new IllegalStateException("Ticket with the seat " + seatCode + " is already booked.");
-        }
+        }*/
 
         ticketRepository.save(ticket);
         writer.write(ticketRepository,DATA_PATH,UPDATE_JSON);

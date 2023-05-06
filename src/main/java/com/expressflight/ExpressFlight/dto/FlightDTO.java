@@ -17,7 +17,7 @@ public class FlightDTO {
     private Long arvAirport;
     private LocalDateTime depDateTime;
     private LocalDateTime arvDateTime;
-    private SeatConfiguration seatConfig;
+    private Long seatConfig;
 
 
 
