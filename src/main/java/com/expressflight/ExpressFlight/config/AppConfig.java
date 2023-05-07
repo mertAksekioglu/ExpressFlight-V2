@@ -76,6 +76,7 @@ public class AppConfig {
                                         IFlightRepository flightRepo,
                                         IConnectedFlightRepository connectedFlightRepo,
                                         ISeatConfigurationRepository seatConfigurationRepository,
+                                        IPassengerRepository passengerRepository,
                                         Gson gson) {
 
 
@@ -87,8 +88,11 @@ public class AppConfig {
            populator.populateRepo(planeRepo, resource_path + "data/plane_data.json", Plane[].class,gson);
             populator.populateRepo(airportRepo, resource_path + "data/airport_data.json", Airport[].class,gson);
             populator.populateRepo(flightRepo, resource_path + "data/flight_data.json", Flight[].class,gson);
-            populator.populateRepo(connectedFlightRepo, resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
-            populator.populateRepo(seatConfigurationRepository, resource_path + "data/seat_configuration_data.json", SeatConfiguration[].class,gson);
+            populator.populateRepo(connectedFlightRepo,
+                    resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
+            populator.populateRepo(seatConfigurationRepository,
+                    resource_path + "data/seat_configuration_data.json", SeatConfiguration[].class,gson);
+            populator.populateRepo(passengerRepository, resource_path + "data/passenger_data.json", Passenger[].class,gson);
 
 
 

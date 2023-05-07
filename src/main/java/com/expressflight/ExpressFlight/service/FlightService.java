@@ -170,26 +170,6 @@ public class FlightService implements IFlightService {
         List<Flight> unconfiguredFlights = new ArrayList<>();
 
 
-        for(int i = 0; i < flights.size(); i++){
-            SeatConfigurationDTO seatConfig = seatConfigurationService.getSeatConfiguration(flights.get(i).getId());
-            System.out.println(seatConfig);
-            if(seatConfig != null && (seatConfig.getIsConfigured() == null || seatConfig.getIsConfigured() == false)) {
-                //seatConfig.setSeatMap(seatMapFactory.createSeatMap();
-                seatConfig.setIsConfigured(true);
-                seatConfigurationService.updateSeatConfiguration(seatConfig,flights.get(i).getId());
-                //flights.get(i).setSeatConfig(seatConfig);
-                //FlightDTO flightDTO = new FlightDTO();
-                //flightDTO.setSeatConfig(seatConfig);
-                //updateFlight(flightDTO, flights.get(i).getId());
-                System.out.println(flightRepository.findById(flights.get(i).getId()).get().getSeatConfig());
-
-
-                unconfiguredFlights.add(flights.get(i));
-
-            }
-
-        }
-
 
         for (Flight existingFlight : unconfiguredFlights)
         {
