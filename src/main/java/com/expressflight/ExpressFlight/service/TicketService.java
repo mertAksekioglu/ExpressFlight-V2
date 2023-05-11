@@ -3,9 +3,7 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.Seat;
 import com.expressflight.ExpressFlight.domain.Ticket;
 import com.expressflight.ExpressFlight.dto.TicketDTO;
-import com.expressflight.ExpressFlight.microservice.SeatAvailability;
 import com.expressflight.ExpressFlight.microservice.TicketBooker;
-import com.expressflight.ExpressFlight.repository.IPassengerRepository;
 import com.expressflight.ExpressFlight.repository.ISeatRepository;
 import com.expressflight.ExpressFlight.repository.ITicketRepository;
 import com.expressflight.ExpressFlight.serviceInterface.ITicketService;
@@ -41,23 +39,11 @@ public class TicketService implements ITicketService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private SeatAvailability seatAvailability;
-
-
-    @Autowired
     private TicketBooker ticketBooker;
-
 
 
     @Override
     public List<TicketDTO> getAllTickets() {
-
-        Seat seat = new Seat();
-        seat.setCode("1B");
-        ticketBooker.bookTicket(1L,"1B",1L);
-
-
-
 
         List<Ticket> tickets = ticketRepository.findAll();
         List<TicketDTO> ticketDtos = new ArrayList<>();
@@ -87,12 +73,9 @@ public class TicketService implements ITicketService {
     public TicketDTO addTicket(TicketDTO ticketDto) {
         Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
 
-        // Todo Code that finds the flight and seat of the ticketDTO then checks if the seat is free
 
-       /* if(seatAvailability.getSeatAvailability(ticket)) {
-            String seatCode = seatRepository.findById(ticket.getSeat()).get().getCode();
-            throw new IllegalStateException("Ticket with the seat " + seatCode + " is already booked.");
-        }*/
+        ticketBooker.getSeatAvailability(ticketDto.getFlight(),seatRepository.findById(ticketDto.getSeat()).get().getCode());
+
 
         ticketRepository.save(ticket);
         writer.write(ticketRepository,DATA_PATH,UPDATE_JSON);

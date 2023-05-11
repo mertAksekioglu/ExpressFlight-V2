@@ -5,6 +5,7 @@ import com.expressflight.ExpressFlight.domain.*;
 import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
 import com.expressflight.ExpressFlight.repository.*;
 import com.expressflight.ExpressFlight.service.FlightService;
+import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
 import com.google.gson.*;
 import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
 import com.expressflight.ExpressFlight.deserializer.LocalDateTimeDeserializer;
@@ -22,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.List;
 
 
 @Service
@@ -69,6 +70,11 @@ public class AppConfig {
 
     String resource_path = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\";
 
+    @Autowired
+    IPlaneRepository planeRepository;
+
+    @Autowired
+    SeatMapFactory seatMapFactory;
 
     @Bean
     CommandLineRunner commandLineRunner(IPlaneRepository planeRepo,
@@ -85,7 +91,7 @@ public class AppConfig {
 
 
         return args -> {
-           populator.populateRepo(planeRepo, resource_path + "data/plane_data.json", Plane[].class,gson);
+           populator.populateRepo(planeRepository, resource_path + "data/plane_data.json", Plane[].class,gson);
             populator.populateRepo(airportRepo, resource_path + "data/airport_data.json", Airport[].class,gson);
             populator.populateRepo(flightRepo, resource_path + "data/flight_data.json", Flight[].class,gson);
             populator.populateRepo(connectedFlightRepo,
@@ -94,6 +100,15 @@ public class AppConfig {
                     resource_path + "data/seat_configuration_data.json", SeatConfiguration[].class,gson);
             populator.populateRepo(passengerRepository, resource_path + "data/passenger_data.json", Passenger[].class,gson);
 
+
+
+
+            List<SeatConfiguration> unconfiguredSeatConfigs = seatConfigurationRepository.findByIsConfigured(false);
+            for (SeatConfiguration seatConfig : unconfiguredSeatConfigs)
+            {
+                seatConfig.setSeatMap(seatMapFactory.createSeatMap(seatConfig.getConfigName()).mapSeats());
+                seatConfig.setIsConfigured(true);
+            }
 
 
         };

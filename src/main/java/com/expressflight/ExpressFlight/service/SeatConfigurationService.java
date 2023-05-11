@@ -54,6 +54,23 @@ public class SeatConfigurationService implements ISeatConfigurationService {
 
         return seatConfigurationDtos;
     }
+
+    @Override
+    public List<SeatConfigurationDTO> getAllUnconfiguredSeatConfigurations() {
+        List<SeatConfiguration> seatConfigurations = seatConfigurationRepository.findByIsConfigured(false);
+        List<SeatConfigurationDTO> seatConfigurationDtos = new ArrayList<>();
+
+        for (SeatConfiguration seatConfiguration : seatConfigurations) {
+            SeatConfigurationDTO seatConfigurationDto = modelMapper.map(seatConfiguration, SeatConfigurationDTO.class);
+            seatConfigurationDtos.add(seatConfigurationDto);
+        }
+
+        return seatConfigurationDtos;
+    }
+
+
+
+
     @Override
     public SeatConfigurationDTO getSeatConfiguration(Long seatConfigurationId) {
         Optional<SeatConfiguration> seatConfiguration = seatConfigurationRepository.findById(seatConfigurationId);

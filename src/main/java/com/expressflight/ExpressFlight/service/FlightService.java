@@ -52,7 +52,7 @@ public class FlightService implements IFlightService {
 
     @Override
     public List<FlightDTO> getAllFlights() {
-        seatConfigurationService.configureSeatConfiguration(1L);
+        //seatConfigurationService.configureSeatConfiguration(1L);
         List<Flight> flights = flightRepository.findAll();
         List<FlightDTO> flightDtos = new ArrayList<>();
         for (Flight existingFlight : flights)

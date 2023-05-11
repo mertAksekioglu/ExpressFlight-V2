@@ -7,6 +7,8 @@ import java.util.List;
 public interface ISeatConfigurationService {
 
     public List<SeatConfigurationDTO> getAllSeatConfigurations();
+
+    public List<SeatConfigurationDTO> getAllUnconfiguredSeatConfigurations();
     public SeatConfigurationDTO getSeatConfiguration(Long seatConfigurationId);
     public SeatConfigurationDTO getSeatConfigurationByConfigName(String seatConfigurationConfigName);
     public SeatConfigurationDTO addSeatConfiguration(SeatConfigurationDTO seatConfiguration);
