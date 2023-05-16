@@ -24,7 +24,6 @@ public interface IFlightService {
 
     public FlightDTO configureFlightSeats(Flight flight);
 
-    public void updateJsonDatabase();
 
 
 }

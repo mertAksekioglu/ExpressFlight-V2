@@ -20,16 +20,9 @@ import java.util.Optional;
 @Service
 public class SeatService implements ISeatService {
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\seat_data.json";
-    private final boolean UPDATE_JSON = false;
-
     @Autowired
     private ISeatRepository seatRepository;
 
-    @Autowired
-    private Gson gson;
-    @Autowired
-    private IWriter writer;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -82,9 +75,8 @@ public class SeatService implements ISeatService {
             throw new IllegalStateException("Seat with the code " + seat.getCode() + "already exists.");
         }
         */
-
         seatRepository.save(seat);
-        writer.write(seatRepository, DATA_PATH,UPDATE_JSON);
+
         SeatDTO returningSeatDto = modelMapper.map(seat, SeatDTO.class);
         return returningSeatDto;
     }
@@ -96,7 +88,6 @@ public class SeatService implements ISeatService {
             throw new IllegalStateException("Seat with the id " + seatId + " does not exist");
         }
         seatRepository.deleteById(seatId);
-        writer.write(seatRepository, DATA_PATH, UPDATE_JSON);
         SeatDTO returningSeatDto = modelMapper.map(seat.get(), SeatDTO.class);
         return returningSeatDto;
     }
@@ -119,7 +110,6 @@ public class SeatService implements ISeatService {
             existingSeat.get().setStatus(seatDto.getStatus());
         }
 
-        writer.write(seatRepository, DATA_PATH, UPDATE_JSON);
         SeatDTO returningSeatDto = modelMapper.map(existingSeat.get(), SeatDTO.class);
         return returningSeatDto;
 

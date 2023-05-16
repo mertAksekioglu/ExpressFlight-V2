@@ -18,16 +18,10 @@ import java.util.Optional;
 @Service
 public class AirportService implements IAirportService {
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\airport_data.json";
-    private final boolean UPDATE_JSON = false;
-
     @Autowired
     private IAirportRepository airportRepository;
 
-    @Autowired
-    private Gson gson;
-    @Autowired
-    private IWriter writer;
+
 
     @Autowired
     private ModelMapper modelMapper;
@@ -76,7 +70,7 @@ public class AirportService implements IAirportService {
             throw new IllegalStateException("Airport with code " + airport.getCodeIATA() + " already exists.");
         }
         airportRepository.save(airport);
-        writer.write(airportRepository,DATA_PATH,UPDATE_JSON);
+
         AirportDTO returningAirportDto = modelMapper.map(airport, AirportDTO.class);
         return returningAirportDto;
 
@@ -90,7 +84,7 @@ public class AirportService implements IAirportService {
         }
 
         airportRepository.deleteById(airportId);
-        writer.write(airportRepository,DATA_PATH,UPDATE_JSON);
+
         AirportDTO returningAirportDto = modelMapper.map(airport.get(), AirportDTO.class);
         return returningAirportDto;
     }
@@ -120,7 +114,7 @@ public class AirportService implements IAirportService {
             existingAirport.get().setTerminalCount(airport.getTerminalCount());
         }
 
-        writer.write(airportRepository,DATA_PATH,UPDATE_JSON);
+
         AirportDTO returningAirportDto = modelMapper.map(existingAirport.get(), AirportDTO.class);
         return returningAirportDto;
     }

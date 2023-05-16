@@ -21,16 +21,11 @@ import java.util.Optional;
 @Service
 public class SeatConfigurationService implements ISeatConfigurationService {
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\seat_configuration_data.json";
-    private final boolean UPDATE_JSON = false;
+
 
     @Autowired
     private ISeatConfigurationRepository seatConfigurationRepository;
 
-    @Autowired
-    private Gson gson;
-    @Autowired
-    private IWriter writer;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -103,7 +98,7 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             throw new IllegalStateException("SeatConfiguration with the code " + seatConfiguration.getConfigName() + "already exists.");
         }
         seatConfigurationRepository.save(seatConfiguration);
-        writer.write(seatConfigurationRepository, DATA_PATH,UPDATE_JSON);
+
         SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(seatConfiguration, SeatConfigurationDTO.class);
         return returningSeatConfigurationDto;
     }
@@ -115,7 +110,7 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             throw new IllegalStateException("SeatConfiguration with the id " + seatConfigurationId + " does not exist");
         }
         seatConfigurationRepository.deleteById(seatConfigurationId);
-        writer.write(seatConfigurationRepository, DATA_PATH, UPDATE_JSON);
+
         SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(seatConfiguration.get(), SeatConfigurationDTO.class);
         return returningSeatConfigurationDto;
     }
@@ -141,7 +136,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             existingSeatConfiguration.get().setSeatMap(seatConfigurationDto.getSeatMap());
         }
 
-        writer.write(seatConfigurationRepository, DATA_PATH, UPDATE_JSON);
         SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(existingSeatConfiguration.get(), SeatConfigurationDTO.class);
         return returningSeatConfigurationDto;
 

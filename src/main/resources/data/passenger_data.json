@@ -8,6 +8,16 @@
     "gender": "Gender.MALE",
     "age": 56,
     "dateOfBirth" : "2023-01-01"
+  },
+  {
+    "id": 2,
+    "name": "Pompeius",
+    "surname" : "Magnus",
+    "email" : "pm@gmail.com",
+    "phone" : "+90 507 570 57 57",
+    "gender": "Gender.MALE",
+    "age": 57,
+    "dateOfBirth" : "2023-01-02"
   }
 
 ]

@@ -14,15 +14,12 @@ import org.springframework.stereotype.Service;
 public class SunExpress7378HC implements ISeatMapper {
 
 
-    @Autowired
-    SeatService seatService;
 
     @Autowired
     ISeatRepository seatRepository;
 
 
-    @Autowired
-    ModelMapper modelMapper;
+
 
     @Override
     public Seat[][] mapSeats() {

@@ -21,8 +21,6 @@ import java.util.Optional;
 @Service
 public class TicketService implements ITicketService {
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\ticket_data.json";
-    private final boolean UPDATE_JSON = false;
 
     @Autowired
     private ITicketRepository ticketRepository;
@@ -30,10 +28,6 @@ public class TicketService implements ITicketService {
     @Autowired
     private ISeatRepository seatRepository;
 
-    @Autowired
-    private Gson gson;
-    @Autowired
-    private IWriter writer;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -78,7 +72,7 @@ public class TicketService implements ITicketService {
 
 
         ticketRepository.save(ticket);
-        writer.write(ticketRepository,DATA_PATH,UPDATE_JSON);
+
         TicketDTO returningTicketDto = modelMapper.map(ticket, TicketDTO.class);
         return returningTicketDto;
 
@@ -92,7 +86,7 @@ public class TicketService implements ITicketService {
         }
 
         ticketRepository.deleteById(ticketId);
-        writer.write(ticketRepository,DATA_PATH,UPDATE_JSON);
+
         TicketDTO returningTicketDto = modelMapper.map(ticket.get(), TicketDTO.class);
         return returningTicketDto;
     }
@@ -118,7 +112,6 @@ public class TicketService implements ITicketService {
             existingTicket.get().setTicketType(ticket.getTicketType());
         }
 
-        writer.write(ticketRepository,DATA_PATH,UPDATE_JSON);
         TicketDTO returningTicketDto = modelMapper.map(existingTicket.get(), TicketDTO.class);
         return returningTicketDto;
     }

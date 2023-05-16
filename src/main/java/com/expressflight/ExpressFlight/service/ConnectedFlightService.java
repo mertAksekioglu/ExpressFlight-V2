@@ -24,20 +24,11 @@ import java.util.Optional;
 public class ConnectedFlightService implements IConnectedFlightService {
 
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\connected_flight_data.json";
-    private final boolean UPDATE_JSON = false;
-
     @Autowired
     private IConnectedFlightRepository connectedFlightRepository;
 
     @Autowired
     private IFlightRepository flightRepository;
-
-    @Autowired
-    private Gson gson;
-
-    @Autowired
-    private IWriter writer;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -104,7 +95,7 @@ public class ConnectedFlightService implements IConnectedFlightService {
             throw new IllegalStateException("ConnectedFlight with the id " + connectedFlight.getId()  + "already exists.");
         }
         connectedFlightRepository.save(connectedFlight);
-        writer.write(connectedFlightRepository, DATA_PATH,UPDATE_JSON);
+
         ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(connectedFlight, ConnectedFlightDTO.class);
         return returningConnectedFlightDto;
 
@@ -117,7 +108,7 @@ public class ConnectedFlightService implements IConnectedFlightService {
             throw new IllegalStateException("ConnectedFlight with the id " + connectedFlightId + " does not exist");
         }
         connectedFlightRepository.deleteById(connectedFlightId);
-        writer.write(connectedFlightRepository, DATA_PATH,UPDATE_JSON);
+
 
 
         ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(connectedFlight.get(), ConnectedFlightDTO.class);
@@ -145,7 +136,7 @@ public class ConnectedFlightService implements IConnectedFlightService {
             existingConnectedFlight.get().setLayoverMinutes(connectedFlight.getLayoverMinutes());
         }
 
-        writer.write(connectedFlightRepository, DATA_PATH,UPDATE_JSON);
+
         ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(existingConnectedFlight.get(), ConnectedFlightDTO.class);
         return returningConnectedFlightDto;
 

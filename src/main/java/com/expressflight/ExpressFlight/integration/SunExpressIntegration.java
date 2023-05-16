@@ -1,5 +1,6 @@
 package com.expressflight.ExpressFlight.integration;
 
+import com.expressflight.ExpressFlight.provider.IProvider;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
@@ -24,27 +25,20 @@ import java.util.Arrays;
 @Component
 public class SunExpressIntegration implements IIntegration {
 
-    @Autowired
-    private SunExpressFlightProvider sunExpressFlightProvider;
-    private SunExpressFlightDTO[] SunExpressFlights;
+    private final DateTimeFormatter dd_mm_yyyy = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
 
-    DateTimeFormatter dd_mm_yyyy = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
     private String jsonString;
-
+    private SunExpressFlightDTO[] SunExpressFlights;
     private Gson gson;
-
-    @Autowired
-    ModelMapper modelMapper;
-
-    @Autowired
+    private IProvider sunExpressFlightProvider;
     private FlightService flightService;
+    private IMapper mapper;
 
-    @Autowired
-    private IMapper m;
-
-    public SunExpressIntegration() {
-
+    public SunExpressIntegration(IProvider sunExpressFlightProvider,FlightService flightService,IMapper mapper) {
+        this.sunExpressFlightProvider = sunExpressFlightProvider;
+        this.flightService = flightService;
+        this.mapper = mapper;
         this.gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateSerializer(dd_mm_yyyy))
                 .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer(dd_mm_yyyy))
@@ -55,9 +49,7 @@ public class SunExpressIntegration implements IIntegration {
 
     @Override
     public void getData() {
-
         jsonString = sunExpressFlightProvider.getData();
-
     }
 
     @Override
@@ -65,7 +57,7 @@ public class SunExpressIntegration implements IIntegration {
         var gson = this.gson;
         SunExpressFlights = gson.fromJson(jsonString, SunExpressFlightDTO[].class);
         for (int i = 0; i < SunExpressFlights.length; i++) {
-            FlightDTO flightDto = (FlightDTO) m.map(SunExpressFlights[i],null);
+            FlightDTO flightDto = (FlightDTO) mapper.map(SunExpressFlights[i],null);
             System.out.println(flightDto);
             flightService.addFlight(flightDto);
         }

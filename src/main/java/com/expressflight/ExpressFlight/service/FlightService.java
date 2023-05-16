@@ -27,8 +27,6 @@ import java.util.Optional;
 @Service
 public class FlightService implements IFlightService {
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\flight_data.json";
-    private final boolean UPDATE_JSON = false;
 
     @Autowired
     private IFlightRepository flightRepository;
@@ -39,10 +37,6 @@ public class FlightService implements IFlightService {
     @Autowired
     private SeatConfigurationService seatConfigurationService;
 
-    @Autowired
-    private Gson gson;
-    @Autowired
-    private IWriter writer;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -113,7 +107,7 @@ public class FlightService implements IFlightService {
     public FlightDTO addFlight(FlightDTO flightDto) {
         Flight flight = modelMapper.map(flightDto,Flight.class);
         flightRepository.save(flight);
-        updateJsonDatabase();
+
         return convertFlightToDTO(flight);
     }
 
@@ -122,7 +116,7 @@ public class FlightService implements IFlightService {
     public FlightDTO deleteFlight(Long flightId) {
         checkFlightExistence(flightId);
         flightRepository.deleteById(flightId);
-        updateJsonDatabase();
+
         return convertFlightToDTO(flightRepository.findById(flightId).get());
     }
 
@@ -158,7 +152,6 @@ public class FlightService implements IFlightService {
             existingFlight.get().setSeatConfig(flight.getSeatConfig());
         }
 
-        updateJsonDatabase();
         return convertFlightToDTO(existingFlight.get());
     }
 
@@ -204,11 +197,6 @@ public class FlightService implements IFlightService {
         return null;
     }
 
-
-    @Override
-    public void updateJsonDatabase() {
-        writer.write(flightRepository, DATA_PATH, UPDATE_JSON);
-    }
 
 
     public void checkFlightExistence(Long flightId) {

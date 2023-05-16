@@ -19,16 +19,11 @@ import java.util.Optional;
 @Service
 public class PassengerService implements IPassengerService {
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\passenger_data.json";
-    private final boolean UPDATE_JSON = false;
+
 
     @Autowired
     private IPassengerRepository passengerRepository;
 
-    @Autowired
-    private Gson gson;
-    @Autowired
-    private IWriter writer;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -74,7 +69,6 @@ public class PassengerService implements IPassengerService {
         */
 
         passengerRepository.save(passenger);
-        writer.write(passengerRepository, DATA_PATH,UPDATE_JSON);
         PassengerDTO returningPassengerDto = modelMapper.map(passenger, PassengerDTO.class);
         return returningPassengerDto;
     }
@@ -86,7 +80,6 @@ public class PassengerService implements IPassengerService {
             throw new IllegalStateException("Passenger with the id " + passengerId + " does not exist");
         }
         passengerRepository.deleteById(passengerId);
-        writer.write(passengerRepository, DATA_PATH, UPDATE_JSON);
         PassengerDTO returningPassengerDto = modelMapper.map(passenger.get(), PassengerDTO.class);
         return returningPassengerDto;
     }
@@ -122,7 +115,6 @@ public class PassengerService implements IPassengerService {
         }
 
 
-        writer.write(passengerRepository, DATA_PATH, UPDATE_JSON);
         PassengerDTO returningPassengerDto = modelMapper.map(existingPassenger.get(), PassengerDTO.class);
         return returningPassengerDto;
 

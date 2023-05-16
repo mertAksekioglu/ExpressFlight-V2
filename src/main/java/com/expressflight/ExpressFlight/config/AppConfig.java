@@ -2,7 +2,9 @@ package com.expressflight.ExpressFlight.config;
 
 
 import com.expressflight.ExpressFlight.domain.*;
+import com.expressflight.ExpressFlight.integration.IIntegration;
 import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
+import com.expressflight.ExpressFlight.microservice.TicketBooker;
 import com.expressflight.ExpressFlight.repository.*;
 import com.expressflight.ExpressFlight.service.FlightService;
 import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
@@ -30,12 +32,41 @@ import java.util.List;
 @Configuration
 public class AppConfig {
 
+    private final DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+    private final DateTimeFormatter yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    private final DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
+    private final String resource_path = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\";
 
-    private DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-    private DateTimeFormatter yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private IPlaneRepository planeRepository;
+    private IAirportRepository airportRepository;
+    private IFlightRepository flightRepository;
+    private IConnectedFlightRepository connectedFlightRepository;
+    private ISeatConfigurationRepository seatConfigurationRepository;
+    private IPassengerRepository passengerRepository;
+    private SeatMapFactory seatMapFactory;
+    private JPARepoPopulator populator;
+    private SunExpressFlightIntegrationService sunExpressFlightIntegrationService;
+    private TicketBooker ticketBooker;
 
-    private DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
+    public AppConfig(JPARepoPopulator populator, IPlaneRepository planeRepository, IAirportRepository airportRepository,
+                     IFlightRepository flightRepository, IConnectedFlightRepository connectedFlightRepository,
+                     ISeatConfigurationRepository seatConfigurationRepository, IPassengerRepository passengerRepository,
+                     SeatMapFactory seatMapFactory, SunExpressFlightIntegrationService sunExpressFlightIntegrationService,
+                     TicketBooker ticketBooker) {
+
+        this.populator = populator;
+        this.planeRepository = planeRepository;
+        this.airportRepository = airportRepository;
+        this.flightRepository = flightRepository;
+        this.connectedFlightRepository = connectedFlightRepository;
+        this.seatConfigurationRepository = seatConfigurationRepository;
+        this.passengerRepository = passengerRepository;
+        this.seatMapFactory = seatMapFactory;
+        this.sunExpressFlightIntegrationService = sunExpressFlightIntegrationService;
+        this.ticketBooker = ticketBooker;
+    }
+
     @Bean
     public Gson gson() {
         return new GsonBuilder()
@@ -51,7 +82,6 @@ public class AppConfig {
         return new ModelMapper();
     }
 
-
     @Bean
     public JPARepoPopulator jpaRepoPopulator() {
         var gson = gson();
@@ -62,57 +92,54 @@ public class AppConfig {
     public RestTemplate restTemplate() {return new RestTemplate();}
 
 
-    @Autowired
-    JPARepoPopulator populator;
-
-    /*@Autowired
-    SunExpressFlightIntegrationService sunExpressFlightIntegrationService;*/
-
-    String resource_path = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\";
-
-    @Autowired
-    IPlaneRepository planeRepository;
-
-    @Autowired
-    SeatMapFactory seatMapFactory;
-
     @Bean
     CommandLineRunner commandLineRunner(IPlaneRepository planeRepo,
                                         IAirportRepository airportRepo,
                                         IFlightRepository flightRepo,
                                         IConnectedFlightRepository connectedFlightRepo,
-                                        ISeatConfigurationRepository seatConfigurationRepository,
-                                        IPassengerRepository passengerRepository,
+                                        ISeatConfigurationRepository seatConfigurationRepo,
+                                        IPassengerRepository passengerRepo,
                                         Gson gson) {
 
-
-
-        // TODO Burada Repo değil de service ile çalışan bir populator lazım
-
-
         return args -> {
-           populator.populateRepo(planeRepository, resource_path + "data/plane_data.json", Plane[].class,gson);
-            populator.populateRepo(airportRepo, resource_path + "data/airport_data.json", Airport[].class,gson);
-            populator.populateRepo(flightRepo, resource_path + "data/flight_data.json", Flight[].class,gson);
-            populator.populateRepo(connectedFlightRepo,
-                    resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
-            populator.populateRepo(seatConfigurationRepository,
-                    resource_path + "data/seat_configuration_data.json", SeatConfiguration[].class,gson);
-            populator.populateRepo(passengerRepository, resource_path + "data/passenger_data.json", Passenger[].class,gson);
-
-
-
-
-            List<SeatConfiguration> unconfiguredSeatConfigs = seatConfigurationRepository.findByIsConfigured(false);
-            for (SeatConfiguration seatConfig : unconfiguredSeatConfigs)
-            {
-                seatConfig.setSeatMap(seatMapFactory.createSeatMap(seatConfig.getConfigName()).mapSeats());
-                seatConfig.setIsConfigured(true);
-            }
-
-
+            populateAllRepositories(gson);
+            doAllFlightIntegrations();
+            configureAllFlightSeatConfigs();
+            bookExampleTickets();
         };
     }
+
+
+
+    public List<SeatConfiguration> configureAllFlightSeatConfigs() {
+        List<SeatConfiguration> unconfiguredSeatConfigs = seatConfigurationRepository.findByIsConfigured(false);
+        for (SeatConfiguration seatConfig : unconfiguredSeatConfigs)
+        {
+            seatConfig.setSeatMap(seatMapFactory.createSeatMap(seatConfig.getConfigName()).mapSeats());
+            seatConfig.setIsConfigured(true);
+        }
+        return unconfiguredSeatConfigs;
+    }
+
+    public void populateAllRepositories(Gson gson) {
+        populator.populateRepo(planeRepository, resource_path + "data/plane_data.json", Plane[].class,gson);
+        populator.populateRepo(airportRepository, resource_path + "data/airport_data.json", Airport[].class,gson);
+        populator.populateRepo(flightRepository, resource_path + "data/flight_data.json", Flight[].class,gson);
+        populator.populateRepo(connectedFlightRepository, resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
+        populator.populateRepo(seatConfigurationRepository, resource_path + "data/seat_configuration_data.json", SeatConfiguration[].class,gson);
+        populator.populateRepo(passengerRepository, resource_path + "data/passenger_data.json", Passenger[].class,gson);
+
+    }
+
+    public void doAllFlightIntegrations() {
+        sunExpressFlightIntegrationService.integrate();
+    }
+
+    public void bookExampleTickets() {
+        ticketBooker.bookTicket(1L,"1A",1L);
+        ticketBooker.bookTicket(1L,"1C",2L);
+    }
+
 
 
 }

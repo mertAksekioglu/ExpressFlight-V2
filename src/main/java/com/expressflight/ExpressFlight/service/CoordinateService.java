@@ -19,16 +19,10 @@ import java.util.Optional;
 @Service
 public class CoordinateService implements ICoordinateService {
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\coordinate_data.json";
-    private final boolean UPDATE_JSON = false;
 
     @Autowired
     private ICoordinateRepository coordinateRepository;
 
-    @Autowired
-    private Gson gson;
-    @Autowired
-    private IWriter writer;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -70,7 +64,7 @@ public class CoordinateService implements ICoordinateService {
         // TODO if true then write a coordinate uniqueness checker
 
         coordinateRepository.save(coordinate);
-        writer.write(coordinateRepository, DATA_PATH,UPDATE_JSON);
+
         CoordinateDTO returningCoordinateDto = modelMapper.map(coordinate, CoordinateDTO.class);
         return returningCoordinateDto;
     }
@@ -82,7 +76,7 @@ public class CoordinateService implements ICoordinateService {
             throw new IllegalStateException("Coordinate with the id " + coordinateId + " does not exist");
         }
         coordinateRepository.deleteById(coordinateId);
-        writer.write(coordinateRepository, DATA_PATH, UPDATE_JSON);
+
         CoordinateDTO returningCoordinateDto = modelMapper.map(coordinate.get(), CoordinateDTO.class);
         return returningCoordinateDto;
     }
@@ -102,7 +96,7 @@ public class CoordinateService implements ICoordinateService {
             existingCoordinate.get().setLongitude(coordinateDto.getLongitude());
         }
 
-        writer.write(coordinateRepository, DATA_PATH, UPDATE_JSON);
+
         CoordinateDTO returningCoordinateDto = modelMapper.map(existingCoordinate.get(), CoordinateDTO.class);
         return returningCoordinateDto;
 

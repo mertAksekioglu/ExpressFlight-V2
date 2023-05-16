@@ -19,16 +19,12 @@ import java.util.Optional;
 @Service
 public class PlaneService implements IPlaneService {
 
-    private final String DATA_PATH = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\plane_data.json";
-    private final boolean UPDATE_JSON = false;
+
 
     @Autowired
     private IPlaneRepository planeRepository;
 
-    @Autowired
-    private Gson gson;
-    @Autowired
-    private IWriter writer;
+
 
     @Autowired
     private ModelMapper modelMapper;
@@ -83,7 +79,6 @@ public class PlaneService implements IPlaneService {
             throw new IllegalStateException("Plane with the code " + plane.getCode() + "already exists.");
         }
         planeRepository.save(plane);
-        writer.write(planeRepository, DATA_PATH,UPDATE_JSON);
         PlaneDTO returningPlaneDto = modelMapper.map(plane, PlaneDTO.class);
         return returningPlaneDto;
     }
@@ -95,7 +90,6 @@ public class PlaneService implements IPlaneService {
             throw new IllegalStateException("Plane with the id " + planeId + " does not exist");
         }
         planeRepository.deleteById(planeId);
-        writer.write(planeRepository, DATA_PATH, UPDATE_JSON);
         PlaneDTO returningPlaneDto = modelMapper.map(plane.get(), PlaneDTO.class);
         return returningPlaneDto;
     }
@@ -118,7 +112,6 @@ public class PlaneService implements IPlaneService {
             existingPlane.get().setYearOfProduction(planeDto.getYearOfProduction());
         }
 
-        writer.write(planeRepository, DATA_PATH, UPDATE_JSON);
         PlaneDTO returningPlaneDto = modelMapper.map(existingPlane.get(), PlaneDTO.class);
         return returningPlaneDto;
 
