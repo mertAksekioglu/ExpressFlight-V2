@@ -1,6 +1,7 @@
 package com.expressflight.ExpressFlight.integration;
 
 import com.expressflight.ExpressFlight.provider.IProvider;
+import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
@@ -32,10 +33,10 @@ public class SunExpressIntegration implements IIntegration {
     private SunExpressFlightDTO[] SunExpressFlights;
     private Gson gson;
     private IProvider sunExpressFlightProvider;
-    private FlightService flightService;
+    private IFlightService flightService;
     private IMapper mapper;
 
-    public SunExpressIntegration(IProvider sunExpressFlightProvider,FlightService flightService,IMapper mapper) {
+    public SunExpressIntegration(IProvider sunExpressFlightProvider,IFlightService flightService,IMapper mapper) {
         this.sunExpressFlightProvider = sunExpressFlightProvider;
         this.flightService = flightService;
         this.mapper = mapper;

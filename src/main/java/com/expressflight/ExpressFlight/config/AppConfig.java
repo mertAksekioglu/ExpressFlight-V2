@@ -46,14 +46,11 @@ public class AppConfig {
     private IPassengerRepository passengerRepository;
     private SeatMapFactory seatMapFactory;
     private JPARepoPopulator populator;
-    private SunExpressFlightIntegrationService sunExpressFlightIntegrationService;
-    private TicketBooker ticketBooker;
 
     public AppConfig(JPARepoPopulator populator, IPlaneRepository planeRepository, IAirportRepository airportRepository,
                      IFlightRepository flightRepository, IConnectedFlightRepository connectedFlightRepository,
                      ISeatConfigurationRepository seatConfigurationRepository, IPassengerRepository passengerRepository,
-                     SeatMapFactory seatMapFactory, SunExpressFlightIntegrationService sunExpressFlightIntegrationService,
-                     TicketBooker ticketBooker) {
+                     SeatMapFactory seatMapFactory) {
 
         this.populator = populator;
         this.planeRepository = planeRepository;
@@ -63,8 +60,6 @@ public class AppConfig {
         this.seatConfigurationRepository = seatConfigurationRepository;
         this.passengerRepository = passengerRepository;
         this.seatMapFactory = seatMapFactory;
-        this.sunExpressFlightIntegrationService = sunExpressFlightIntegrationService;
-        this.ticketBooker = ticketBooker;
     }
 
     @Bean
@@ -99,13 +94,14 @@ public class AppConfig {
                                         IConnectedFlightRepository connectedFlightRepo,
                                         ISeatConfigurationRepository seatConfigurationRepo,
                                         IPassengerRepository passengerRepo,
+                                        SunExpressFlightIntegrationService sunExpressFlightIntegrationService,
+                                        TicketBooker ticketBooker,
                                         Gson gson) {
 
         return args -> {
             populateAllRepositories(gson);
-            doAllFlightIntegrations();
-            configureAllFlightSeatConfigs();
-            bookExampleTickets();
+            //doAllFlightIntegrations(sunExpressFlightIntegrationService);
+            //bookExampleTickets(ticketBooker);
         };
     }
 
@@ -131,11 +127,11 @@ public class AppConfig {
 
     }
 
-    public void doAllFlightIntegrations() {
+    public void doAllFlightIntegrations(SunExpressFlightIntegrationService sunExpressFlightIntegrationService) {
         sunExpressFlightIntegrationService.integrate();
     }
 
-    public void bookExampleTickets() {
+    public void bookExampleTickets(TicketBooker ticketBooker) {
         ticketBooker.bookTicket(1L,"1A",1L);
         ticketBooker.bookTicket(1L,"1C",2L);
     }

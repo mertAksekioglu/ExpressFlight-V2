@@ -17,4 +17,6 @@ public interface ISeatConfigurationService {
 
     public SeatConfigurationDTO configureSeatConfiguration(Long seatConfigurationId);
 
+    public List<SeatConfigurationDTO> configureAllUnconfiguredSeatConfigurations();
+
 }

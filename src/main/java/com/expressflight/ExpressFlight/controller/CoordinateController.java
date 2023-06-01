@@ -45,7 +45,4 @@ public class CoordinateController {
     public CoordinateDTO updateCoordinate(@RequestBody CoordinateDTO coordinateDto, @RequestParam(value = "id") Long coordinateId) {
         return coordinateService.updateCoordinate(coordinateDto, coordinateId);
     }
-
-
-
 }

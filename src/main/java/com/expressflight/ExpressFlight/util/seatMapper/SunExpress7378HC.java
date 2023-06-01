@@ -18,9 +18,6 @@ public class SunExpress7378HC implements ISeatMapper {
     @Autowired
     ISeatRepository seatRepository;
 
-
-
-
     @Override
     public Seat[][] mapSeats() {
         Seat[][] seats = new Seat[32][6];

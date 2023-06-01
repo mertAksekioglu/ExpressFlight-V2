@@ -14,8 +14,13 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class AirportController {
 
-    @Autowired
+
     private IAirportService airportService;
+
+    public AirportController(IAirportService airportService) {
+        this.airportService = airportService;
+    }
+
 
     @GetMapping
     public List<AirportDTO> getAllAirports() {
@@ -46,6 +51,4 @@ public class AirportController {
     public AirportDTO updateAirport(@RequestBody AirportDTO airportDto, @RequestParam(value = "id") Long airportId) {
         return airportService.updateAirport(airportDto, airportId);
     }
-
-
 }

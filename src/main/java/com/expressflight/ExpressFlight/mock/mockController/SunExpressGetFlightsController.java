@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 public class SunExpressGetFlightsController {
 
-    @Autowired
+
     SunExpressGetFlightsService sunExpressGetFlightsService;
+
+    public SunExpressGetFlightsController(SunExpressGetFlightsService sunExpressGetFlightsService) {
+        this.sunExpressGetFlightsService = sunExpressGetFlightsService;
+    }
 
     @GetMapping
     public String getFlights() {

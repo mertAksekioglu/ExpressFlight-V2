@@ -16,8 +16,12 @@ import java.util.List;
 public class ConnectedFlightController {
 
 
-    @Autowired
+
     private IConnectedFlightService connectedFlightService;
+
+    public ConnectedFlightController(IConnectedFlightService connectedFlightService) {
+        this.connectedFlightService = connectedFlightService;
+    }
 
     @Autowired
     public ConnectedFlightController(ConnectedFlightService connectedFlightService) {
@@ -53,8 +57,4 @@ public class ConnectedFlightController {
     public ConnectedFlightDTO updateConnectedFlight(@RequestBody ConnectedFlightDTO connectedFlightDto, @RequestParam(value = "id") Long connectedFlightId) {
         return connectedFlightService.updateConnectedFlight(connectedFlightDto, connectedFlightId);
     }
-
-
-
-
 }

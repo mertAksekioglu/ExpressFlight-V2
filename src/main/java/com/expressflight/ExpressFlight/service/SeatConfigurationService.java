@@ -156,10 +156,28 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             seatConfig.setIsConfigured(true);
         }
 
-
-        //flight.getSeatConfig().getConfigName()).mapSeats()
-        return null;
+        SeatConfigurationDTO returningSeatConfigurationDTO = modelMapper.map(seatConfig,SeatConfigurationDTO.class);
+        return returningSeatConfigurationDTO;
     }
+
+    @Override
+    @Transactional
+    public List<SeatConfigurationDTO> configureAllUnconfiguredSeatConfigurations() {
+
+        List<SeatConfiguration> unconfiguredConfigurations = seatConfigurationRepository.findByIsConfigured(false);
+        List<SeatConfigurationDTO> returningSeatConfigurationDtos = new ArrayList<>();
+        for (SeatConfiguration seatConfig : unconfiguredConfigurations) {
+            seatConfig.setSeatMap(seatMapFactory.createSeatMap(seatConfig.getConfigName()).mapSeats());
+            seatConfig.setIsConfigured(true);
+
+            SeatConfigurationDTO seatConfigurationDTO = modelMapper.map(seatConfig,SeatConfigurationDTO.class);
+            returningSeatConfigurationDtos.add(seatConfigurationDTO);
+        }
+
+        return returningSeatConfigurationDtos;
+    }
+
+
 
 
 

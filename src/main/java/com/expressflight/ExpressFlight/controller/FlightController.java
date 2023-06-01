@@ -19,8 +19,6 @@ public class FlightController {
     @Autowired
     private IFlightService flightService;
 
-    @Autowired
-    SunExpressFlightIntegrationService sunExpressFlightIntegrationService;
 
     @Autowired
     public FlightController(FlightService flightService) {
@@ -29,7 +27,7 @@ public class FlightController {
 
     @GetMapping
     public List<FlightDTO> getAllFlights() {
-        //sunExpressFlightIntegrationService.integrate();
+
         return flightService.getAllFlights();
     }
 
@@ -42,8 +40,6 @@ public class FlightController {
     public List<FlightDTO> searchFlight(@RequestBody FlightSearchRequestDTO flightSearchRequestDto) {
         return flightService.searchFlight(flightSearchRequestDto);
     }
-
-
 
     @PostMapping(value = "/add-flight")
     public FlightDTO addFlight(@RequestBody FlightDTO flightDto) {
@@ -59,8 +55,4 @@ public class FlightController {
     public FlightDTO updateFlight(@RequestBody FlightDTO flightDto, @RequestParam(value = "id") Long flightId) {
         return flightService.updateFlight(flightDto, flightId);
     }
-
-
-
-
 }

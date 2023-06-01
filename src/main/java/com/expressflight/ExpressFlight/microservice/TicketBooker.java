@@ -20,24 +20,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class TicketBooker {
 
-
-
-
-    @Autowired
     ITicketRepository ticketRepository;
-    @Autowired
     IFlightRepository flightRepository;
-
-    @Autowired
     ISeatConfigurationRepository seatConfigurationRepository;
-
-
-    @Autowired
     IPassengerRepository passengerRepository;
-
-    @Autowired
     ModelMapper modelMapper;
-
+    public TicketBooker(ITicketRepository ticketRepository, IFlightRepository flightRepository,
+                        ISeatConfigurationRepository seatConfigurationRepository, IPassengerRepository passengerRepository,
+                        ModelMapper modelMapper) {
+        this.ticketRepository = ticketRepository;
+        this.flightRepository = flightRepository;
+        this.seatConfigurationRepository = seatConfigurationRepository;
+        this.passengerRepository = passengerRepository;
+        this.modelMapper = modelMapper;
+    }
 
     public TicketDTO bookTicket(Long flightId, String seatCode, Long passengerId) {
 

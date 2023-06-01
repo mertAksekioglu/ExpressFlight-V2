@@ -15,13 +15,13 @@ import org.springframework.web.client.RestTemplate;
 @Getter
 @Setter
 @Service
-@Component
 public class SunExpressFlightProvider implements IProvider {
 
 
     String apiUrl = "http://localhost:8080/api/mock/flight";
     String jsonString;
 
+    @Autowired
     private RestTemplate restTemplate;
 
     public SunExpressFlightProvider(RestTemplate restTemplate) {
