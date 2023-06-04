@@ -14,15 +14,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 public class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
 
     private DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    public LocalDateDeserializer(DateTimeFormatter defaultFormatter) {
-        this.defaultFormatter = defaultFormatter;
-    }
 
     @Override
     public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)

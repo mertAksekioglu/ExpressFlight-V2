@@ -12,8 +12,6 @@ import java.util.Optional;
 @Service
 public interface ISeatConfigurationRepository extends JpaRepository<SeatConfiguration, Long> {
 
-
     Optional<SeatConfiguration> findByConfigName(String configName);
-
     List<SeatConfiguration> findByIsConfigured(Boolean isConfigured);
 }

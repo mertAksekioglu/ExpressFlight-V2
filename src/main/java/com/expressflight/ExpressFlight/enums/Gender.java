@@ -8,12 +8,11 @@ public enum Gender {
 
     public String[] shortNames = {"F", "M", "U"};
 
+    public void printGender() {
 
-    public void printStatus() {
+        for (int i = 0; i < Gender.values().length ; i++) {
 
-        for (int i = 0; i < SeatStatus.values().length ; i++) {
-
-            if(this.equals(SeatStatus.values()[i])) {
+            if(this.equals(Gender.values()[i])) {
                 System.out.print(shortNames[i]);
             }
 

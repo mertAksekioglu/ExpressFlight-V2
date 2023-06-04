@@ -18,7 +18,6 @@ import java.util.Arrays;
 @Entity
 public class SeatConfiguration implements Serializable {
 
-
     @Id
     @SequenceGenerator(
             name = "seat_configuration_sequence",
@@ -45,15 +44,13 @@ public class SeatConfiguration implements Serializable {
     @Column(name = "seat_map")
     private Seat[][] seatMap;
 
-
-
-    public SeatConfiguration(String configPlane, String configName, Boolean isConfigured, Seat[][] seatMap) {
+    public SeatConfiguration(String configPlane, String configName, Boolean isConfigured,
+                             Seat[][] seatMap) {
         this.configPlane = configPlane;
         this.configName = configName;
         this.isConfigured = isConfigured;
         this.seatMap = seatMap;
     }
-
 
     public SeatConfiguration(Long id, String configPlane, String configName, Boolean isConfigured) {
         this.id = id;
@@ -68,7 +65,6 @@ public class SeatConfiguration implements Serializable {
         this.configName = configName;
         this.isConfigured = isConfigured;
     }
-
 
     @Override
     public String toString() {

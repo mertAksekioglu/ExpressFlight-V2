@@ -27,21 +27,27 @@ public class Airport implements Serializable {
     )
     @Column(name = "id")
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "code_IATA")
     private String codeIATA;
+
     @Column(name = "code_ICAO")
     private String codeICAO;
+
     @Column(name = "location")
     private Coordinate location;
+
     @Column(name = "terminal_count")
     private Integer terminalCount;
+
     @Column(name = "runway_count")
     private Integer runwayCount;
 
-
-    public Airport(String name, String codeIATA, String codeICAO, Coordinate location, Integer terminalCount, Integer runwayCount) {
+    public Airport(String name, String codeIATA, String codeICAO, Coordinate location,
+                   Integer terminalCount, Integer runwayCount) {
         this.name = name;
         this.codeIATA = codeIATA;
         this.codeICAO = codeICAO;
@@ -49,7 +55,6 @@ public class Airport implements Serializable {
         this.terminalCount = terminalCount;
         this.runwayCount = runwayCount;
     }
-
 
     @Override
     public String toString() {

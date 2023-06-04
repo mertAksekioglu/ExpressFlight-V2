@@ -19,8 +19,6 @@ public class LocalTimeSerializer implements JsonSerializer<LocalTime> {
 
     private DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-
-
     @Override
     public JsonElement serialize(LocalTime localTime, Type srcType, JsonSerializationContext context) {
         return new JsonPrimitive(defaultFormatter.format(localTime));

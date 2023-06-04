@@ -7,14 +7,13 @@ public enum TicketType {
     CHILD,
     INFANT;
 
-
     public String[] shortNames = {" ", "A","C","I"};
 
     public void printType() {
 
-        for (int i = 0; i < SeatType.values().length ; i++) {
+        for (int i = 0; i < TicketType.values().length ; i++) {
 
-            if(this.equals(SeatType.values()[i])) {
+            if(this.equals(TicketType.values()[i])) {
                 System.out.print(shortNames[i]);
             }
 

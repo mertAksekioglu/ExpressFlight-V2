@@ -3,12 +3,9 @@ package com.expressflight.ExpressFlight.service;
 
 import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import com.expressflight.ExpressFlight.dto.SeatConfigurationDTO;
-import com.expressflight.ExpressFlight.integration.SunExpressIntegration;
 import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
 import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
-import com.google.gson.Gson;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatConfigurationService;
-import com.expressflight.ExpressFlight.util.IWriter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,21 +18,14 @@ import java.util.Optional;
 @Service
 public class SeatConfigurationService implements ISeatConfigurationService {
 
-
-
     @Autowired
     private ISeatConfigurationRepository seatConfigurationRepository;
-
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
     SeatMapFactory seatMapFactory;
-
-
-
-
 
     @Override
     public List<SeatConfigurationDTO> getAllSeatConfigurations() {
@@ -63,9 +53,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         return seatConfigurationDtos;
     }
 
-
-
-
     @Override
     public SeatConfigurationDTO getSeatConfiguration(Long seatConfigurationId) {
         Optional<SeatConfiguration> seatConfiguration = seatConfigurationRepository.findById(seatConfigurationId);
@@ -76,7 +63,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         return returningSeatConfigurationDto;
     }
 
-
     @Override
     public SeatConfigurationDTO getSeatConfigurationByConfigName(String seatConfigurationConfigName) {
         Optional<SeatConfiguration> seatConfiguration = seatConfigurationRepository.findByConfigName(seatConfigurationConfigName);
@@ -86,9 +72,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(seatConfiguration.get(), SeatConfigurationDTO.class);
         return returningSeatConfigurationDto;
     }
-
-
-
 
     @Override
     public SeatConfigurationDTO addSeatConfiguration(SeatConfigurationDTO seatConfigurationDto) {
@@ -141,8 +124,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
 
     }
 
-
-
     @Override
     @Transactional
     public SeatConfigurationDTO configureSeatConfiguration(Long seatConfigurationId) {
@@ -176,11 +157,5 @@ public class SeatConfigurationService implements ISeatConfigurationService {
 
         return returningSeatConfigurationDtos;
     }
-
-
-
-
-
-
 }
 

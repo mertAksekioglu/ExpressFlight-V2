@@ -38,10 +38,7 @@ public class PassengerController {
 
     @PostMapping(value = "/add-passenger")
     public PassengerDTO addPassenger(@RequestBody PassengerDTO passengerDto) {
-
-
         passengerRepository.findAll();
-
         return passengerService.addPassenger(passengerDto);
     }
 

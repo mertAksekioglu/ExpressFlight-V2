@@ -22,8 +22,6 @@ public class LocalTimeDeserializer implements JsonDeserializer<LocalTime> {
 
     private DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-
-
     @Override
     public LocalTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {

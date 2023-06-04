@@ -12,7 +12,5 @@ import java.util.Optional;
 @Service
 public interface ISeatRepository extends JpaRepository<Seat,Long> {
 
-
     Optional<Seat> findByCode(String seatCode);
-
 }

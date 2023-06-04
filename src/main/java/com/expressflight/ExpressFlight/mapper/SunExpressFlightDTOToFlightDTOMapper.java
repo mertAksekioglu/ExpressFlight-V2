@@ -4,6 +4,8 @@ import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import com.expressflight.ExpressFlight.dto.SunExpressFlightDTO;
 import com.expressflight.ExpressFlight.repository.IAirportRepository;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
+import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
+import com.expressflight.ExpressFlight.service.SeatConfigurationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,11 +15,18 @@ import java.time.LocalDateTime;
 @Component
 public class SunExpressFlightDTOToFlightDTOMapper implements IMapper {
 
-    @Autowired
     ModelMapper modelMapper;
-
-    @Autowired
     IAirportRepository airportRepository;
+    ISeatConfigurationRepository seatConfigurationRepository;
+    SeatConfigurationService seatConfigurationService;
+
+    public SunExpressFlightDTOToFlightDTOMapper(ModelMapper modelMapper, IAirportRepository airportRepository,
+                                                ISeatConfigurationRepository seatConfigurationRepository, SeatConfigurationService seatConfigurationService) {
+        this.modelMapper = modelMapper;
+        this.airportRepository = airportRepository;
+        this.seatConfigurationRepository = seatConfigurationRepository;
+        this.seatConfigurationService = seatConfigurationService;
+    }
 
     @Override
     public Object map(Object mapped, Object mapper) {
@@ -31,37 +40,11 @@ public class SunExpressFlightDTOToFlightDTOMapper implements IMapper {
         flightDto.setFlightCode(sunExpressFlightDto.getFlightCode());
         flightDto.setAirline(sunExpressFlightDto.getAirline());
         flightDto.setPrice(sunExpressFlightDto.getPrice());
-        SeatConfiguration seatConfiguration = new SeatConfiguration();
-        //flightDto.setSeatConfig(new SeatConfiguration("737-800","SunExpress7378HC", false));
-        return flightDto;
-        // then it maps via property mapper
+        SeatConfiguration seatConfiguration = new SeatConfiguration("737-800","SunExpress7378HC",false);
+        Long seatConfigId = seatConfigurationRepository.save(seatConfiguration).getId();
+        seatConfigurationService.configureSeatConfiguration(seatConfigId);
+        flightDto.setSeatConfig(seatConfigId);
 
+        return flightDto;
     }
 }
-
-/*
-
-FlightDTO
-    private Long depAirport;
-    private Long arvAirport;
-    private LocalDateTime depDateTime;
-    private LocalDateTime arvDateTime;
-    private String flightCode;
-    private String airline;
-    private Double price;
-
-
-    SUNEXFLIGHTDTO
-
-
-    private String depAirport;
-    private String arvAirport;
-    private LocalDate depDate;
-    private LocalTime depTime;
-    private LocalDate arvDate;
-    private LocalTime arvTime;
-    private String flightCode;
-    private String airline;
-    private Double price;
-
- */

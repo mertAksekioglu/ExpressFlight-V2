@@ -28,13 +28,12 @@ public class SunExpressIntegration implements IIntegration {
 
     private final DateTimeFormatter dd_mm_yyyy = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private final DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
-
-    private String jsonString;
-    private SunExpressFlightDTO[] SunExpressFlights;
-    private Gson gson;
     private IProvider sunExpressFlightProvider;
     private IFlightService flightService;
     private IMapper mapper;
+    private Gson gson;
+    private String jsonString;
+    private SunExpressFlightDTO[] SunExpressFlights;
 
     public SunExpressIntegration(IProvider sunExpressFlightProvider,IFlightService flightService,IMapper mapper) {
         this.sunExpressFlightProvider = sunExpressFlightProvider;

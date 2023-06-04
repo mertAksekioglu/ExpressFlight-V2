@@ -11,7 +11,4 @@ import java.util.Optional;
 @Repository
 @Service
 public interface ITicketRepository extends JpaRepository<Ticket, Long> {
-
-
-
 }

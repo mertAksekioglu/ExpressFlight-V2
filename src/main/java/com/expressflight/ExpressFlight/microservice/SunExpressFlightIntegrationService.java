@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class SunExpressFlightIntegrationService {
 
-
     IIntegration sunExpressIntegration;
 
     public SunExpressFlightIntegrationService(IIntegration sunExpressIntegration) {
@@ -20,5 +19,4 @@ public class SunExpressFlightIntegrationService {
         sunExpressIntegration.getData();
         sunExpressIntegration.addData();
     }
-
 }

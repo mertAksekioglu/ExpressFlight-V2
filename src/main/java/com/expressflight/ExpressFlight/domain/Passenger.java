@@ -28,18 +28,25 @@ public class Passenger implements Serializable {
     )
     @Column(name = "id")
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
+
     @Column(name = "emal")
     private String email;
+
     @Column(name = "phone")
     private String phone;
+
     @Column(name = "gender")
     private Gender gender;
+
     @Column(name = "age")
     private Integer age;
+
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 

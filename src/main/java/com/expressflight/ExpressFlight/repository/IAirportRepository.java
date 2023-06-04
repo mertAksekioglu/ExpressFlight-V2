@@ -11,6 +11,5 @@ import java.util.Optional;
 @Service
 public interface IAirportRepository extends JpaRepository<Airport, Long> {
 
-
     Optional<Airport> findByCodeIATA(String codeIATA);
 }

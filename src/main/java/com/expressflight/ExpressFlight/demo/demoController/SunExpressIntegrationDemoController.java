@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "api/demo/integrate/SunExpress")
+@RequestMapping(path = "api/v1/demo/integrate/SunExpress")
 @CrossOrigin(origins = "*")
 public class SunExpressIntegrationDemoController {
 

@@ -12,7 +12,5 @@ import java.util.Optional;
 @Service
 public interface IPlaneRepository extends JpaRepository<Plane,Long> {
 
-
-
     Optional<Plane> findByCode(String code);
 }

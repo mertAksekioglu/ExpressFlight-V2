@@ -10,9 +10,7 @@ public enum SeatStatus {
     CREW,
     JUMPSEAT;
 
-
     public String[] shortNames = {" ", "F", "B", "SB2", "SB1", "C", "J"};
-
 
     public void printStatus() {
 

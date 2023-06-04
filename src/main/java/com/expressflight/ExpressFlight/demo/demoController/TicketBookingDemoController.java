@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/demo/bookTickets")
+@RequestMapping(path = "api/v1/demo/bookTickets")
 @CrossOrigin(origins = "*")
 public class TicketBookingDemoController {
 

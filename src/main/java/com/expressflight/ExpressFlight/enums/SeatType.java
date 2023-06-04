@@ -9,7 +9,6 @@ public enum SeatType {
     FIRST_CLASS,
     PREMIUM_FIRST_CLASS;
 
-
     public String[] shortNames = {" ", "E","PE","B", "F", "PF"};
 
     public void printType() {

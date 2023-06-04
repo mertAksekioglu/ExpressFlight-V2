@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Entity
 public class Plane implements Serializable {
 
-
     @Id
     @SequenceGenerator(
             name = "plane_sequence",
@@ -28,14 +27,16 @@ public class Plane implements Serializable {
             generator = "plane_sequence"
     )
     @Column(name = "id")
-    private Long id; //5
-    @Column(name = "code")
-    private String code; // TC-SOD
-    @Column(name = "model")
-    private String model; // 737
-    @Column(name = "year_of_production")
-    private Integer yearOfProduction; // 1998
+    private Long id;
 
+    @Column(name = "code")
+    private String code;
+
+    @Column(name = "model")
+    private String model;
+
+    @Column(name = "year_of_production")
+    private Integer yearOfProduction;
 
     public void Plane(String code, String model,Integer yearOfProduction) {
         this.code = code;

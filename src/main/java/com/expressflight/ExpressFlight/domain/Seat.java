@@ -18,7 +18,6 @@ import java.io.Serializable;
 @Entity
 public class Seat implements Serializable {
 
-
     @Id
     @SequenceGenerator(
             name = "seat_sequence",
@@ -56,5 +55,4 @@ public class Seat implements Serializable {
                 ", status=" + status +
                 '}';
     }
-
 }

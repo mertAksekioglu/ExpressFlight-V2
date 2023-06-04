@@ -42,7 +42,8 @@ public class ConnectedFlight implements Serializable {
     @Column(name = "layover_minutes")
     private Integer layoverMinutes;
 
-    public ConnectedFlight(Long[] flightLegs, Integer stopCount, Double price, Integer layoverMinutes) {
+    public ConnectedFlight(Long[] flightLegs, Integer stopCount, Double price,
+                           Integer layoverMinutes) {
         this.flightLegs = flightLegs;
         this.stopCount = stopCount;
         this.price = price;

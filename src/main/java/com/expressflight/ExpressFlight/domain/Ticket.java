@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Entity
 public class Ticket implements Serializable {
 
-
     @Id
     @SequenceGenerator(
             name = "ticket_sequence",
@@ -42,14 +41,12 @@ public class Ticket implements Serializable {
     @Column(name="ticket_type")
     private TicketType ticketType;
 
-
     public Ticket(Long flight, Long passenger, Long seat, TicketType ticketType) {
         this.flight = flight;
         this.passenger = passenger;
         this.seat = seat;
         this.ticketType = ticketType;
     }
-
 
     @Override
     public String toString() {

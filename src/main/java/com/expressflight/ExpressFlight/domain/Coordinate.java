@@ -25,11 +25,12 @@ public class Coordinate implements Serializable {
     )
     @Column(name = "id")
     private Long id;
+
     @Column(name = "latitude")
     private Double latitude;
+
     @Column(name = "longitude")
     private Double longitude;
-
 
     public Coordinate(Double latitude, Double longitude) {
         this.latitude = latitude;
