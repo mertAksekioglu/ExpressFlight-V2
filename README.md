@@ -1,6 +1,5 @@
 # ExpressFlight-V2
 
-<br>
 <h3 align="left">Project Description</h3>
 
 
@@ -33,7 +32,9 @@ This project was developed with:
 
 - When a new flight and a subsequent new seat configuration is created the user does not need to send the 2D Seat Array to the system. Given the name of the seat configuration such as "SunExpress7378HC" or "PegasusA320251N" the program is able to create the complete seats for the seat configuration of the flight. As of right now only 2 seat configurations mentioned above support auto-configuration.
 
+![seat config diagram](https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/84978219-17b7-45b1-ba9b-fcf56d4b2549)
 
+As seen by the diagram. Once a flight and its seat configuration is created. The system uses seat configurations unique name to create a seat map for the seat configuration. This is the automatic seat configuration of the project.
 
 <br>
 <h3 align="left">Backwards Integration</h3>
