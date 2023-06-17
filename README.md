@@ -82,7 +82,8 @@ The future plans of the project include in order of importance
 - Code Cleanup, Field Injection Removal (40%)
 - Custom DTOMappers for Entities
 - Tests with JUnit and Mockito (Learning)
-- Microservices (Learning)
+- Spring Security Implementation (Learning)
+- Microservices Implementation (Learning)
 - UI/UX Design (70%)
 ![image](https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/0f17ec4d-8ce4-4e47-81e3-984ebf6d2cdb)
 - Front-End with React
