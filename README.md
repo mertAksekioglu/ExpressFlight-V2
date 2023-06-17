@@ -60,5 +60,30 @@ The Integration process consists of multiple classes and objects. Here are these
 <br>
 <h3 align="left">Demo Videos</h3>
 
+<h4>Booking a Ticket</h4>
+
+https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/244480f5-14b9-4cae-9ddd-2dd9c0672c37
+
+<br>
+<h4>Automatically Configuring Seats</h4>
+
+https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/6928e2cb-f4af-4b46-898c-ca0b3e203ac2
+
+<br>
+<h4>Integreate Old SunExpress Flight Data</h4>
+
+https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/95a3f277-2131-48ab-92ae-78b55fbb7fac
+
 <br>
 <h3 align="left">Future Plans</h3>
+
+The future plans of the project include in order of importance
+
+- Code Cleanup, Field Injection Removal (40%)
+- Custom DTOMappers for Entities
+- Tests with JUnit and Mockito (Learning)
+- Microservices (Learning)
+- UI/UX Design (70%)
+![image](https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/0f17ec4d-8ce4-4e47-81e3-984ebf6d2cdb)
+- Front-End with React
+- Production Release
