@@ -13,10 +13,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class CoordinateController {
 
-    @Autowired
     private ICoordinateService coordinateService;
 
-    @Autowired
     public CoordinateController(CoordinateService coordinateService) {
         this.coordinateService = coordinateService;
     }
@@ -45,4 +43,5 @@ public class CoordinateController {
     public CoordinateDTO updateCoordinate(@RequestBody CoordinateDTO coordinateDto, @RequestParam(value = "id") Long coordinateId) {
         return coordinateService.updateCoordinate(coordinateDto, coordinateId);
     }
+
 }

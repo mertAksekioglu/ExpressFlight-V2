@@ -14,10 +14,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class TicketController {
 
-    @Autowired
     private ITicketService ticketService;
 
-    @Autowired
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
@@ -46,7 +44,5 @@ public class TicketController {
     public TicketDTO updateTicket(@RequestBody TicketDTO ticketDto, @RequestParam(value = "id") Long ticketId) {
         return ticketService.updateTicket(ticketDto, ticketId);
     }
-
-
 
 }

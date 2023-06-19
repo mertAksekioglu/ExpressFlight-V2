@@ -13,10 +13,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class SeatConfigurationController {
 
-    @Autowired
     private ISeatConfigurationService seatConfigurationService;
 
-    @Autowired
     public SeatConfigurationController(SeatConfigurationService seatConfigurationService) {
         this.seatConfigurationService = seatConfigurationService;
     }
@@ -50,7 +48,5 @@ public class SeatConfigurationController {
     public SeatConfigurationDTO updateSeatConfiguration(@RequestBody SeatConfigurationDTO seatConfigurationDto, @RequestParam(value = "id") Long seatConfigurationId) {
         return seatConfigurationService.updateSeatConfiguration(seatConfigurationDto, seatConfigurationId);
     }
-
-
-
+    
 }

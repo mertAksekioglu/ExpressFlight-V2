@@ -2,6 +2,7 @@ package com.expressflight.ExpressFlight.demo.demoService;
 
 import com.expressflight.ExpressFlight.domain.Flight;
 import com.expressflight.ExpressFlight.domain.Passenger;
+import com.expressflight.ExpressFlight.dto.BookTicketRequestDTO;
 import com.expressflight.ExpressFlight.dto.TicketDTO;
 import com.expressflight.ExpressFlight.microservice.TicketBooker;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
@@ -27,20 +28,20 @@ public class TicketBookingDemoService {
         this.flightRepository = flightRepository;
     }
 
-    public List<TicketDTO> bookTickets() {
+    public TicketDTO bookTicket(BookTicketRequestDTO bookTicketRequestDTO) {
 
-        List<TicketDTO> tickets = new ArrayList<TicketDTO>();
-
-        Flight flight = flightRepository.findById(1L).get();
-
-        Passenger p1 = passengerRepository.findById(1L).get();
-        Passenger p2 = passengerRepository.findById(2L).get();
-
-        tickets.add(ticketBooker.bookTicket(flight.getId(),"1A",p1.getId()));
-        tickets.add(ticketBooker.bookTicket(flight.getId(), "1C", p2.getId()));
+        Flight flight = flightRepository.findById(bookTicketRequestDTO.getFlight()).get();
 
 
-        return tickets;
+        TicketDTO ticketDTO = ticketBooker.bookTicket(flight.getId(), bookTicketRequestDTO.getSeatCode(), bookTicketRequestDTO.getPassenger());
+
+        return ticketDTO;
     }
 
 }
+
+/*
+*  private Long flight;
+    private Long passenger;
+    private Long seat;
+    private TicketType ticketType;*/

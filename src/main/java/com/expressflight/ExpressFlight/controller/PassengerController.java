@@ -14,13 +14,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class PassengerController {
 
-    @Autowired
     private IPassengerService passengerService;
 
-    @Autowired
-    private IPassengerRepository passengerRepository;
-
-    @Autowired
     public PassengerController(PassengerService passengerService) {
         this.passengerService = passengerService;
     }
@@ -35,10 +30,8 @@ public class PassengerController {
         return passengerService.getPassenger(passengerId);
     }
 
-
     @PostMapping(value = "/add-passenger")
     public PassengerDTO addPassenger(@RequestBody PassengerDTO passengerDto) {
-        passengerRepository.findAll();
         return passengerService.addPassenger(passengerDto);
     }
 
@@ -51,4 +44,5 @@ public class PassengerController {
     public PassengerDTO updatePassenger(@RequestBody PassengerDTO passengerDto, @RequestParam(value = "id") Long passengerId) {
         return passengerService.updatePassenger(passengerDto, passengerId);
     }
+
 }

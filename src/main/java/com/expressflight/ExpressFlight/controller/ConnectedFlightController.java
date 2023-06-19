@@ -15,16 +15,9 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ConnectedFlightController {
 
-
-
     private IConnectedFlightService connectedFlightService;
 
     public ConnectedFlightController(IConnectedFlightService connectedFlightService) {
-        this.connectedFlightService = connectedFlightService;
-    }
-
-    @Autowired
-    public ConnectedFlightController(ConnectedFlightService connectedFlightService) {
         this.connectedFlightService = connectedFlightService;
     }
 
@@ -57,4 +50,5 @@ public class ConnectedFlightController {
     public ConnectedFlightDTO updateConnectedFlight(@RequestBody ConnectedFlightDTO connectedFlightDto, @RequestParam(value = "id") Long connectedFlightId) {
         return connectedFlightService.updateConnectedFlight(connectedFlightDto, connectedFlightId);
     }
+
 }

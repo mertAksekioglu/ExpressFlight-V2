@@ -5,13 +5,13 @@
 
 - ExpressFlight is a Passenger Booking System written in Java and Spring Framework. Its a personal project with the aim of providing flight searching, seat availability checking and seat booking functions. ExpressFlight uses N-Tier architecture as its main architecture.
 
-- ExpressFlight has two versions ExpressFlight V1 and ExpressFlight V2. The ExpressFlight V1 only had the capabilities of Flight, Airport and Plane CRUD operations and searching of flights. It has approximately 25 classes. ExpressFlight V2 is a much comprehensive project that includes Ticket, Seat, Passenger and their respective operations for a functional passenger booking website. ExpressFlight V2 has 93 classes and over 3000 lines of functional code. 
+- ExpressFlight has two versions ExpressFlight V1 and ExpressFlight V2. The ExpressFlight V1 only had the capabilities of Flight, Airport and Plane CRUD operations and searching of flights. It has approximately 25 classes. ExpressFlight V2 is a much comprehensive project that includes Ticket, Seat, Passenger and their respective operations for a functional passenger booking website. ExpressFlight V2 has 93 classes and over 3000 lines of functional code.
 
 - The web application is inspired by real life flight providing systems such as Hitit and SanFlight.
 
 - ExpressFlight is still currently in development See more at Future Plans
-<br>
-<h3 align="left">Technologies Used</h3>
+  <br>
+  <h3 align="left">Technologies Used</h3>
 
 
 This project was developed with:
@@ -24,8 +24,8 @@ This project was developed with:
 * **Gradle**
 * **PostgreSQL**
 * **Model Mapper 2.1.1**
-<br>
-<h3 align="left">Automatic Seat Configuration</h3>
+  <br>
+  <h3 align="left">Automatic Seat Configuration</h3>
 
 
 - ExpressFlight has the ability to configure seats automatically for flights entities. Each flight entity has a seat configuration entity. Each seat configuration has a 2D Array of Seat entities that represent the possible seats a passenger can buy tickets for.
@@ -39,9 +39,9 @@ As seen by the diagram. Once a flight and its seat configuration is created. The
 <br>
 <h3 align="left">Backwards Integration</h3>
 
-- ExpressFlight has the ability to integrate flight classes from Version 1.0. This means the the new program is capable of using older flight data which has different attributes in between the versions. Currently only SunExpress flight data integration is supported.   
+- ExpressFlight has the ability to integrate flight classes from Version 1.0. This means the the new program is capable of using older flight data which has different attributes in between the versions. Currently only SunExpress flight data integration is supported.
 
-- As the project was getting reworked, some classes had their attributes and their class strucure changed. This made the program no longer being able to accept older flight data. Previously it had 16 mock SunExpress Flights. Instead of changing the flight_data.json file, the application is made to be capable of integrating and converting the older flight entity of version 1.0 to the new flight entity of version 2.0.  
+- As the project was getting reworked, some classes had their attributes and their class strucure changed. This made the program no longer being able to accept older flight data. Previously it had 16 mock SunExpress Flights. Instead of changing the flight_data.json file, the application is made to be capable of integrating and converting the older flight entity of version 1.0 to the new flight entity of version 2.0.
 
 The Integration process consists of multiple classes and objects. Here are these objects and their purposes.
 - mockService: Reads the old_flight_data.json line by line and sends it as a String.
@@ -51,11 +51,11 @@ The Integration process consists of multiple classes and objects. Here are these
 - mapper: Maps an object into another in this case maps "SunExpressFlightDTO" to "FlightDTO".
 - integration: Takes String data from provider, converts it into SunExpressFlightDTO, maps it to a FlightDTO, then adds the FlightDTO to the database via - flightService.
 - integrationService: calls the integration for demonstration purposes.
-<br>
+  <br>
 
 ![integrationDiag2](https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/f262e93c-6de8-471a-b7f8-08e5b8a5483a)
 
-- As seen by the above diagram. The older data is first taken by the mockService then it goes through mockController, provider, integration, mapper, back to integration and finally the service. The data is shown taking various forms including Strings, DTO's and as an Entity. 
+- As seen by the above diagram. The older data is first taken by the mockService then it goes through mockController, provider, integration, mapper, back to integration and finally the service. The data is shown taking various forms including Strings, DTO's and as an Entity.
 
 <br>
 <h3 align="left">Demo Videos</h3>
@@ -85,6 +85,6 @@ The future plans of the project include in order of importance
 - Spring Security Implementation (Learning)
 - Microservices Implementation (Learning)
 - UI/UX Design (70%)
-![image](https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/0f17ec4d-8ce4-4e47-81e3-984ebf6d2cdb)
+  ![image](https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/0f17ec4d-8ce4-4e47-81e3-984ebf6d2cdb)
 - Front-End with React
 - Production Release

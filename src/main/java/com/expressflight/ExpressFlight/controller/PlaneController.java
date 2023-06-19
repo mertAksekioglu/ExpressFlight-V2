@@ -13,10 +13,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class PlaneController {
 
-    @Autowired
     private IPlaneService planeService;
 
-    @Autowired
     public PlaneController(PlaneService planeService) {
         this.planeService = planeService;
     }
@@ -50,7 +48,5 @@ public class PlaneController {
     public PlaneDTO updatePlane(@RequestBody PlaneDTO planeDto, @RequestParam(value = "id") Long planeId) {
         return planeService.updatePlane(planeDto, planeId);
     }
-
-
 
 }

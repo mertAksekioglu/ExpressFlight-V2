@@ -1,20 +1,13 @@
 package com.expressflight.ExpressFlight.microservice;
 
 import com.expressflight.ExpressFlight.domain.*;
-import com.expressflight.ExpressFlight.dto.FlightDTO;
-import com.expressflight.ExpressFlight.dto.PassengerDTO;
+import com.expressflight.ExpressFlight.dto.BookTicketRequestDTO;
 import com.expressflight.ExpressFlight.dto.TicketDTO;
 import com.expressflight.ExpressFlight.enums.SeatStatus;
 import com.expressflight.ExpressFlight.enums.TicketType;
-import com.expressflight.ExpressFlight.repository.IFlightRepository;
-import com.expressflight.ExpressFlight.repository.IPassengerRepository;
-import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
-import com.expressflight.ExpressFlight.repository.ITicketRepository;
-import com.expressflight.ExpressFlight.service.FlightService;
-import com.expressflight.ExpressFlight.service.SeatService;
-import com.expressflight.ExpressFlight.service.TicketService;
+import com.expressflight.ExpressFlight.repository.*;
+
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,15 +17,18 @@ public class TicketBooker {
     IFlightRepository flightRepository;
     ISeatConfigurationRepository seatConfigurationRepository;
     IPassengerRepository passengerRepository;
+    ISeatRepository seatRepository;
     ModelMapper modelMapper;
     public TicketBooker(ITicketRepository ticketRepository, IFlightRepository flightRepository,
                         ISeatConfigurationRepository seatConfigurationRepository, IPassengerRepository passengerRepository,
-                        ModelMapper modelMapper) {
+                        ISeatRepository seatRepository,ModelMapper modelMapper) {
         this.ticketRepository = ticketRepository;
         this.flightRepository = flightRepository;
         this.seatConfigurationRepository = seatConfigurationRepository;
         this.passengerRepository = passengerRepository;
+        this.seatRepository = seatRepository;
         this.modelMapper = modelMapper;
+
     }
 
     public TicketDTO bookTicket(Long flightId, String seatCode, Long passengerId) {
@@ -46,6 +42,7 @@ public class TicketBooker {
             Seat seat = findSeat(flight,seatCode);
             ticket.setFlight(flightId);
             seat.setStatus(SeatStatus.BOOKED);
+            seatRepository.findById(seat.getId()).get().setStatus(SeatStatus.BOOKED);
             ticket.setSeat(seat.getId());
             ticket.setPassenger(passengerId);
             ticket.setTicketType(configureTicketType(passengerId));
@@ -55,7 +52,7 @@ public class TicketBooker {
             System.out.println("Error on Ticket creation");
         }
 
-        TicketDTO ticketDTO = modelMapper.map(ticket, TicketDTO.class);
+        TicketDTO ticketDTO = modelMapper.map(ticket,TicketDTO.class);
         return ticketDTO;
     }
 
@@ -140,6 +137,8 @@ public class TicketBooker {
             return ticketType;
         }
     }
+
+
 
 
 

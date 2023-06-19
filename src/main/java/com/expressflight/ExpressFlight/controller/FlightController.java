@@ -15,12 +15,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class FlightController {
 
-
-    @Autowired
     private IFlightService flightService;
 
-
-    @Autowired
     public FlightController(FlightService flightService) {
         this.flightService = flightService;
     }
@@ -55,4 +51,5 @@ public class FlightController {
     public FlightDTO updateFlight(@RequestBody FlightDTO flightDto, @RequestParam(value = "id") Long flightId) {
         return flightService.updateFlight(flightDto, flightId);
     }
+
 }
