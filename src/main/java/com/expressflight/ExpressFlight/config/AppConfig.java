@@ -40,6 +40,7 @@ public class AppConfig {
 
     private IPlaneRepository planeRepository;
     private IAirportRepository airportRepository;
+    private ICoordinateRepository coordinateRepository;
     private IFlightRepository flightRepository;
     private IConnectedFlightRepository connectedFlightRepository;
     private ISeatConfigurationRepository seatConfigurationRepository;
@@ -48,13 +49,14 @@ public class AppConfig {
     private JPARepoPopulator populator;
 
     public AppConfig(JPARepoPopulator populator, IPlaneRepository planeRepository, IAirportRepository airportRepository,
-                     IFlightRepository flightRepository, IConnectedFlightRepository connectedFlightRepository,
-                     ISeatConfigurationRepository seatConfigurationRepository, IPassengerRepository passengerRepository,
-                     SeatMapFactory seatMapFactory) {
+                     ICoordinateRepository coordinateRepository, IFlightRepository flightRepository,
+                     IConnectedFlightRepository connectedFlightRepository, ISeatConfigurationRepository seatConfigurationRepository,
+                     IPassengerRepository passengerRepository, SeatMapFactory seatMapFactory) {
 
         this.populator = populator;
         this.planeRepository = planeRepository;
         this.airportRepository = airportRepository;
+        this.coordinateRepository = coordinateRepository;
         this.flightRepository = flightRepository;
         this.connectedFlightRepository = connectedFlightRepository;
         this.seatConfigurationRepository = seatConfigurationRepository;
@@ -124,7 +126,7 @@ public class AppConfig {
         populator.populateRepo(connectedFlightRepository, resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
         populator.populateRepo(seatConfigurationRepository, resource_path + "data/seat_configuration_data.json", SeatConfiguration[].class,gson);
         populator.populateRepo(passengerRepository, resource_path + "data/passenger_data.json", Passenger[].class,gson);
-
+        populator.populateRepo(coordinateRepository, resource_path + "data/coordinate_data.json", Coordinate[].class,gson);
     }
 
     public void doAllFlightIntegrations(SunExpressFlightIntegrationService sunExpressFlightIntegrationService) {

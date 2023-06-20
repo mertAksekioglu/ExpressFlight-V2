@@ -38,7 +38,7 @@ public class Airport implements Serializable {
     private String codeICAO;
 
     @Column(name = "location")
-    private Coordinate location;
+    private Long location;
 
     @Column(name = "terminal_count")
     private Integer terminalCount;
@@ -46,7 +46,7 @@ public class Airport implements Serializable {
     @Column(name = "runway_count")
     private Integer runwayCount;
 
-    public Airport(String name, String codeIATA, String codeICAO, Coordinate location,
+    public Airport(String name, String codeIATA, String codeICAO, Long location,
                    Integer terminalCount, Integer runwayCount) {
         this.name = name;
         this.codeIATA = codeIATA;

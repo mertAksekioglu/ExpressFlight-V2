@@ -7,11 +7,7 @@ import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.repository.IConnectedFlightRepository;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
 import com.expressflight.ExpressFlight.serviceInterface.IConnectedFlightService;
-import com.expressflight.ExpressFlight.util.IWriter;
-import com.google.gson.Gson;
-
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,21 +19,21 @@ import java.util.Optional;
 @Service
 public class ConnectedFlightService implements IConnectedFlightService {
 
-
-    @Autowired
     private IConnectedFlightRepository connectedFlightRepository;
 
-    @Autowired
     private IFlightRepository flightRepository;
 
-    @Autowired
     private ModelMapper modelMapper;
 
-
+    public ConnectedFlightService(IConnectedFlightRepository connectedFlightRepository,
+                                  IFlightRepository flightRepository, ModelMapper modelMapper) {
+        this.connectedFlightRepository = connectedFlightRepository;
+        this.flightRepository = flightRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<ConnectedFlightDTO> getAllConnectedFlights() {
-
         List<ConnectedFlight> connectedFlights = connectedFlightRepository.findAll();
         List<ConnectedFlightDTO> connectedFlightDtos = new ArrayList<>();
         for (ConnectedFlight existingConnectedFlight : connectedFlights)
@@ -45,7 +41,6 @@ public class ConnectedFlightService implements IConnectedFlightService {
             ConnectedFlightDTO connectedFlightDto = modelMapper.map(existingConnectedFlight,ConnectedFlightDTO.class);
             connectedFlightDtos.add(connectedFlightDto);
         }
-
         return connectedFlightDtos;
     }
     @Override
@@ -60,11 +55,8 @@ public class ConnectedFlightService implements IConnectedFlightService {
 
     @Override
     public List<ConnectedFlightDTO> searchConnectedFlight(FlightSearchRequestDTO connectedFlightSearchRequestDto) {
-
-
         List<ConnectedFlight> allConnectedFlights = connectedFlightRepository.findAll();
         List<ConnectedFlightDTO> resultConnectedFlightDtos = new ArrayList<>();
-
         for (ConnectedFlight connectedFlight: allConnectedFlights) {
             Flight firstFlight = flightRepository.findById(connectedFlight.getFlightLegs()[0]).get();
             Flight lastFlight = flightRepository.findById(
@@ -72,33 +64,26 @@ public class ConnectedFlightService implements IConnectedFlightService {
             LocalDate firstConnectedFlightDate = firstFlight.getDepDateTime().toLocalDate();
             Long firstDepAirport = firstFlight.getDepAirport();
             Long lastDesAirport = lastFlight.getDepAirport();
-
             if(firstDepAirport.equals(connectedFlightSearchRequestDto.getDepAirport()) &&
                     lastDesAirport.equals(connectedFlightSearchRequestDto.getDesAirport()) &&
                     firstConnectedFlightDate.equals(connectedFlightSearchRequestDto.getDepDateTime().toLocalDate())){
                 resultConnectedFlightDtos.add(modelMapper.map(connectedFlight,ConnectedFlightDTO.class));
             }
-
         }
-
         return resultConnectedFlightDtos;
-
     }
-
-
 
     @Override
     public ConnectedFlightDTO addConnectedFlight(ConnectedFlightDTO connectedFlightDto) {
         ConnectedFlight connectedFlight = modelMapper.map(connectedFlightDto,ConnectedFlight.class);
         Optional<ConnectedFlight> existingConnectedFlight = connectedFlightRepository.findById(connectedFlight.getId());
+        // TODO How do we know the existingConnectedFlight has the correct id ? We cant know that
         if(existingConnectedFlight.isPresent()) {
             throw new IllegalStateException("ConnectedFlight with the id " + connectedFlight.getId()  + "already exists.");
         }
         connectedFlightRepository.save(connectedFlight);
-
         ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(connectedFlight, ConnectedFlightDTO.class);
         return returningConnectedFlightDto;
-
     }
 
     @Override
@@ -108,9 +93,6 @@ public class ConnectedFlightService implements IConnectedFlightService {
             throw new IllegalStateException("ConnectedFlight with the id " + connectedFlightId + " does not exist");
         }
         connectedFlightRepository.deleteById(connectedFlightId);
-
-
-
         ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(connectedFlight.get(), ConnectedFlightDTO.class);
         return returningConnectedFlightDto;
     }
@@ -135,10 +117,8 @@ public class ConnectedFlightService implements IConnectedFlightService {
         if(connectedFlight.getLayoverMinutes() != null){
             existingConnectedFlight.get().setLayoverMinutes(connectedFlight.getLayoverMinutes());
         }
-
-
         ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(existingConnectedFlight.get(), ConnectedFlightDTO.class);
         return returningConnectedFlightDto;
-
     }
+
 }

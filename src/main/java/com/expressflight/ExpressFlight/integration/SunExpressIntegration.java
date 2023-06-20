@@ -1,20 +1,16 @@
 package com.expressflight.ExpressFlight.integration;
 
-import com.expressflight.ExpressFlight.provider.IProvider;
-import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
 import com.expressflight.ExpressFlight.deserializer.LocalTimeDeserializer;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
-import com.expressflight.ExpressFlight.dto.SunExpressFlightDTO;
 import com.expressflight.ExpressFlight.mapper.IMapper;
-import com.expressflight.ExpressFlight.provider.SunExpressFlightProvider;
+import com.expressflight.ExpressFlight.provider.IProvider;
+import com.expressflight.ExpressFlight.provider.SunExpressFlightDTO;
 import com.expressflight.ExpressFlight.serializer.LocalDateSerializer;
 import com.expressflight.ExpressFlight.serializer.LocalTimeSerializer;
-import com.expressflight.ExpressFlight.service.FlightService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

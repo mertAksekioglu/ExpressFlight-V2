@@ -3,11 +3,8 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.Airport;
 import com.expressflight.ExpressFlight.dto.AirportDTO;
 import com.expressflight.ExpressFlight.repository.IAirportRepository;
-import com.google.gson.Gson;
 import com.expressflight.ExpressFlight.serviceInterface.IAirportService;
-import com.expressflight.ExpressFlight.util.IWriter;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,27 +15,23 @@ import java.util.Optional;
 @Service
 public class AirportService implements IAirportService {
 
-    @Autowired
     private IAirportRepository airportRepository;
 
-
-
-    @Autowired
     private ModelMapper modelMapper;
 
-
+    public AirportService(IAirportRepository airportRepository, ModelMapper modelMapper) {
+        this.airportRepository = airportRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<AirportDTO> getAllAirports() {
         List<Airport> airports = airportRepository.findAll();
         List<AirportDTO> airportDtos = new ArrayList<>();
-
         for (Airport airport: airports) {
             AirportDTO airportDto = modelMapper.map(airport, AirportDTO.class);
             airportDtos.add(airportDto);
         }
-
-
         return airportDtos;
     }
 
@@ -70,21 +63,17 @@ public class AirportService implements IAirportService {
             throw new IllegalStateException("Airport with code " + airport.getCodeIATA() + " already exists.");
         }
         airportRepository.save(airport);
-
         AirportDTO returningAirportDto = modelMapper.map(airport, AirportDTO.class);
         return returningAirportDto;
 
     }
-
     @Override
     public AirportDTO deleteAirport(Long airportId) {
         Optional<Airport> airport = airportRepository.findById(airportId);
         if(!airport.isPresent()) {
             throw new IllegalStateException( "Airport with id " + airportId + " does not exist");
         }
-
         airportRepository.deleteById(airportId);
-
         AirportDTO returningAirportDto = modelMapper.map(airport.get(), AirportDTO.class);
         return returningAirportDto;
     }
@@ -106,16 +95,17 @@ public class AirportService implements IAirportService {
         if(airport.getCodeICAO() != null) {
             existingAirport.get().setCodeICAO(airport.getCodeICAO());
         }
+        if(airport.getLocation() != null) {
+            existingAirport.get().setLocation(airport.getLocation());
+        }
         if(airport.getRunwayCount() != null) {
             existingAirport.get().setRunwayCount(airport.getRunwayCount());
         }
-
         if(airport.getTerminalCount() != null) {
             existingAirport.get().setTerminalCount(airport.getTerminalCount());
         }
-
-
         AirportDTO returningAirportDto = modelMapper.map(existingAirport.get(), AirportDTO.class);
         return returningAirportDto;
     }
+
 }

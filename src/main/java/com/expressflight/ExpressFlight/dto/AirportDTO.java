@@ -8,7 +8,7 @@ public class AirportDTO {
     private String name;
     private String codeIATA;
     private String codeICAO;
-    private Coordinate location;
+    private Long location;
     private Integer terminalCount;
     private Integer runwayCount;
 }

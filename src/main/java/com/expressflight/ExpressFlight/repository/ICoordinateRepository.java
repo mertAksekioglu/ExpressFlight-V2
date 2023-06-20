@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 @Repository
 @Service
 public interface ICoordinateRepository extends JpaRepository<Coordinate, Long> {
+
+    boolean existsByLongitudeAndLatitude(Double longitude, Double latitude);
 }

@@ -1,13 +1,12 @@
 package com.expressflight.ExpressFlight.mapper;
 
 import com.expressflight.ExpressFlight.domain.SeatConfiguration;
-import com.expressflight.ExpressFlight.dto.SunExpressFlightDTO;
-import com.expressflight.ExpressFlight.repository.IAirportRepository;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
+import com.expressflight.ExpressFlight.provider.SunExpressFlightDTO;
+import com.expressflight.ExpressFlight.repository.IAirportRepository;
 import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
 import com.expressflight.ExpressFlight.service.SeatConfigurationService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
