@@ -13,10 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class SunExpress7378HC implements ISeatMapper {
 
-
-
-    @Autowired
     ISeatRepository seatRepository;
+
+    public SunExpress7378HC(ISeatRepository seatRepository) {
+        this.seatRepository = seatRepository;
+    }
 
     @Override
     public Seat[][] mapSeats() {
@@ -24,8 +25,6 @@ public class SunExpress7378HC implements ISeatMapper {
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {
                 String seatCode = String.valueOf(i+1) + String.valueOf((char) (j + 65));
-
-
                 if(i == 14 || i == 15) {
                     seats[i][j] = new Seat(seatCode,SeatType.PREMIUM_ECONOMY,SeatStatus.FREE);
                 }
@@ -48,11 +47,9 @@ public class SunExpress7378HC implements ISeatMapper {
                 if(seats[i][j] != null) {
                     seats[i][j] = seatRepository.save(seats[i][j]);
                 }
-
             }
-
         }
-
         return seats;
     }
+
 }

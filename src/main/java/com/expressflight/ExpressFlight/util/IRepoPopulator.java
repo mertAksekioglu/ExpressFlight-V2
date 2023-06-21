@@ -7,8 +7,6 @@ import java.lang.reflect.Type;
 
 public interface IRepoPopulator {
 
-
     public void populateRepo(JpaRepository repository, String data_path, Type objectClass, Gson gson);
-
 
 }

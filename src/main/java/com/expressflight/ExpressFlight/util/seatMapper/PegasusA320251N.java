@@ -3,11 +3,17 @@ package com.expressflight.ExpressFlight.util.seatMapper;
 import com.expressflight.ExpressFlight.domain.Seat;
 import com.expressflight.ExpressFlight.enums.SeatStatus;
 import com.expressflight.ExpressFlight.enums.SeatType;
+import com.expressflight.ExpressFlight.repository.ISeatRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PegasusA320251N implements ISeatMapper {
 
+    private ISeatRepository seatRepository;
+
+    public PegasusA320251N(ISeatRepository seatRepository) {
+        this.seatRepository = seatRepository;
+    }
 
     @Override
     public Seat[][] mapSeats() {
@@ -21,13 +27,9 @@ public class PegasusA320251N implements ISeatMapper {
                 else {
                     seats[i][j] = new Seat(seatCode,SeatType.ECONOMY,SeatStatus.FREE);
                 }
-
-
             }
-
         }
-
-
         return seats;
     }
+
 }

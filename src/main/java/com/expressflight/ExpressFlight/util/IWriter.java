@@ -7,4 +7,5 @@ public interface IWriter {
     public void write(JpaRepository repository, String path);
 
     public void write(JpaRepository repository, String path, Boolean write);
+
 }

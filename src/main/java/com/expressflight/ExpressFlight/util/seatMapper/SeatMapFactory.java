@@ -1,18 +1,19 @@
 package com.expressflight.ExpressFlight.util.seatMapper;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SeatMapFactory {
 
-
-    @Autowired
     SunExpress7378HC sunExpress7378HC;
-    @Autowired
+
     PegasusA320251N pegasusA320251N;
 
+    public SeatMapFactory(SunExpress7378HC sunExpress7378HC, PegasusA320251N pegasusA320251N) {
+        this.sunExpress7378HC = sunExpress7378HC;
+        this.pegasusA320251N = pegasusA320251N;
+    }
 
     public ISeatMapper createSeatMap(String mapType) {
         switch (mapType) {
@@ -25,4 +26,5 @@ public class SeatMapFactory {
                 throw new IllegalArgumentException("Invalid seat map type: " + mapType);
         }
     }
+
 }
