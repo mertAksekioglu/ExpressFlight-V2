@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SunExpressIntegrationDemoService {
 
-
     SunExpressFlightIntegrationService sunExpressFlightIntegrationService;
-
 
     public SunExpressIntegrationDemoService(SunExpressFlightIntegrationService sunExpressFlightIntegrationService) {
         this.sunExpressFlightIntegrationService = sunExpressFlightIntegrationService;

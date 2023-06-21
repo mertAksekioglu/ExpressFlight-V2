@@ -1,10 +1,7 @@
 package com.expressflight.ExpressFlight.demo.demoController;
 
 import com.expressflight.ExpressFlight.demo.demoService.FlightConfigurationDemoService;
-import com.expressflight.ExpressFlight.dto.FlightDTO;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/demo/configureFlights")
@@ -26,6 +23,5 @@ public class FlightConfigurationDemoController {
     public void configureFlightSeats(@RequestParam(value = "id") Long flightId) {
         flightConfigurationDemoService.configureFlightSeats(flightId);
     }
-
 
 }

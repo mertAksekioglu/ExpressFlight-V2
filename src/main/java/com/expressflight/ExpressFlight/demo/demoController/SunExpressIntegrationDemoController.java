@@ -1,8 +1,6 @@
 package com.expressflight.ExpressFlight.demo.demoController;
 
-
 import com.expressflight.ExpressFlight.demo.demoService.SunExpressIntegrationDemoService;
-import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "api/v1/demo/integrate/SunExpress")
 @CrossOrigin(origins = "*")
 public class SunExpressIntegrationDemoController {
-
 
     SunExpressIntegrationDemoService sunExpressIntegrationDemoService;
 
@@ -24,8 +21,5 @@ public class SunExpressIntegrationDemoController {
     public void integrate() {
         sunExpressIntegrationDemoService.integrate();
     }
-
-
-
 
 }
