@@ -18,10 +18,6 @@ public class SunExpressFlightDTO {
     private String airline;
     private Double price;
 
-
-
-
-
 }
 
 

@@ -1,21 +1,19 @@
 package com.expressflight.ExpressFlight.config;
 
 
+import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
+import com.expressflight.ExpressFlight.deserializer.LocalDateTimeDeserializer;
 import com.expressflight.ExpressFlight.domain.*;
-import com.expressflight.ExpressFlight.integration.IIntegration;
 import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
 import com.expressflight.ExpressFlight.microservice.TicketBooker;
 import com.expressflight.ExpressFlight.repository.*;
-import com.expressflight.ExpressFlight.service.FlightService;
-import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
-import com.google.gson.*;
-import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
-import com.expressflight.ExpressFlight.deserializer.LocalDateTimeDeserializer;
 import com.expressflight.ExpressFlight.serializer.LocalDateSerializer;
 import com.expressflight.ExpressFlight.serializer.LocalDateTimeSerializer;
 import com.expressflight.ExpressFlight.util.JPARepoPopulator;
+import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,19 +31,29 @@ import java.util.List;
 public class AppConfig {
 
     private final DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
     private final DateTimeFormatter yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private final DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
+
     private final String resource_path = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\";
 
     private IPlaneRepository planeRepository;
+
     private IAirportRepository airportRepository;
+
     private ICoordinateRepository coordinateRepository;
+
     private IFlightRepository flightRepository;
+
     private IConnectedFlightRepository connectedFlightRepository;
+
     private ISeatConfigurationRepository seatConfigurationRepository;
+
     private IPassengerRepository passengerRepository;
+
     private SeatMapFactory seatMapFactory;
+
     private JPARepoPopulator populator;
 
     public AppConfig(JPARepoPopulator populator, IPlaneRepository planeRepository, IAirportRepository airportRepository,
@@ -88,7 +96,6 @@ public class AppConfig {
     @Bean
     public RestTemplate restTemplate() {return new RestTemplate();}
 
-
     @Bean
     CommandLineRunner commandLineRunner(IPlaneRepository planeRepo,
                                         IAirportRepository airportRepo,
@@ -102,12 +109,8 @@ public class AppConfig {
 
         return args -> {
             populateAllRepositories(gson);
-            //doAllFlightIntegrations(sunExpressFlightIntegrationService);
-            //bookExampleTickets(ticketBooker);
         };
     }
-
-
 
     public List<SeatConfiguration> configureAllFlightSeatConfigs() {
         List<SeatConfiguration> unconfiguredSeatConfigs = seatConfigurationRepository.findByIsConfigured(false);
@@ -137,7 +140,5 @@ public class AppConfig {
         ticketBooker.bookTicket(1L,"1A",1L);
         ticketBooker.bookTicket(1L,"1C",2L);
     }
-
-
 
 }

@@ -18,17 +18,23 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
-
 @Component
 public class SunExpressIntegration implements IIntegration {
 
     private final DateTimeFormatter dd_mm_yyyy = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
     private final DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
+
     private IProvider sunExpressFlightProvider;
+
     private IFlightService flightService;
+
     private IMapper mapper;
+
     private Gson gson;
+
     private String jsonString;
+
     private SunExpressFlightDTO[] SunExpressFlights;
 
     public SunExpressIntegration(IProvider sunExpressFlightProvider,IFlightService flightService,IMapper mapper) {
@@ -59,9 +65,5 @@ public class SunExpressIntegration implements IIntegration {
         }
         System.out.println(Arrays.toString(SunExpressFlights));
     }
-
-
-
-
 
 }

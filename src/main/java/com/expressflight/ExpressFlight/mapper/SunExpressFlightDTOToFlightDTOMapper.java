@@ -15,12 +15,16 @@ import java.time.LocalDateTime;
 public class SunExpressFlightDTOToFlightDTOMapper implements IMapper {
 
     ModelMapper modelMapper;
+
     IAirportRepository airportRepository;
+
     ISeatConfigurationRepository seatConfigurationRepository;
+
     SeatConfigurationService seatConfigurationService;
 
     public SunExpressFlightDTOToFlightDTOMapper(ModelMapper modelMapper, IAirportRepository airportRepository,
-                                                ISeatConfigurationRepository seatConfigurationRepository, SeatConfigurationService seatConfigurationService) {
+                                                ISeatConfigurationRepository seatConfigurationRepository,
+                                                SeatConfigurationService seatConfigurationService) {
         this.modelMapper = modelMapper;
         this.airportRepository = airportRepository;
         this.seatConfigurationRepository = seatConfigurationRepository;
@@ -31,7 +35,6 @@ public class SunExpressFlightDTOToFlightDTOMapper implements IMapper {
     public Object map(Object mapped, Object mapper) {
         SunExpressFlightDTO sunExpressFlightDto = (SunExpressFlightDTO) mapped;
         FlightDTO flightDto = new FlightDTO();
-
         flightDto.setDepAirport(airportRepository.findByCodeIATA(sunExpressFlightDto.getDepAirport()).get().getId());
         flightDto.setArvAirport(airportRepository.findByCodeIATA(sunExpressFlightDto.getArvAirport()).get().getId());
         flightDto.setDepDateTime(LocalDateTime.of(sunExpressFlightDto.getDepDate(),sunExpressFlightDto.getDepTime()));
@@ -43,7 +46,7 @@ public class SunExpressFlightDTOToFlightDTOMapper implements IMapper {
         Long seatConfigId = seatConfigurationRepository.save(seatConfiguration).getId();
         seatConfigurationService.configureSeatConfiguration(seatConfigId);
         flightDto.setSeatConfig(seatConfigId);
-
         return flightDto;
     }
+
 }
