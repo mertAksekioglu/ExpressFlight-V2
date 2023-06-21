@@ -22,8 +22,4 @@ public interface IFlightService {
 
     public List<FlightDTO> configureAllFlightSeats();
 
-    public FlightDTO configureFlightSeats(Flight flight);
-
-
-
 }

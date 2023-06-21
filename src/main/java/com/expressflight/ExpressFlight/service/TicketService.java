@@ -21,33 +21,30 @@ import java.util.Optional;
 @Service
 public class TicketService implements ITicketService {
 
-
-    @Autowired
     private ITicketRepository ticketRepository;
 
-    @Autowired
     private ISeatRepository seatRepository;
 
-
-    @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
     private TicketBooker ticketBooker;
 
+    public TicketService(ITicketRepository ticketRepository, ISeatRepository seatRepository,
+                         ModelMapper modelMapper, TicketBooker ticketBooker) {
+        this.ticketRepository = ticketRepository;
+        this.seatRepository = seatRepository;
+        this.modelMapper = modelMapper;
+        this.ticketBooker = ticketBooker;
+    }
 
     @Override
     public List<TicketDTO> getAllTickets() {
-
         List<Ticket> tickets = ticketRepository.findAll();
         List<TicketDTO> ticketDtos = new ArrayList<>();
-
         for (Ticket ticket: tickets) {
             TicketDTO ticketDto = modelMapper.map(ticket, TicketDTO.class);
             ticketDtos.add(ticketDto);
         }
-
-
         return ticketDtos;
     }
 
@@ -61,18 +58,11 @@ public class TicketService implements ITicketService {
         return returningTicketDto;
     }
 
-
-
     @Override
     public TicketDTO addTicket(TicketDTO ticketDto) {
         Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
-
-
         ticketBooker.getSeatAvailability(ticketDto.getFlight(),seatRepository.findById(ticketDto.getSeat()).get().getCode());
-
-
         ticketRepository.save(ticket);
-
         TicketDTO returningTicketDto = modelMapper.map(ticket, TicketDTO.class);
         return returningTicketDto;
 
@@ -84,13 +74,10 @@ public class TicketService implements ITicketService {
         if(ticket.isEmpty()) {
             throw new IllegalStateException( "Ticket with id " + ticketId + " does not exist");
         }
-
         ticketRepository.deleteById(ticketId);
-
         TicketDTO returningTicketDto = modelMapper.map(ticket.get(), TicketDTO.class);
         return returningTicketDto;
     }
-
 
     @Transactional
     public TicketDTO updateTicket(TicketDTO ticketDto, Long ticketId) {
@@ -111,7 +98,6 @@ public class TicketService implements ITicketService {
         if(ticket.getTicketType() != null) {
             existingTicket.get().setTicketType(ticket.getTicketType());
         }
-
         TicketDTO returningTicketDto = modelMapper.map(existingTicket.get(), TicketDTO.class);
         return returningTicketDto;
     }

@@ -18,25 +18,27 @@ import java.util.Optional;
 @Service
 public class SeatConfigurationService implements ISeatConfigurationService {
 
-    @Autowired
     private ISeatConfigurationRepository seatConfigurationRepository;
 
-    @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    SeatMapFactory seatMapFactory;
+    private SeatMapFactory seatMapFactory;
+
+    public SeatConfigurationService(ISeatConfigurationRepository seatConfigurationRepository,
+                                    ModelMapper modelMapper, SeatMapFactory seatMapFactory) {
+        this.seatConfigurationRepository = seatConfigurationRepository;
+        this.modelMapper = modelMapper;
+        this.seatMapFactory = seatMapFactory;
+    }
 
     @Override
     public List<SeatConfigurationDTO> getAllSeatConfigurations() {
         List<SeatConfiguration> seatConfigurations = seatConfigurationRepository.findAll();
         List<SeatConfigurationDTO> seatConfigurationDtos = new ArrayList<>();
-
         for (SeatConfiguration seatConfiguration : seatConfigurations) {
             SeatConfigurationDTO seatConfigurationDto = modelMapper.map(seatConfiguration, SeatConfigurationDTO.class);
             seatConfigurationDtos.add(seatConfigurationDto);
         }
-
         return seatConfigurationDtos;
     }
 
@@ -44,12 +46,10 @@ public class SeatConfigurationService implements ISeatConfigurationService {
     public List<SeatConfigurationDTO> getAllUnconfiguredSeatConfigurations() {
         List<SeatConfiguration> seatConfigurations = seatConfigurationRepository.findByIsConfigured(false);
         List<SeatConfigurationDTO> seatConfigurationDtos = new ArrayList<>();
-
         for (SeatConfiguration seatConfiguration : seatConfigurations) {
             SeatConfigurationDTO seatConfigurationDto = modelMapper.map(seatConfiguration, SeatConfigurationDTO.class);
             seatConfigurationDtos.add(seatConfigurationDto);
         }
-
         return seatConfigurationDtos;
     }
 
@@ -81,7 +81,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             throw new IllegalStateException("SeatConfiguration with the code " + seatConfiguration.getConfigName() + "already exists.");
         }
         seatConfigurationRepository.save(seatConfiguration);
-
         SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(seatConfiguration, SeatConfigurationDTO.class);
         return returningSeatConfigurationDto;
     }
@@ -93,7 +92,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             throw new IllegalStateException("SeatConfiguration with the id " + seatConfigurationId + " does not exist");
         }
         seatConfigurationRepository.deleteById(seatConfigurationId);
-
         SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(seatConfiguration.get(), SeatConfigurationDTO.class);
         return returningSeatConfigurationDto;
     }
@@ -118,7 +116,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         if(seatConfiguration.getSeatMap() != null){
             existingSeatConfiguration.get().setSeatMap(seatConfigurationDto.getSeatMap());
         }
-
         SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(existingSeatConfiguration.get(), SeatConfigurationDTO.class);
         return returningSeatConfigurationDto;
 
@@ -127,7 +124,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
     @Override
     @Transactional
     public SeatConfigurationDTO configureSeatConfiguration(Long seatConfigurationId) {
-
         SeatConfiguration seatConfig = seatConfigurationRepository.findById(seatConfigurationId).get();
         if(seatConfig.getIsConfigured() == true){
             System.out.println("SEAT ALREADY CONFIGURED");
@@ -136,7 +132,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             seatConfig.setSeatMap(seatMapFactory.createSeatMap(seatConfig.getConfigName()).mapSeats());
             seatConfig.setIsConfigured(true);
         }
-
         SeatConfigurationDTO returningSeatConfigurationDTO = modelMapper.map(seatConfig,SeatConfigurationDTO.class);
         return returningSeatConfigurationDTO;
     }
@@ -144,7 +139,6 @@ public class SeatConfigurationService implements ISeatConfigurationService {
     @Override
     @Transactional
     public List<SeatConfigurationDTO> configureAllUnconfiguredSeatConfigurations() {
-
         List<SeatConfiguration> unconfiguredConfigurations = seatConfigurationRepository.findByIsConfigured(false);
         List<SeatConfigurationDTO> returningSeatConfigurationDtos = new ArrayList<>();
         for (SeatConfiguration seatConfig : unconfiguredConfigurations) {
@@ -154,8 +148,8 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             SeatConfigurationDTO seatConfigurationDTO = modelMapper.map(seatConfig,SeatConfigurationDTO.class);
             returningSeatConfigurationDtos.add(seatConfigurationDTO);
         }
-
         return returningSeatConfigurationDtos;
     }
+
 }
 

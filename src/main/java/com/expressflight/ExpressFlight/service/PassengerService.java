@@ -19,31 +19,26 @@ import java.util.Optional;
 @Service
 public class PassengerService implements IPassengerService {
 
-
-
-    @Autowired
     private IPassengerRepository passengerRepository;
 
-
-    @Autowired
     private ModelMapper modelMapper;
 
-
-
-
+    public PassengerService(IPassengerRepository passengerRepository, ModelMapper modelMapper) {
+        this.passengerRepository = passengerRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<PassengerDTO> getAllPassengers() {
         List<Passenger> passengers = passengerRepository.findAll();
         List<PassengerDTO> passengerDtos = new ArrayList<>();
-
         for (Passenger passenger : passengers) {
             PassengerDTO passengerDto = modelMapper.map(passenger, PassengerDTO.class);
             passengerDtos.add(passengerDto);
         }
-
         return passengerDtos;
     }
+
     @Override
     public PassengerDTO getPassenger(Long passengerId) {
         Optional<Passenger> passenger = passengerRepository.findById(passengerId);
@@ -54,20 +49,16 @@ public class PassengerService implements IPassengerService {
         return returningPassengerDto;
     }
 
-
     @Override
     public PassengerDTO addPassenger(PassengerDTO passengerDto) {
         Passenger passenger = modelMapper.map(passengerDto,Passenger.class);
-
         // Add Social Security number to identify
-
         /*
         Optional<Passenger> existingPassenger = passengerRepository.findByCode(passenger.getCode());
         if(existingPassenger.isPresent()) {
             throw new IllegalStateException("Passenger with the code " + passenger.getCode() + "already exists.");
         }
         */
-
         passengerRepository.save(passenger);
         PassengerDTO returningPassengerDto = modelMapper.map(passenger, PassengerDTO.class);
         return returningPassengerDto;
@@ -113,11 +104,8 @@ public class PassengerService implements IPassengerService {
         if(passenger.getDateOfBirth() != null){
             existingPassenger.get().setDateOfBirth(passengerDto.getDateOfBirth());
         }
-
-
         PassengerDTO returningPassengerDto = modelMapper.map(existingPassenger.get(), PassengerDTO.class);
         return returningPassengerDto;
-
     }
 
 }

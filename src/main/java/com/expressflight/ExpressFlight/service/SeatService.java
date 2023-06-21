@@ -20,28 +20,26 @@ import java.util.Optional;
 @Service
 public class SeatService implements ISeatService {
 
-    @Autowired
     private ISeatRepository seatRepository;
 
-
-    @Autowired
     private ModelMapper modelMapper;
-    
 
-
+    public SeatService(ISeatRepository seatRepository, ModelMapper modelMapper) {
+        this.seatRepository = seatRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<SeatDTO> getAllSeats() {
         List<Seat> seats = seatRepository.findAll();
         List<SeatDTO> seatDtos = new ArrayList<>();
-
         for (Seat seat : seats) {
             SeatDTO seatDto = modelMapper.map(seat, SeatDTO.class);
             seatDtos.add(seatDto);
         }
-
         return seatDtos;
     }
+
     @Override
     public SeatDTO getSeat(Long seatId) {
         Optional<Seat> seat = seatRepository.findById(seatId);
@@ -51,7 +49,6 @@ public class SeatService implements ISeatService {
         SeatDTO returningSeatDto = modelMapper.map(seat.get(), SeatDTO.class);
         return returningSeatDto;
     }
-
 
     @Override
     public SeatDTO getSeatByCode(String seatCode) {
@@ -63,9 +60,6 @@ public class SeatService implements ISeatService {
         return returningSeatDto;
     }
 
-
-
-
     @Override
     public SeatDTO addSeat(SeatDTO seatDto) {
         Seat seat = modelMapper.map(seatDto,Seat.class);
@@ -76,7 +70,6 @@ public class SeatService implements ISeatService {
         }
         */
         seatRepository.save(seat);
-
         SeatDTO returningSeatDto = modelMapper.map(seat, SeatDTO.class);
         return returningSeatDto;
     }
@@ -109,10 +102,8 @@ public class SeatService implements ISeatService {
         if(seat.getStatus() != null){
             existingSeat.get().setStatus(seatDto.getStatus());
         }
-
         SeatDTO returningSeatDto = modelMapper.map(existingSeat.get(), SeatDTO.class);
         return returningSeatDto;
-
     }
 
 }

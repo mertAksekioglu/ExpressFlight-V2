@@ -19,34 +19,26 @@ import java.util.Optional;
 @Service
 public class PlaneService implements IPlaneService {
 
-
-
-    @Autowired
     private IPlaneRepository planeRepository;
 
-
-
-    @Autowired
     private ModelMapper modelMapper;
 
-
-
-
-
-
+    public PlaneService(IPlaneRepository planeRepository, ModelMapper modelMapper) {
+        this.planeRepository = planeRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<PlaneDTO> getAllPlanes() {
          List<Plane> planes = planeRepository.findAll();
          List<PlaneDTO> planeDtos = new ArrayList<>();
-
         for (Plane plane : planes) {
             PlaneDTO planeDto = modelMapper.map(plane, PlaneDTO.class);
             planeDtos.add(planeDto);
         }
-
          return planeDtos;
     }
+
     @Override
     public PlaneDTO getPlane(Long planeId) {
         Optional<Plane> plane = planeRepository.findById(planeId);
@@ -57,7 +49,6 @@ public class PlaneService implements IPlaneService {
         return returningPlaneDto;
     }
 
-
     @Override
     public PlaneDTO getPlaneByCode(String planeCode) {
         Optional<Plane> plane = planeRepository.findByCode(planeCode);
@@ -67,9 +58,6 @@ public class PlaneService implements IPlaneService {
         PlaneDTO returningPlaneDto = modelMapper.map(plane.get(), PlaneDTO.class);
         return returningPlaneDto;
     }
-
-
-
 
     @Override
     public PlaneDTO addPlane(PlaneDTO planeDto) {
@@ -111,10 +99,8 @@ public class PlaneService implements IPlaneService {
         if(plane.getYearOfProduction() != null){
             existingPlane.get().setYearOfProduction(planeDto.getYearOfProduction());
         }
-
         PlaneDTO returningPlaneDto = modelMapper.map(existingPlane.get(), PlaneDTO.class);
         return returningPlaneDto;
-
     }
 
 }
