@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface IAirportService {
 
-
-
     public List<AirportDTO> getAllAirports();
 
     public AirportDTO getAirport(Long airportId);
@@ -19,4 +17,5 @@ public interface IAirportService {
     public AirportDTO deleteAirport(Long airportId);
 
     public AirportDTO updateAirport(AirportDTO airportDto, Long airportId);
+
 }

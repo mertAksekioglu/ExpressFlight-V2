@@ -4,10 +4,9 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import com.expressflight.ExpressFlight.dto.SeatConfigurationDTO;
 import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
-import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatConfigurationService;
+import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

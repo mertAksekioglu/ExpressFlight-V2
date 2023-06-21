@@ -6,12 +6,14 @@ import java.util.List;
 
 public interface ICoordinateService {
 
-
     public List<CoordinateDTO> getAllCoordinates();
-    public CoordinateDTO getCoordinate(Long coordinateId);
-    public CoordinateDTO addCoordinate(CoordinateDTO coordinate);
-    public CoordinateDTO deleteCoordinate(Long coordinateId);
-    public CoordinateDTO updateCoordinate(CoordinateDTO coordinate, Long coordinateId);
 
+    public CoordinateDTO getCoordinate(Long coordinateId);
+
+    public CoordinateDTO addCoordinate(CoordinateDTO coordinate);
+
+    public CoordinateDTO deleteCoordinate(Long coordinateId);
+
+    public CoordinateDTO updateCoordinate(CoordinateDTO coordinate, Long coordinateId);
 
 }

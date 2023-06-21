@@ -1,16 +1,12 @@
 package com.expressflight.ExpressFlight.service;
 
-import com.expressflight.ExpressFlight.domain.Seat;
 import com.expressflight.ExpressFlight.domain.Ticket;
 import com.expressflight.ExpressFlight.dto.TicketDTO;
 import com.expressflight.ExpressFlight.microservice.TicketBooker;
 import com.expressflight.ExpressFlight.repository.ISeatRepository;
 import com.expressflight.ExpressFlight.repository.ITicketRepository;
 import com.expressflight.ExpressFlight.serviceInterface.ITicketService;
-import com.expressflight.ExpressFlight.util.IWriter;
-import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

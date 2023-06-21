@@ -3,13 +3,9 @@ package com.expressflight.ExpressFlight.service;
 
 import com.expressflight.ExpressFlight.domain.Seat;
 import com.expressflight.ExpressFlight.dto.SeatDTO;
-import com.expressflight.ExpressFlight.integration.SunExpressIntegration;
 import com.expressflight.ExpressFlight.repository.ISeatRepository;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatService;
-import com.expressflight.ExpressFlight.util.IWriter;
-import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

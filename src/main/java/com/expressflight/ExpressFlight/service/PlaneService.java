@@ -2,13 +2,9 @@ package com.expressflight.ExpressFlight.service;
 
 import com.expressflight.ExpressFlight.domain.Plane;
 import com.expressflight.ExpressFlight.dto.PlaneDTO;
-import com.expressflight.ExpressFlight.integration.SunExpressIntegration;
 import com.expressflight.ExpressFlight.repository.IPlaneRepository;
-import com.google.gson.Gson;
 import com.expressflight.ExpressFlight.serviceInterface.IPlaneService;
-import com.expressflight.ExpressFlight.util.IWriter;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
