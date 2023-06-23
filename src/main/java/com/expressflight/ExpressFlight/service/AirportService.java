@@ -29,8 +29,7 @@ public class AirportService implements IAirportService {
         List<Airport> airports = airportRepository.findAll();
         List<AirportDTO> airportDtos = new ArrayList<>();
         for (Airport airport: airports) {
-            AirportDTO airportDto = modelMapper.map(airport, AirportDTO.class);
-            airportDtos.add(airportDto);
+            airportDtos.add(convertToDTO(airport));
         }
         return airportDtos;
     }
@@ -41,7 +40,7 @@ public class AirportService implements IAirportService {
         if(!airport.isPresent()) {
             throw new IllegalStateException("Airport with id " + airportId + " does not exist");
         }
-        AirportDTO returningAirportDto = modelMapper.map(airport.get(), AirportDTO.class);
+        AirportDTO returningAirportDto = convertToDTO(airport.get());
         return returningAirportDto;
     }
 
@@ -51,20 +50,18 @@ public class AirportService implements IAirportService {
         if(!airport.isPresent()) {
             throw new IllegalStateException("Airport with IATA code " + airportCodeIATA + " does not exist");
         }
-        AirportDTO returningAirportDto = modelMapper.map(airport.get(), AirportDTO.class);
-        return returningAirportDto;
+        return convertToDTO(airport.get());
     }
 
     @Override
     public AirportDTO addAirport(AirportDTO airportDto) {
-        Airport airport = modelMapper.map(airportDto, Airport.class);
+        Airport airport = convertToEntity(airportDto);
         Optional<Airport> existingAirport = airportRepository.findByCodeIATA(airport.getCodeIATA());
         if(existingAirport.isPresent()) {
             throw new IllegalStateException("Airport with code " + airport.getCodeIATA() + " already exists.");
         }
         airportRepository.save(airport);
-        AirportDTO returningAirportDto = modelMapper.map(airport, AirportDTO.class);
-        return returningAirportDto;
+        return convertToDTO(airport);
 
     }
     @Override
@@ -74,14 +71,13 @@ public class AirportService implements IAirportService {
             throw new IllegalStateException( "Airport with id " + airportId + " does not exist");
         }
         airportRepository.deleteById(airportId);
-        AirportDTO returningAirportDto = modelMapper.map(airport.get(), AirportDTO.class);
-        return returningAirportDto;
+        return convertToDTO(airport.get());
     }
 
     @Override
     @Transactional
     public AirportDTO updateAirport(AirportDTO airportDto, Long airportId) {
-        Airport airport = modelMapper.map(airportDto, Airport.class);
+        Airport airport = convertToEntity(airportDto);
         Optional<Airport> existingAirport = airportRepository.findById(airportId);
         if(!existingAirport.isPresent()) {
             throw new IllegalStateException( "Airport with id " + airport.getId() + " does not exist");
@@ -104,8 +100,17 @@ public class AirportService implements IAirportService {
         if(airport.getTerminalCount() != null) {
             existingAirport.get().setTerminalCount(airport.getTerminalCount());
         }
-        AirportDTO returningAirportDto = modelMapper.map(existingAirport.get(), AirportDTO.class);
-        return returningAirportDto;
+        return convertToDTO(existingAirport.get());
+    }
+
+    private AirportDTO convertToDTO(Airport airport) {
+        AirportDTO AirportDto = modelMapper.map(airport, AirportDTO.class);
+        return AirportDto;
+    }
+
+    private Airport convertToEntity(AirportDTO airportDto) {
+        Airport airport = modelMapper.map(airportDto, Airport.class);
+        return airport;
     }
 
 }

@@ -46,7 +46,7 @@ public class FlightService implements IFlightService {
         List<FlightDTO> flightDtos = new ArrayList<>();
         for (Flight existingFlight : flights)
         {
-            FlightDTO flightDto = modelMapper.map(existingFlight,FlightDTO.class);
+            FlightDTO flightDto = convertToDTO(existingFlight);
             flightDtos.add(flightDto);
         }
         return flightDtos;
@@ -56,7 +56,7 @@ public class FlightService implements IFlightService {
     public FlightDTO getFlight(Long flightId) {
         Optional<Flight> flight = flightRepository.findById(flightId);
         checkFlightExistence(flightId);
-        return convertFlightToDTO(flight.get());
+        return convertToDTO(flight.get());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class FlightService implements IFlightService {
         List<FlightDTO> flightDtos = new ArrayList<>();
         for (Flight existingFlight : flights)
         {
-            FlightDTO flightDto = modelMapper.map(existingFlight,FlightDTO.class);
+            FlightDTO flightDto = convertToDTO(existingFlight);
             flightDtos.add(flightDto);
         }
         return flightDtos;
@@ -83,7 +83,7 @@ public class FlightService implements IFlightService {
             if(firstDepAirport.equals(flightSearchRequestDto.getDepAirport()) &&
                lastDesAirport.equals(flightSearchRequestDto.getDesAirport()) &&
                firstFlightDateTime.equals(flightSearchRequestDto.getDepDateTime())){
-                resultFlightDtos.add(modelMapper.map(flight,FlightDTO.class));
+                resultFlightDtos.add(convertToDTO(flight));
             }
         }
         return resultFlightDtos;
@@ -91,22 +91,23 @@ public class FlightService implements IFlightService {
 
     @Override
     public FlightDTO addFlight(FlightDTO flightDto) {
-        Flight flight = modelMapper.map(flightDto,Flight.class);
+        Flight flight = convertToEntity(flightDto);
         flightRepository.save(flight);
-        return convertFlightToDTO(flight);
+        return convertToDTO(flight);
     }
 
     @Override
     public FlightDTO deleteFlight(Long flightId) {
         checkFlightExistence(flightId);
+        Optional<Flight> flight = flightRepository.findById(flightId);
         flightRepository.deleteById(flightId);
-        return convertFlightToDTO(flightRepository.findById(flightId).get());
+        return convertToDTO(flight.get());
     }
 
     @Override
     @Transactional
     public FlightDTO updateFlight(FlightDTO flightDto, Long flightId) {
-        Flight flight = modelMapper.map(flightDto,Flight.class);
+        Flight flight = convertToEntity(flightDto);
         Optional<Flight> existingFlight = flightRepository.findById(flightId);
         checkFlightExistence(flightId);
         if(flight.getDepAirport() != null){
@@ -133,7 +134,7 @@ public class FlightService implements IFlightService {
         if(flight.getSeatConfig() != null){
             existingFlight.get().setSeatConfig(flight.getSeatConfig());
         }
-        return convertFlightToDTO(existingFlight.get());
+        return convertToDTO(existingFlight.get());
     }
 
     @Override
@@ -143,7 +144,7 @@ public class FlightService implements IFlightService {
         List<Flight> unconfiguredFlights = new ArrayList<>();
         for (Flight existingFlight : unconfiguredFlights)
         {
-            FlightDTO flightDto = modelMapper.map(existingFlight,FlightDTO.class);
+            FlightDTO flightDto = convertToDTO(existingFlight);
             flightDtos.add(flightDto);
         }
         return flightDtos;
@@ -156,9 +157,14 @@ public class FlightService implements IFlightService {
         }
     }
 
-    public FlightDTO convertFlightToDTO(Flight flight) {
-        FlightDTO returningFlightDto = modelMapper.map(flight, FlightDTO.class);
-        return returningFlightDto;
+    private FlightDTO convertToDTO(Flight flight) {
+        FlightDTO flightDto = modelMapper.map(flight, FlightDTO.class);
+        return flightDto;
+    }
+
+    private Flight convertToEntity(FlightDTO flightDto) {
+        Flight flight = modelMapper.map(flightDto, Flight.class);
+        return flight;
     }
 
 }

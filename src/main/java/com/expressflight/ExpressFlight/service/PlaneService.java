@@ -29,7 +29,7 @@ public class PlaneService implements IPlaneService {
          List<Plane> planes = planeRepository.findAll();
          List<PlaneDTO> planeDtos = new ArrayList<>();
         for (Plane plane : planes) {
-            PlaneDTO planeDto = modelMapper.map(plane, PlaneDTO.class);
+            PlaneDTO planeDto = convertToDTO(plane);
             planeDtos.add(planeDto);
         }
          return planeDtos;
@@ -41,8 +41,7 @@ public class PlaneService implements IPlaneService {
         if(!plane.isPresent()) {
             throw new IllegalStateException("Plane with the id " + planeId + " does not exist");
         }
-        PlaneDTO returningPlaneDto = modelMapper.map(plane.get(), PlaneDTO.class);
-        return returningPlaneDto;
+        return convertToDTO(plane.get());
     }
 
     @Override
@@ -51,20 +50,18 @@ public class PlaneService implements IPlaneService {
         if(!plane.isPresent()) {
             throw new IllegalStateException("Plane with the code " + plane.get().getCode() + "does not exist.");
         }
-        PlaneDTO returningPlaneDto = modelMapper.map(plane.get(), PlaneDTO.class);
-        return returningPlaneDto;
+        return convertToDTO(plane.get());
     }
 
     @Override
     public PlaneDTO addPlane(PlaneDTO planeDto) {
-        Plane plane = modelMapper.map(planeDto,Plane.class);
+        Plane plane = convertToEntity(planeDto);
         Optional<Plane> existingPlane = planeRepository.findByCode(plane.getCode());
         if(existingPlane.isPresent()) {
             throw new IllegalStateException("Plane with the code " + plane.getCode() + "already exists.");
         }
         planeRepository.save(plane);
-        PlaneDTO returningPlaneDto = modelMapper.map(plane, PlaneDTO.class);
-        return returningPlaneDto;
+        return convertToDTO(plane);
     }
 
     @Override
@@ -74,14 +71,13 @@ public class PlaneService implements IPlaneService {
             throw new IllegalStateException("Plane with the id " + planeId + " does not exist");
         }
         planeRepository.deleteById(planeId);
-        PlaneDTO returningPlaneDto = modelMapper.map(plane.get(), PlaneDTO.class);
-        return returningPlaneDto;
+        return convertToDTO(plane.get());
     }
 
     @Override
     @Transactional
     public PlaneDTO updatePlane(PlaneDTO planeDto, Long planeId) {
-        Plane plane = modelMapper.map(planeDto,Plane.class);
+        Plane plane = convertToEntity(planeDto);
         Optional<Plane> existingPlane = planeRepository.findById(planeId);
         if(!existingPlane.isPresent()) {
             throw new IllegalStateException("Plane with the code " + existingPlane.get().getCode() + " does not exist.");
@@ -95,8 +91,18 @@ public class PlaneService implements IPlaneService {
         if(plane.getYearOfProduction() != null){
             existingPlane.get().setYearOfProduction(planeDto.getYearOfProduction());
         }
-        PlaneDTO returningPlaneDto = modelMapper.map(existingPlane.get(), PlaneDTO.class);
-        return returningPlaneDto;
+        return convertToDTO(existingPlane.get());
+    }
+
+
+    private PlaneDTO convertToDTO(Plane plane) {
+        PlaneDTO PlaneDto = modelMapper.map(plane, PlaneDTO.class);
+        return PlaneDto;
+    }
+
+    private Plane convertToEntity(PlaneDTO planeDto) {
+        Plane plane = modelMapper.map(planeDto, Plane.class);
+        return plane;
     }
 
 }

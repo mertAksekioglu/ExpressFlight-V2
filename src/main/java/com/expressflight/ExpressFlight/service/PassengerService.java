@@ -29,7 +29,7 @@ public class PassengerService implements IPassengerService {
         List<Passenger> passengers = passengerRepository.findAll();
         List<PassengerDTO> passengerDtos = new ArrayList<>();
         for (Passenger passenger : passengers) {
-            PassengerDTO passengerDto = modelMapper.map(passenger, PassengerDTO.class);
+            PassengerDTO passengerDto = convertToDTO(passenger);
             passengerDtos.add(passengerDto);
         }
         return passengerDtos;
@@ -41,13 +41,12 @@ public class PassengerService implements IPassengerService {
         if(!passenger.isPresent()) {
             throw new IllegalStateException("Passenger with the id " + passengerId + " does not exist");
         }
-        PassengerDTO returningPassengerDto = modelMapper.map(passenger.get(), PassengerDTO.class);
-        return returningPassengerDto;
+        return convertToDTO(passenger.get());
     }
 
     @Override
     public PassengerDTO addPassenger(PassengerDTO passengerDto) {
-        Passenger passenger = modelMapper.map(passengerDto,Passenger.class);
+        Passenger passenger = convertToEntity(passengerDto);
         // Add Social Security number to identify
         /*
         Optional<Passenger> existingPassenger = passengerRepository.findByCode(passenger.getCode());
@@ -56,8 +55,7 @@ public class PassengerService implements IPassengerService {
         }
         */
         passengerRepository.save(passenger);
-        PassengerDTO returningPassengerDto = modelMapper.map(passenger, PassengerDTO.class);
-        return returningPassengerDto;
+        return convertToDTO(passenger);
     }
 
     @Override
@@ -67,14 +65,13 @@ public class PassengerService implements IPassengerService {
             throw new IllegalStateException("Passenger with the id " + passengerId + " does not exist");
         }
         passengerRepository.deleteById(passengerId);
-        PassengerDTO returningPassengerDto = modelMapper.map(passenger.get(), PassengerDTO.class);
-        return returningPassengerDto;
+        return convertToDTO(passenger.get());
     }
 
     @Override
     @Transactional
     public PassengerDTO updatePassenger(PassengerDTO passengerDto, Long passengerId) {
-        Passenger passenger = modelMapper.map(passengerDto,Passenger.class);
+        Passenger passenger = convertToEntity(passengerDto);
         Optional<Passenger> existingPassenger = passengerRepository.findById(passengerId);
         if(!existingPassenger.isPresent()) {
             throw new IllegalStateException("Passenger with the id " + existingPassenger.get().getId() + " does not exist.");
@@ -100,8 +97,17 @@ public class PassengerService implements IPassengerService {
         if(passenger.getDateOfBirth() != null){
             existingPassenger.get().setDateOfBirth(passengerDto.getDateOfBirth());
         }
-        PassengerDTO returningPassengerDto = modelMapper.map(existingPassenger.get(), PassengerDTO.class);
-        return returningPassengerDto;
+        return convertToDTO(passenger);
+    }
+
+    private PassengerDTO convertToDTO(Passenger passenger) {
+        PassengerDTO PassengerDto = modelMapper.map(passenger, PassengerDTO.class);
+        return PassengerDto;
+    }
+
+    private Passenger convertToEntity(PassengerDTO passengerDto) {
+        Passenger passenger = modelMapper.map(passengerDto, Passenger.class);
+        return passenger;
     }
 
 }

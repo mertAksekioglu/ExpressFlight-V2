@@ -38,7 +38,7 @@ public class TicketService implements ITicketService {
         List<Ticket> tickets = ticketRepository.findAll();
         List<TicketDTO> ticketDtos = new ArrayList<>();
         for (Ticket ticket: tickets) {
-            TicketDTO ticketDto = modelMapper.map(ticket, TicketDTO.class);
+            TicketDTO ticketDto = convertToDTO(ticket);
             ticketDtos.add(ticketDto);
         }
         return ticketDtos;
@@ -50,17 +50,15 @@ public class TicketService implements ITicketService {
         if(!ticket.isPresent()) {
             throw new IllegalStateException("Ticket with id " + ticketId + " does not exist");
         }
-        TicketDTO returningTicketDto = modelMapper.map(ticket.get(), TicketDTO.class);
-        return returningTicketDto;
+        return convertToDTO(ticket.get());
     }
 
     @Override
     public TicketDTO addTicket(TicketDTO ticketDto) {
-        Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
+        Ticket ticket = convertToEntity(ticketDto);
         ticketBooker.getSeatAvailability(ticketDto.getFlight(),seatRepository.findById(ticketDto.getSeat()).get().getCode());
         ticketRepository.save(ticket);
-        TicketDTO returningTicketDto = modelMapper.map(ticket, TicketDTO.class);
-        return returningTicketDto;
+        return convertToDTO(ticket);
 
     }
 
@@ -71,13 +69,12 @@ public class TicketService implements ITicketService {
             throw new IllegalStateException( "Ticket with id " + ticketId + " does not exist");
         }
         ticketRepository.deleteById(ticketId);
-        TicketDTO returningTicketDto = modelMapper.map(ticket.get(), TicketDTO.class);
-        return returningTicketDto;
+        return convertToDTO(ticket.get());
     }
 
     @Transactional
     public TicketDTO updateTicket(TicketDTO ticketDto, Long ticketId) {
-        Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
+        Ticket ticket = convertToEntity(ticketDto);
         Optional<Ticket> existingTicket = ticketRepository.findById(ticketId);
         if(!existingTicket.isPresent()) {
             throw new IllegalStateException( "Ticket with id " + ticket.getId() + " does not exist");
@@ -94,7 +91,16 @@ public class TicketService implements ITicketService {
         if(ticket.getTicketType() != null) {
             existingTicket.get().setTicketType(ticket.getTicketType());
         }
-        TicketDTO returningTicketDto = modelMapper.map(existingTicket.get(), TicketDTO.class);
-        return returningTicketDto;
+        return convertToDTO(existingTicket.get());
+    }
+
+    private TicketDTO convertToDTO(Ticket ticket) {
+        TicketDTO TicketDto = modelMapper.map(ticket, TicketDTO.class);
+        return TicketDto;
+    }
+
+    private Ticket convertToEntity(TicketDTO ticketDto) {
+        Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
+        return ticket;
     }
 }

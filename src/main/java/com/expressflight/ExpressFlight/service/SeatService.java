@@ -30,7 +30,7 @@ public class SeatService implements ISeatService {
         List<Seat> seats = seatRepository.findAll();
         List<SeatDTO> seatDtos = new ArrayList<>();
         for (Seat seat : seats) {
-            SeatDTO seatDto = modelMapper.map(seat, SeatDTO.class);
+            SeatDTO seatDto = convertToDTO(seat);
             seatDtos.add(seatDto);
         }
         return seatDtos;
@@ -42,8 +42,7 @@ public class SeatService implements ISeatService {
         if(!seat.isPresent()) {
             throw new IllegalStateException("Seat with the id " + seatId + " does not exist");
         }
-        SeatDTO returningSeatDto = modelMapper.map(seat.get(), SeatDTO.class);
-        return returningSeatDto;
+        return convertToDTO(seat.get());
     }
 
     @Override
@@ -52,13 +51,12 @@ public class SeatService implements ISeatService {
         if(!seat.isPresent()) {
             throw new IllegalStateException("Seat with the code " + seat.get().getCode() + "does not exist.");
         }
-        SeatDTO returningSeatDto = modelMapper.map(seat.get(), SeatDTO.class);
-        return returningSeatDto;
+        return convertToDTO(seat.get());
     }
 
     @Override
     public SeatDTO addSeat(SeatDTO seatDto) {
-        Seat seat = modelMapper.map(seatDto,Seat.class);
+        Seat seat = convertToEntity(seatDto);
         /*
         Optional<Seat> existingSeat = seatRepository.findByCode(seat.getCode());
         if(existingSeat.isPresent()) {
@@ -66,8 +64,7 @@ public class SeatService implements ISeatService {
         }
         */
         seatRepository.save(seat);
-        SeatDTO returningSeatDto = modelMapper.map(seat, SeatDTO.class);
-        return returningSeatDto;
+        return convertToDTO(seat);
     }
 
     @Override
@@ -77,14 +74,13 @@ public class SeatService implements ISeatService {
             throw new IllegalStateException("Seat with the id " + seatId + " does not exist");
         }
         seatRepository.deleteById(seatId);
-        SeatDTO returningSeatDto = modelMapper.map(seat.get(), SeatDTO.class);
-        return returningSeatDto;
+        return convertToDTO(seat.get());
     }
 
     @Override
     @Transactional
     public SeatDTO updateSeat(SeatDTO seatDto, Long seatId) {
-        Seat seat = modelMapper.map(seatDto,Seat.class);
+        Seat seat = convertToEntity(seatDto);
         Optional<Seat> existingSeat = seatRepository.findById(seatId);
         if(!existingSeat.isPresent()) {
             throw new IllegalStateException("Seat with the code " + existingSeat.get().getCode() + " does not exist.");
@@ -98,8 +94,17 @@ public class SeatService implements ISeatService {
         if(seat.getStatus() != null){
             existingSeat.get().setStatus(seatDto.getStatus());
         }
-        SeatDTO returningSeatDto = modelMapper.map(existingSeat.get(), SeatDTO.class);
-        return returningSeatDto;
+        return convertToDTO(existingSeat.get());
     }
 
+    private SeatDTO convertToDTO(Seat seat) {
+        SeatDTO SeatDto = modelMapper.map(seat, SeatDTO.class);
+        return SeatDto;
+    }
+
+    private Seat convertToEntity(SeatDTO seatDto) {
+        Seat seat = modelMapper.map(seatDto, Seat.class);
+        return seat;
+    }
+    
 }

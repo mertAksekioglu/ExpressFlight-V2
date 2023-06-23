@@ -29,7 +29,7 @@ public class CoordinateService implements ICoordinateService {
         List<Coordinate> coordinates = coordinateRepository.findAll();
         List<CoordinateDTO> coordinateDtos = new ArrayList<>();
         for (Coordinate coordinate : coordinates) {
-            CoordinateDTO coordinateDto = modelMapper.map(coordinate, CoordinateDTO.class);
+            CoordinateDTO coordinateDto = convertToDTO(coordinate);
             coordinateDtos.add(coordinateDto);
         }
         return coordinateDtos;
@@ -41,17 +41,15 @@ public class CoordinateService implements ICoordinateService {
         if(!coordinate.isPresent()) {
             throw new IllegalStateException("Coordinate with the id " + coordinateId + " does not exist");
         }
-        CoordinateDTO returningCoordinateDto = modelMapper.map(coordinate.get(), CoordinateDTO.class);
-        return returningCoordinateDto;
+        return convertToDTO(coordinate.get());
     }
 
     @Override
     public CoordinateDTO addCoordinate(CoordinateDTO coordinateDto) {
-        Coordinate coordinate = modelMapper.map(coordinateDto,Coordinate.class);
+        Coordinate coordinate = convertToEntity(coordinateDto);
         checkAlreadyExistsByLongitudeAndLatitude(coordinateDto);
         coordinateRepository.save(coordinate);
-        CoordinateDTO returningCoordinateDto = modelMapper.map(coordinate, CoordinateDTO.class);
-        return returningCoordinateDto;
+        return convertToDTO(coordinate);
     }
 
     @Override
@@ -61,14 +59,13 @@ public class CoordinateService implements ICoordinateService {
             throw new IllegalStateException("Coordinate with the id " + coordinateId + " does not exist");
         }
         coordinateRepository.deleteById(coordinateId);
-        CoordinateDTO returningCoordinateDto = modelMapper.map(coordinate.get(), CoordinateDTO.class);
-        return returningCoordinateDto;
+        return convertToDTO(coordinate.get());
     }
 
     @Override
     @Transactional
     public CoordinateDTO updateCoordinate(CoordinateDTO coordinateDto, Long coordinateId) {
-        Coordinate coordinate = modelMapper.map(coordinateDto,Coordinate.class);
+        Coordinate coordinate = convertToEntity(coordinateDto);
         Optional<Coordinate> existingCoordinate = coordinateRepository.findById(coordinateId);
         if(!existingCoordinate.isPresent()) {
             throw new IllegalStateException("Coordinate with the id " + existingCoordinate.get().getId() + " does not exist.");
@@ -79,8 +76,7 @@ public class CoordinateService implements ICoordinateService {
         if(coordinate.getLongitude() != null){
             existingCoordinate.get().setLongitude(coordinateDto.getLongitude());
         }
-        CoordinateDTO returningCoordinateDto = modelMapper.map(existingCoordinate.get(), CoordinateDTO.class);
-        return returningCoordinateDto;
+        return convertToDTO(existingCoordinate.get());
     }
 
 
@@ -91,6 +87,16 @@ public class CoordinateService implements ICoordinateService {
                     " and latitude " + coordinateDto.getLatitude()  + " already exists.");
         }
         return exists;
+    }
+
+    private CoordinateDTO convertToDTO(Coordinate coordinate) {
+        CoordinateDTO coordinateDto = modelMapper.map(coordinate, CoordinateDTO.class);
+        return coordinateDto;
+    }
+
+    private Coordinate convertToEntity(CoordinateDTO coordinateDto) {
+        Coordinate coordinate = modelMapper.map(coordinateDto, Coordinate.class);
+        return coordinate;
     }
 
 }

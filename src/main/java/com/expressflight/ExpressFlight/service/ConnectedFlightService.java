@@ -38,8 +38,7 @@ public class ConnectedFlightService implements IConnectedFlightService {
         List<ConnectedFlightDTO> connectedFlightDtos = new ArrayList<>();
         for (ConnectedFlight existingConnectedFlight : connectedFlights)
         {
-            ConnectedFlightDTO connectedFlightDto = modelMapper.map(existingConnectedFlight,ConnectedFlightDTO.class);
-            connectedFlightDtos.add(connectedFlightDto);
+            connectedFlightDtos.add(convertToDTO(existingConnectedFlight));
         }
         return connectedFlightDtos;
     }
@@ -49,8 +48,7 @@ public class ConnectedFlightService implements IConnectedFlightService {
         if(!connectedFlight.isPresent()) {
             throw new IllegalStateException("ConnectedFlight with id " + connectedFlightId + " does not exist");
         }
-        ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(connectedFlight.get(), ConnectedFlightDTO.class);
-        return returningConnectedFlightDto;
+        return convertToDTO(connectedFlight.get());
     }
 
     @Override
@@ -67,7 +65,7 @@ public class ConnectedFlightService implements IConnectedFlightService {
             if(firstDepAirport.equals(connectedFlightSearchRequestDto.getDepAirport()) &&
                     lastDesAirport.equals(connectedFlightSearchRequestDto.getDesAirport()) &&
                     firstConnectedFlightDate.equals(connectedFlightSearchRequestDto.getDepDateTime().toLocalDate())){
-                resultConnectedFlightDtos.add(modelMapper.map(connectedFlight,ConnectedFlightDTO.class));
+                resultConnectedFlightDtos.add(convertToDTO(connectedFlight));
             }
         }
         return resultConnectedFlightDtos;
@@ -75,15 +73,14 @@ public class ConnectedFlightService implements IConnectedFlightService {
 
     @Override
     public ConnectedFlightDTO addConnectedFlight(ConnectedFlightDTO connectedFlightDto) {
-        ConnectedFlight connectedFlight = modelMapper.map(connectedFlightDto,ConnectedFlight.class);
-        Optional<ConnectedFlight> existingConnectedFlight = connectedFlightRepository.findById(connectedFlight.getId());
+        ConnectedFlight connectedFlight = convertToEntity(connectedFlightDto);
+        /*Optional<ConnectedFlight> existingConnectedFlight = connectedFlightRepository.findById(connectedFlight.getId());
         // TODO How do we know the existingConnectedFlight has the correct id ? We cant know that
         if(existingConnectedFlight.isPresent()) {
             throw new IllegalStateException("ConnectedFlight with the id " + connectedFlight.getId()  + "already exists.");
-        }
+        }*/
         connectedFlightRepository.save(connectedFlight);
-        ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(connectedFlight, ConnectedFlightDTO.class);
-        return returningConnectedFlightDto;
+        return convertToDTO(connectedFlight);
     }
 
     @Override
@@ -93,8 +90,7 @@ public class ConnectedFlightService implements IConnectedFlightService {
             throw new IllegalStateException("ConnectedFlight with the id " + connectedFlightId + " does not exist");
         }
         connectedFlightRepository.deleteById(connectedFlightId);
-        ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(connectedFlight.get(), ConnectedFlightDTO.class);
-        return returningConnectedFlightDto;
+        return convertToDTO(connectedFlight.get());
     }
 
     @Override
@@ -117,8 +113,17 @@ public class ConnectedFlightService implements IConnectedFlightService {
         if(connectedFlight.getLayoverMinutes() != null){
             existingConnectedFlight.get().setLayoverMinutes(connectedFlight.getLayoverMinutes());
         }
-        ConnectedFlightDTO returningConnectedFlightDto = modelMapper.map(existingConnectedFlight.get(), ConnectedFlightDTO.class);
-        return returningConnectedFlightDto;
+        return convertToDTO(existingConnectedFlight.get());
+    }
+
+    private ConnectedFlightDTO convertToDTO(ConnectedFlight connectedFlight) {
+        ConnectedFlightDTO connectedFlightDto = modelMapper.map(connectedFlight, ConnectedFlightDTO.class);
+        return connectedFlightDto;
+    }
+
+    private ConnectedFlight convertToEntity(ConnectedFlightDTO connectedFlightDto) {
+        ConnectedFlight connectedFlight = modelMapper.map(connectedFlightDto, ConnectedFlight.class);
+        return connectedFlight;
     }
 
 }

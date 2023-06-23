@@ -35,7 +35,7 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         List<SeatConfiguration> seatConfigurations = seatConfigurationRepository.findAll();
         List<SeatConfigurationDTO> seatConfigurationDtos = new ArrayList<>();
         for (SeatConfiguration seatConfiguration : seatConfigurations) {
-            SeatConfigurationDTO seatConfigurationDto = modelMapper.map(seatConfiguration, SeatConfigurationDTO.class);
+            SeatConfigurationDTO seatConfigurationDto = convertToDTO(seatConfiguration);
             seatConfigurationDtos.add(seatConfigurationDto);
         }
         return seatConfigurationDtos;
@@ -46,7 +46,7 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         List<SeatConfiguration> seatConfigurations = seatConfigurationRepository.findByIsConfigured(false);
         List<SeatConfigurationDTO> seatConfigurationDtos = new ArrayList<>();
         for (SeatConfiguration seatConfiguration : seatConfigurations) {
-            SeatConfigurationDTO seatConfigurationDto = modelMapper.map(seatConfiguration, SeatConfigurationDTO.class);
+            SeatConfigurationDTO seatConfigurationDto = convertToDTO(seatConfiguration);
             seatConfigurationDtos.add(seatConfigurationDto);
         }
         return seatConfigurationDtos;
@@ -58,8 +58,7 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         if(!seatConfiguration.isPresent()) {
             throw new IllegalStateException("SeatConfiguration with the id " + seatConfigurationId + " does not exist");
         }
-        SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(seatConfiguration.get(), SeatConfigurationDTO.class);
-        return returningSeatConfigurationDto;
+        return convertToDTO(seatConfiguration.get());
     }
 
     @Override
@@ -68,20 +67,18 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         if(!seatConfiguration.isPresent()) {
             throw new IllegalStateException("SeatConfiguration with the code " + seatConfiguration.get().getConfigName() + "does not exist.");
         }
-        SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(seatConfiguration.get(), SeatConfigurationDTO.class);
-        return returningSeatConfigurationDto;
+        return convertToDTO(seatConfiguration.get());
     }
 
     @Override
     public SeatConfigurationDTO addSeatConfiguration(SeatConfigurationDTO seatConfigurationDto) {
-        SeatConfiguration seatConfiguration = modelMapper.map(seatConfigurationDto,SeatConfiguration.class);
+        SeatConfiguration seatConfiguration = convertToEntity(seatConfigurationDto);
         Optional<SeatConfiguration> existingSeatConfiguration = seatConfigurationRepository.findByConfigName(seatConfiguration.getConfigName());
         if(existingSeatConfiguration.isPresent()) {
             throw new IllegalStateException("SeatConfiguration with the code " + seatConfiguration.getConfigName() + "already exists.");
         }
         seatConfigurationRepository.save(seatConfiguration);
-        SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(seatConfiguration, SeatConfigurationDTO.class);
-        return returningSeatConfigurationDto;
+        return convertToDTO(seatConfiguration);
     }
 
     @Override
@@ -91,14 +88,13 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             throw new IllegalStateException("SeatConfiguration with the id " + seatConfigurationId + " does not exist");
         }
         seatConfigurationRepository.deleteById(seatConfigurationId);
-        SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(seatConfiguration.get(), SeatConfigurationDTO.class);
-        return returningSeatConfigurationDto;
+        return convertToDTO(seatConfiguration.get());
     }
 
     @Override
     @Transactional
     public SeatConfigurationDTO updateSeatConfiguration(SeatConfigurationDTO seatConfigurationDto, Long seatConfigurationId) {
-        SeatConfiguration seatConfiguration = modelMapper.map(seatConfigurationDto,SeatConfiguration.class);
+        SeatConfiguration seatConfiguration = convertToEntity(seatConfigurationDto);
         Optional<SeatConfiguration> existingSeatConfiguration = seatConfigurationRepository.findById(seatConfigurationId);
         if(!existingSeatConfiguration.isPresent()) {
             throw new IllegalStateException("SeatConfiguration with the code " + existingSeatConfiguration.get().getConfigName() + " does not exist.");
@@ -115,9 +111,7 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         if(seatConfiguration.getSeatMap() != null){
             existingSeatConfiguration.get().setSeatMap(seatConfigurationDto.getSeatMap());
         }
-        SeatConfigurationDTO returningSeatConfigurationDto = modelMapper.map(existingSeatConfiguration.get(), SeatConfigurationDTO.class);
-        return returningSeatConfigurationDto;
-
+        return convertToDTO(existingSeatConfiguration.get());
     }
 
     @Override
@@ -131,8 +125,7 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             seatConfig.setSeatMap(seatMapFactory.createSeatMap(seatConfig.getConfigName()).mapSeats());
             seatConfig.setIsConfigured(true);
         }
-        SeatConfigurationDTO returningSeatConfigurationDTO = modelMapper.map(seatConfig,SeatConfigurationDTO.class);
-        return returningSeatConfigurationDTO;
+        return convertToDTO(seatConfig);
     }
 
     @Override
@@ -144,10 +137,20 @@ public class SeatConfigurationService implements ISeatConfigurationService {
             seatConfig.setSeatMap(seatMapFactory.createSeatMap(seatConfig.getConfigName()).mapSeats());
             seatConfig.setIsConfigured(true);
 
-            SeatConfigurationDTO seatConfigurationDTO = modelMapper.map(seatConfig,SeatConfigurationDTO.class);
+            SeatConfigurationDTO seatConfigurationDTO = convertToDTO(seatConfig);
             returningSeatConfigurationDtos.add(seatConfigurationDTO);
         }
         return returningSeatConfigurationDtos;
+    }
+
+    private SeatConfigurationDTO convertToDTO(SeatConfiguration seatConfiguration) {
+        SeatConfigurationDTO SeatConfigurationDto = modelMapper.map(seatConfiguration, SeatConfigurationDTO.class);
+        return SeatConfigurationDto;
+    }
+
+    private SeatConfiguration convertToEntity(SeatConfigurationDTO seatConfigurationDto) {
+        SeatConfiguration seatConfiguration = modelMapper.map(seatConfigurationDto, SeatConfiguration.class);
+        return seatConfiguration;
     }
 
 }
