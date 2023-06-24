@@ -13,14 +13,10 @@ public class FlightDTO {
     private String airline;
     private String flightCode;
     private Double price;
-    private Long depAirport;
-    private Long arvAirport;
+    private AirportDTO depAirport;
+    private AirportDTO arvAirport;
     private LocalDateTime depDateTime;
     private LocalDateTime arvDateTime;
-    private Long seatConfig;
-
-
-
-
+    private SeatConfigurationDTO seatConfig;
 
 }

@@ -9,7 +9,6 @@ import java.time.LocalDate;
 @Data
 public class PassengerDTO {
 
-
     private String name;
     private String surname;
     private String email;
@@ -17,6 +16,5 @@ public class PassengerDTO {
     private Gender gender;
     private Integer age;
     private LocalDate dateOfBirth;
-
 
 }

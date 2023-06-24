@@ -1,10 +1,11 @@
-package com.expressflight.ExpressFlight.mapper;
+package com.expressflight.ExpressFlight.dtomapper;
 
 import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
 import com.expressflight.ExpressFlight.provider.SunExpressFlightDTO;
 import com.expressflight.ExpressFlight.repository.IAirportRepository;
 import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
+import com.expressflight.ExpressFlight.requestdto.FlightRequestDTO;
 import com.expressflight.ExpressFlight.service.SeatConfigurationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class SunExpressFlightDTOToFlightDTOMapper implements IMapper {
+public class SunExpressFlightDTOToFlightDTOMapper implements IDTOMapper {
 
     ModelMapper modelMapper;
 
@@ -34,7 +35,7 @@ public class SunExpressFlightDTOToFlightDTOMapper implements IMapper {
     @Override
     public Object map(Object mapped, Object mapper) {
         SunExpressFlightDTO sunExpressFlightDto = (SunExpressFlightDTO) mapped;
-        FlightDTO flightDto = new FlightDTO();
+        FlightRequestDTO flightDto = new FlightRequestDTO();
         flightDto.setDepAirport(airportRepository.findByCodeIATA(sunExpressFlightDto.getDepAirport()).get().getId());
         flightDto.setArvAirport(airportRepository.findByCodeIATA(sunExpressFlightDto.getArvAirport()).get().getId());
         flightDto.setDepDateTime(LocalDateTime.of(sunExpressFlightDto.getDepDate(),sunExpressFlightDto.getDepTime()));

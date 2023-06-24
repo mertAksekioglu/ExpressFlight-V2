@@ -2,8 +2,7 @@ package com.expressflight.ExpressFlight.integration;
 
 import com.expressflight.ExpressFlight.deserializer.LocalDateDeserializer;
 import com.expressflight.ExpressFlight.deserializer.LocalTimeDeserializer;
-import com.expressflight.ExpressFlight.dto.FlightDTO;
-import com.expressflight.ExpressFlight.mapper.IMapper;
+import com.expressflight.ExpressFlight.dtomapper.IDTOMapper;
 import com.expressflight.ExpressFlight.provider.IProvider;
 import com.expressflight.ExpressFlight.provider.SunExpressFlightDTO;
 import com.expressflight.ExpressFlight.requestdto.FlightRequestDTO;
@@ -30,7 +29,7 @@ public class SunExpressIntegration implements IIntegration {
 
     private IFlightService flightService;
 
-    private IMapper mapper;
+    private IDTOMapper mapper;
 
     private Gson gson;
 
@@ -38,7 +37,7 @@ public class SunExpressIntegration implements IIntegration {
 
     private SunExpressFlightDTO[] SunExpressFlights;
 
-    public SunExpressIntegration(IProvider sunExpressFlightProvider,IFlightService flightService,IMapper mapper) {
+    public SunExpressIntegration(IProvider sunExpressFlightProvider,IFlightService flightService,IDTOMapper mapper) {
         this.sunExpressFlightProvider = sunExpressFlightProvider;
         this.flightService = flightService;
         this.mapper = mapper;
@@ -61,10 +60,8 @@ public class SunExpressIntegration implements IIntegration {
         SunExpressFlights = gson.fromJson(jsonString, SunExpressFlightDTO[].class);
         for (int i = 0; i < SunExpressFlights.length; i++) {
             FlightRequestDTO flightRequestDto = (FlightRequestDTO) mapper.map(SunExpressFlights[i],null);
-            System.out.println(flightRequestDto);
             flightService.addFlight(flightRequestDto);
         }
-        System.out.println(Arrays.toString(SunExpressFlights));
     }
 
 }

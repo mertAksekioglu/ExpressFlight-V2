@@ -9,10 +9,9 @@ import lombok.Data;
 @Data
 public class TicketDTO {
 
-
-    private Long flight;
-    private Long passenger;
-    private Long seat;
+    private FlightDTO flight;
+    private PassengerDTO passenger;
+    private SeatDTO seat;
     private TicketType ticketType;
 
 }

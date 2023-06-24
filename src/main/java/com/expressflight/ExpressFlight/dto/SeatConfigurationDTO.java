@@ -11,9 +11,6 @@ public class SeatConfigurationDTO {
     private String configPlane;
     private String configName;
     private Boolean isConfigured;
-    private Seat[][] seatMap;
-
-
-
+    private SeatDTO[][] seatMap;
 
 }

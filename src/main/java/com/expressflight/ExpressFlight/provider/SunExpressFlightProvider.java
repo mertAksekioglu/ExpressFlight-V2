@@ -25,6 +25,7 @@ public class SunExpressFlightProvider implements IProvider {
 
     @Override
     public String getData() {
+        System.out.println("a");
        jsonString = restTemplate.getForObject(apiUrl, String.class);
        return jsonString;
     }

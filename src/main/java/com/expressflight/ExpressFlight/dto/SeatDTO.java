@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 public class SeatDTO {
 
-    private Long id;
     private String code;
     private SeatType type;
     private SeatStatus status;
+
 }

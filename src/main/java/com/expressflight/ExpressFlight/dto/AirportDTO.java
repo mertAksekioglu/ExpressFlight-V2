@@ -5,10 +5,12 @@ import lombok.Data;
 
 @Data
 public class AirportDTO {
+
     private String name;
     private String codeIATA;
     private String codeICAO;
-    private Long location;
+    private CoordinateDTO location;
     private Integer terminalCount;
     private Integer runwayCount;
+
 }
