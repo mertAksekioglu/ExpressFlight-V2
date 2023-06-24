@@ -6,6 +6,7 @@ import com.expressflight.ExpressFlight.dto.FlightDTO;
 import com.expressflight.ExpressFlight.mapper.IMapper;
 import com.expressflight.ExpressFlight.provider.IProvider;
 import com.expressflight.ExpressFlight.provider.SunExpressFlightDTO;
+import com.expressflight.ExpressFlight.requestdto.FlightRequestDTO;
 import com.expressflight.ExpressFlight.serializer.LocalDateSerializer;
 import com.expressflight.ExpressFlight.serializer.LocalTimeSerializer;
 import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
@@ -59,9 +60,9 @@ public class SunExpressIntegration implements IIntegration {
         var gson = this.gson;
         SunExpressFlights = gson.fromJson(jsonString, SunExpressFlightDTO[].class);
         for (int i = 0; i < SunExpressFlights.length; i++) {
-            FlightDTO flightDto = (FlightDTO) mapper.map(SunExpressFlights[i],null);
-            System.out.println(flightDto);
-            flightService.addFlight(flightDto);
+            FlightRequestDTO flightRequestDto = (FlightRequestDTO) mapper.map(SunExpressFlights[i],null);
+            System.out.println(flightRequestDto);
+            flightService.addFlight(flightRequestDto);
         }
         System.out.println(Arrays.toString(SunExpressFlights));
     }

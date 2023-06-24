@@ -1,6 +1,7 @@
 package com.expressflight.ExpressFlight.controller;
 
 import com.expressflight.ExpressFlight.dto.SeatDTO;
+import com.expressflight.ExpressFlight.requestdto.SeatRequestDTO;
 import com.expressflight.ExpressFlight.service.SeatService;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class SeatController {
     }
 
     @PostMapping(value = "/add-seat")
-    public SeatDTO addSeat(@RequestBody SeatDTO seatDto) {
-        return seatService.addSeat(seatDto);
+    public SeatDTO addSeat(@RequestBody SeatRequestDTO seatRequestDto) {
+        return seatService.addSeat(seatRequestDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -45,8 +46,8 @@ public class SeatController {
     }
 
     @PutMapping(value = "/update-seat")
-    public SeatDTO updateSeat(@RequestBody SeatDTO seatDto, @RequestParam(value = "id") Long seatId) {
-        return seatService.updateSeat(seatDto, seatId);
+    public SeatDTO updateSeat(@RequestBody SeatRequestDTO seatRequestDto, @RequestParam(value = "id") Long seatId) {
+        return seatService.updateSeat(seatRequestDto, seatId);
     }
 
 }

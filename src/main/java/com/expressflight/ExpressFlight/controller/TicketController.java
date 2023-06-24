@@ -2,6 +2,7 @@ package com.expressflight.ExpressFlight.controller;
 
 
 import com.expressflight.ExpressFlight.dto.TicketDTO;
+import com.expressflight.ExpressFlight.requestdto.TicketRequestDTO;
 import com.expressflight.ExpressFlight.service.TicketService;
 import com.expressflight.ExpressFlight.serviceInterface.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class TicketController {
     }
 
     @PostMapping(value = "/add-ticket")
-    public TicketDTO addTicket(@RequestBody TicketDTO ticketDto) {
-        return ticketService.addTicket(ticketDto);
+    public TicketDTO addTicket(@RequestBody TicketRequestDTO ticketRequestDto) {
+        return ticketService.addTicket(ticketRequestDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -41,8 +42,8 @@ public class TicketController {
     }
 
     @PutMapping(value = "/update-ticket")
-    public TicketDTO updateTicket(@RequestBody TicketDTO ticketDto, @RequestParam(value = "id") Long ticketId) {
-        return ticketService.updateTicket(ticketDto, ticketId);
+    public TicketDTO updateTicket(@RequestBody TicketRequestDTO ticketRequestDto, @RequestParam(value = "id") Long ticketId) {
+        return ticketService.updateTicket(ticketRequestDto, ticketId);
     }
 
 }

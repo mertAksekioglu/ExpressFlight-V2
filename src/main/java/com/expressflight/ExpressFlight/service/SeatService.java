@@ -4,6 +4,7 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.Seat;
 import com.expressflight.ExpressFlight.dto.SeatDTO;
 import com.expressflight.ExpressFlight.repository.ISeatRepository;
+import com.expressflight.ExpressFlight.requestdto.SeatRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -55,8 +56,8 @@ public class SeatService implements ISeatService {
     }
 
     @Override
-    public SeatDTO addSeat(SeatDTO seatDto) {
-        Seat seat = convertToEntity(seatDto);
+    public SeatDTO addSeat(SeatRequestDTO seatRequestDto) {
+        Seat seat = convertToEntity(seatRequestDto);
         /*
         Optional<Seat> existingSeat = seatRepository.findByCode(seat.getCode());
         if(existingSeat.isPresent()) {
@@ -79,20 +80,20 @@ public class SeatService implements ISeatService {
 
     @Override
     @Transactional
-    public SeatDTO updateSeat(SeatDTO seatDto, Long seatId) {
-        Seat seat = convertToEntity(seatDto);
+    public SeatDTO updateSeat(SeatRequestDTO seatRequestDto, Long seatId) {
+        Seat seat = convertToEntity(seatRequestDto);
         Optional<Seat> existingSeat = seatRepository.findById(seatId);
         if(!existingSeat.isPresent()) {
             throw new IllegalStateException("Seat with the code " + existingSeat.get().getCode() + " does not exist.");
         }
         if(seat.getCode() != null){
-            existingSeat.get().setCode(seatDto.getCode());
+            existingSeat.get().setCode(seat.getCode());
         }
         if(seat.getType() != null){
-            existingSeat.get().setType(seatDto.getType());
+            existingSeat.get().setType(seat.getType());
         }
         if(seat.getStatus() != null){
-            existingSeat.get().setStatus(seatDto.getStatus());
+            existingSeat.get().setStatus(seat.getStatus());
         }
         return convertToDTO(existingSeat.get());
     }
@@ -102,8 +103,8 @@ public class SeatService implements ISeatService {
         return SeatDto;
     }
 
-    private Seat convertToEntity(SeatDTO seatDto) {
-        Seat seat = modelMapper.map(seatDto, Seat.class);
+    private Seat convertToEntity(SeatRequestDTO seatRequestDto) {
+        Seat seat = modelMapper.map(seatRequestDto, Seat.class);
         return seat;
     }
     

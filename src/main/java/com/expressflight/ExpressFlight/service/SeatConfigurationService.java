@@ -4,6 +4,7 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.SeatConfiguration;
 import com.expressflight.ExpressFlight.dto.SeatConfigurationDTO;
 import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
+import com.expressflight.ExpressFlight.requestdto.SeatConfigurationRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatConfigurationService;
 import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
 import org.modelmapper.ModelMapper;
@@ -71,8 +72,8 @@ public class SeatConfigurationService implements ISeatConfigurationService {
     }
 
     @Override
-    public SeatConfigurationDTO addSeatConfiguration(SeatConfigurationDTO seatConfigurationDto) {
-        SeatConfiguration seatConfiguration = convertToEntity(seatConfigurationDto);
+    public SeatConfigurationDTO addSeatConfiguration(SeatConfigurationRequestDTO seatConfigurationRequestDto) {
+        SeatConfiguration seatConfiguration = convertToEntity(seatConfigurationRequestDto);
         Optional<SeatConfiguration> existingSeatConfiguration = seatConfigurationRepository.findByConfigName(seatConfiguration.getConfigName());
         if(existingSeatConfiguration.isPresent()) {
             throw new IllegalStateException("SeatConfiguration with the code " + seatConfiguration.getConfigName() + "already exists.");
@@ -93,23 +94,23 @@ public class SeatConfigurationService implements ISeatConfigurationService {
 
     @Override
     @Transactional
-    public SeatConfigurationDTO updateSeatConfiguration(SeatConfigurationDTO seatConfigurationDto, Long seatConfigurationId) {
-        SeatConfiguration seatConfiguration = convertToEntity(seatConfigurationDto);
+    public SeatConfigurationDTO updateSeatConfiguration(SeatConfigurationRequestDTO seatConfigurationRequestDto, Long seatConfigurationId) {
+        SeatConfiguration seatConfiguration = convertToEntity(seatConfigurationRequestDto);
         Optional<SeatConfiguration> existingSeatConfiguration = seatConfigurationRepository.findById(seatConfigurationId);
         if(!existingSeatConfiguration.isPresent()) {
             throw new IllegalStateException("SeatConfiguration with the code " + existingSeatConfiguration.get().getConfigName() + " does not exist.");
         }
         if(seatConfiguration.getConfigName() != null){
-            existingSeatConfiguration.get().setConfigName(seatConfigurationDto.getConfigName());
+            existingSeatConfiguration.get().setConfigName(seatConfiguration.getConfigName());
         }
         if(seatConfiguration.getConfigPlane() != null){
-            existingSeatConfiguration.get().setConfigPlane(seatConfigurationDto.getConfigName());
+            existingSeatConfiguration.get().setConfigPlane(seatConfiguration.getConfigName());
         }
         if(seatConfiguration.getConfigPlane() != null){
-            existingSeatConfiguration.get().setConfigPlane(seatConfigurationDto.getConfigName());
+            existingSeatConfiguration.get().setConfigPlane(seatConfiguration.getConfigName());
         }
         if(seatConfiguration.getSeatMap() != null){
-            existingSeatConfiguration.get().setSeatMap(seatConfigurationDto.getSeatMap());
+            existingSeatConfiguration.get().setSeatMap(seatConfiguration.getSeatMap());
         }
         return convertToDTO(existingSeatConfiguration.get());
     }
@@ -148,8 +149,8 @@ public class SeatConfigurationService implements ISeatConfigurationService {
         return SeatConfigurationDto;
     }
 
-    private SeatConfiguration convertToEntity(SeatConfigurationDTO seatConfigurationDto) {
-        SeatConfiguration seatConfiguration = modelMapper.map(seatConfigurationDto, SeatConfiguration.class);
+    private SeatConfiguration convertToEntity(SeatConfigurationRequestDTO seatConfigurationRequestDto) {
+        SeatConfiguration seatConfiguration = modelMapper.map(seatConfigurationRequestDto, SeatConfiguration.class);
         return seatConfiguration;
     }
 

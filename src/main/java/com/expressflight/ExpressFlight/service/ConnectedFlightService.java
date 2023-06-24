@@ -3,9 +3,10 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.ConnectedFlight;
 import com.expressflight.ExpressFlight.domain.Flight;
 import com.expressflight.ExpressFlight.dto.ConnectedFlightDTO;
-import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.repository.IConnectedFlightRepository;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
+import com.expressflight.ExpressFlight.requestdto.ConnectedFlightRequestDTO;
+import com.expressflight.ExpressFlight.requestdto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IConnectedFlightService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -72,8 +73,8 @@ public class ConnectedFlightService implements IConnectedFlightService {
     }
 
     @Override
-    public ConnectedFlightDTO addConnectedFlight(ConnectedFlightDTO connectedFlightDto) {
-        ConnectedFlight connectedFlight = convertToEntity(connectedFlightDto);
+    public ConnectedFlightDTO addConnectedFlight(ConnectedFlightRequestDTO connectedFlightRequestDto) {
+        ConnectedFlight connectedFlight = convertToEntity(connectedFlightRequestDto);
         /*Optional<ConnectedFlight> existingConnectedFlight = connectedFlightRepository.findById(connectedFlight.getId());
         // TODO How do we know the existingConnectedFlight has the correct id ? We cant know that
         if(existingConnectedFlight.isPresent()) {
@@ -95,8 +96,8 @@ public class ConnectedFlightService implements IConnectedFlightService {
 
     @Override
     @Transactional
-    public ConnectedFlightDTO updateConnectedFlight(ConnectedFlightDTO connectedFlightDto, Long connectedFlightId) {
-        ConnectedFlight connectedFlight = modelMapper.map(connectedFlightDto,ConnectedFlight.class);
+    public ConnectedFlightDTO updateConnectedFlight(ConnectedFlightRequestDTO connectedFlightRequestDto, Long connectedFlightId) {
+        ConnectedFlight connectedFlight = modelMapper.map(connectedFlightRequestDto,ConnectedFlight.class);
         Optional<ConnectedFlight> existingConnectedFlight = connectedFlightRepository.findById(connectedFlightId);
         if(!existingConnectedFlight.isPresent()) {
             throw new IllegalStateException("ConnectedFlight with the id " + existingConnectedFlight.get().getId() + " does not exist");
@@ -121,8 +122,8 @@ public class ConnectedFlightService implements IConnectedFlightService {
         return connectedFlightDto;
     }
 
-    private ConnectedFlight convertToEntity(ConnectedFlightDTO connectedFlightDto) {
-        ConnectedFlight connectedFlight = modelMapper.map(connectedFlightDto, ConnectedFlight.class);
+    private ConnectedFlight convertToEntity(ConnectedFlightRequestDTO connectedFlightRequestDto) {
+        ConnectedFlight connectedFlight = modelMapper.map(connectedFlightRequestDto, ConnectedFlight.class);
         return connectedFlight;
     }
 

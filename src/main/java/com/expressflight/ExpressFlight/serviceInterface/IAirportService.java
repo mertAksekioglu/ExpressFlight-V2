@@ -1,6 +1,7 @@
 package com.expressflight.ExpressFlight.serviceInterface;
 
 import com.expressflight.ExpressFlight.dto.AirportDTO;
+import com.expressflight.ExpressFlight.requestdto.AirportRequestDTO;
 
 import java.util.List;
 
@@ -12,10 +13,10 @@ public interface IAirportService {
 
     public AirportDTO getAirportByCodeIATA(String airportCode);
 
-    public AirportDTO addAirport(AirportDTO airportDto);
+    public AirportDTO addAirport(AirportRequestDTO airportRequestDto);
 
     public AirportDTO deleteAirport(Long airportId);
 
-    public AirportDTO updateAirport(AirportDTO airportDto, Long airportId);
+    public AirportDTO updateAirport(AirportRequestDTO airportRequestDto, Long airportId);
 
 }

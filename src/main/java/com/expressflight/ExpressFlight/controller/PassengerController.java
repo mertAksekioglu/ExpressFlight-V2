@@ -2,6 +2,7 @@ package com.expressflight.ExpressFlight.controller;
 
 import com.expressflight.ExpressFlight.dto.PassengerDTO;
 import com.expressflight.ExpressFlight.repository.IPassengerRepository;
+import com.expressflight.ExpressFlight.requestdto.PassengerRequestDTO;
 import com.expressflight.ExpressFlight.service.PassengerService;
 import com.expressflight.ExpressFlight.serviceInterface.IPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class PassengerController {
     }
 
     @PostMapping(value = "/add-passenger")
-    public PassengerDTO addPassenger(@RequestBody PassengerDTO passengerDto) {
-        return passengerService.addPassenger(passengerDto);
+    public PassengerDTO addPassenger(@RequestBody PassengerRequestDTO passengerRequestDto) {
+        return passengerService.addPassenger(passengerRequestDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -41,8 +42,8 @@ public class PassengerController {
     }
 
     @PutMapping(value = "/update-passenger")
-    public PassengerDTO updatePassenger(@RequestBody PassengerDTO passengerDto, @RequestParam(value = "id") Long passengerId) {
-        return passengerService.updatePassenger(passengerDto, passengerId);
+    public PassengerDTO updatePassenger(@RequestBody PassengerRequestDTO passengerRequestDto, @RequestParam(value = "id") Long passengerId) {
+        return passengerService.updatePassenger(passengerRequestDto, passengerId);
     }
 
 }

@@ -3,6 +3,7 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.Airport;
 import com.expressflight.ExpressFlight.dto.AirportDTO;
 import com.expressflight.ExpressFlight.repository.IAirportRepository;
+import com.expressflight.ExpressFlight.requestdto.AirportRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IAirportService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -54,8 +55,8 @@ public class AirportService implements IAirportService {
     }
 
     @Override
-    public AirportDTO addAirport(AirportDTO airportDto) {
-        Airport airport = convertToEntity(airportDto);
+    public AirportDTO addAirport(AirportRequestDTO airportRequestDto) {
+        Airport airport = convertToEntity(airportRequestDto);
         Optional<Airport> existingAirport = airportRepository.findByCodeIATA(airport.getCodeIATA());
         if(existingAirport.isPresent()) {
             throw new IllegalStateException("Airport with code " + airport.getCodeIATA() + " already exists.");
@@ -76,8 +77,8 @@ public class AirportService implements IAirportService {
 
     @Override
     @Transactional
-    public AirportDTO updateAirport(AirportDTO airportDto, Long airportId) {
-        Airport airport = convertToEntity(airportDto);
+    public AirportDTO updateAirport(AirportRequestDTO airportRequestDto, Long airportId) {
+        Airport airport = convertToEntity(airportRequestDto);
         Optional<Airport> existingAirport = airportRepository.findById(airportId);
         if(!existingAirport.isPresent()) {
             throw new IllegalStateException( "Airport with id " + airport.getId() + " does not exist");
@@ -108,8 +109,8 @@ public class AirportService implements IAirportService {
         return AirportDto;
     }
 
-    private Airport convertToEntity(AirportDTO airportDto) {
-        Airport airport = modelMapper.map(airportDto, Airport.class);
+    private Airport convertToEntity(AirportRequestDTO airportRequestDto) {
+        Airport airport = modelMapper.map(airportRequestDto, Airport.class);
         return airport;
     }
 

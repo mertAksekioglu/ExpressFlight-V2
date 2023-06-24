@@ -1,6 +1,7 @@
 package com.expressflight.ExpressFlight.serviceInterface;
 
 import com.expressflight.ExpressFlight.dto.SeatConfigurationDTO;
+import com.expressflight.ExpressFlight.requestdto.SeatConfigurationRequestDTO;
 
 import java.util.List;
 
@@ -14,11 +15,11 @@ public interface ISeatConfigurationService {
 
     public SeatConfigurationDTO getSeatConfigurationByConfigName(String seatConfigurationConfigName);
 
-    public SeatConfigurationDTO addSeatConfiguration(SeatConfigurationDTO seatConfiguration);
+    public SeatConfigurationDTO addSeatConfiguration(SeatConfigurationRequestDTO seatConfigurationRequestDto);
 
     public SeatConfigurationDTO deleteSeatConfiguration(Long seatConfigurationId);
 
-    public SeatConfigurationDTO updateSeatConfiguration(SeatConfigurationDTO seatConfiguration, Long seatConfigurationId);
+    public SeatConfigurationDTO updateSeatConfiguration(SeatConfigurationRequestDTO seatConfigurationRequestDto, Long seatConfigurationId);
 
     public SeatConfigurationDTO configureSeatConfiguration(Long seatConfigurationId);
 

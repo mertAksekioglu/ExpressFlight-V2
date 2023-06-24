@@ -1,6 +1,7 @@
 package com.expressflight.ExpressFlight.controller;
 
 import com.expressflight.ExpressFlight.dto.PlaneDTO;
+import com.expressflight.ExpressFlight.requestdto.PlaneRequestDTO;
 import com.expressflight.ExpressFlight.service.PlaneService;
 import com.expressflight.ExpressFlight.serviceInterface.IPlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class PlaneController {
     }
 
     @PostMapping(value = "/add-plane")
-    public PlaneDTO addPlane(@RequestBody PlaneDTO planeDto) {
-        return planeService.addPlane(planeDto);
+    public PlaneDTO addPlane(@RequestBody PlaneRequestDTO planeRequestDto) {
+        return planeService.addPlane(planeRequestDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -45,8 +46,8 @@ public class PlaneController {
     }
 
     @PutMapping(value = "/update-plane")
-    public PlaneDTO updatePlane(@RequestBody PlaneDTO planeDto, @RequestParam(value = "id") Long planeId) {
-        return planeService.updatePlane(planeDto, planeId);
+    public PlaneDTO updatePlane(@RequestBody PlaneRequestDTO planeRequestDto, @RequestParam(value = "id") Long planeId) {
+        return planeService.updatePlane(planeRequestDto, planeId);
     }
 
 }

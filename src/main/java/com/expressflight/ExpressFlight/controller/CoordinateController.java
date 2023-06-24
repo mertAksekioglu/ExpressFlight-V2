@@ -1,6 +1,7 @@
 package com.expressflight.ExpressFlight.controller;
 
 import com.expressflight.ExpressFlight.dto.CoordinateDTO;
+import com.expressflight.ExpressFlight.requestdto.CoordinateRequestDTO;
 import com.expressflight.ExpressFlight.service.CoordinateService;
 import com.expressflight.ExpressFlight.serviceInterface.ICoordinateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class CoordinateController {
     }
 
     @PostMapping(value = "/add-coordinate")
-    public CoordinateDTO addCoordinate(@RequestBody CoordinateDTO coordinateDto) {
-        return coordinateService.addCoordinate(coordinateDto);
+    public CoordinateDTO addCoordinate(@RequestBody CoordinateRequestDTO coordinateRequestDto) {
+        return coordinateService.addCoordinate(coordinateRequestDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -40,8 +41,8 @@ public class CoordinateController {
     }
 
     @PutMapping(value = "/update-coordinate")
-    public CoordinateDTO updateCoordinate(@RequestBody CoordinateDTO coordinateDto, @RequestParam(value = "id") Long coordinateId) {
-        return coordinateService.updateCoordinate(coordinateDto, coordinateId);
+    public CoordinateDTO updateCoordinate(@RequestBody CoordinateRequestDTO coordinateRequestDto, @RequestParam(value = "id") Long coordinateId) {
+        return coordinateService.updateCoordinate(coordinateRequestDto, coordinateId);
     }
 
 }

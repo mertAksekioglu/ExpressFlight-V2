@@ -3,6 +3,7 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.Plane;
 import com.expressflight.ExpressFlight.dto.PlaneDTO;
 import com.expressflight.ExpressFlight.repository.IPlaneRepository;
+import com.expressflight.ExpressFlight.requestdto.PlaneRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IPlaneService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -54,8 +55,8 @@ public class PlaneService implements IPlaneService {
     }
 
     @Override
-    public PlaneDTO addPlane(PlaneDTO planeDto) {
-        Plane plane = convertToEntity(planeDto);
+    public PlaneDTO addPlane(PlaneRequestDTO planeRequestDto) {
+        Plane plane = convertToEntity(planeRequestDto);
         Optional<Plane> existingPlane = planeRepository.findByCode(plane.getCode());
         if(existingPlane.isPresent()) {
             throw new IllegalStateException("Plane with the code " + plane.getCode() + "already exists.");
@@ -76,20 +77,20 @@ public class PlaneService implements IPlaneService {
 
     @Override
     @Transactional
-    public PlaneDTO updatePlane(PlaneDTO planeDto, Long planeId) {
-        Plane plane = convertToEntity(planeDto);
+    public PlaneDTO updatePlane(PlaneRequestDTO planeRequestDto, Long planeId) {
+        Plane plane = convertToEntity(planeRequestDto);
         Optional<Plane> existingPlane = planeRepository.findById(planeId);
         if(!existingPlane.isPresent()) {
             throw new IllegalStateException("Plane with the code " + existingPlane.get().getCode() + " does not exist.");
         }
         if(plane.getCode() != null){
-            existingPlane.get().setCode(planeDto.getCode());
+            existingPlane.get().setCode(plane.getCode());
         }
         if(plane.getModel() != null){
-            existingPlane.get().setModel(planeDto.getModel());
+            existingPlane.get().setModel(plane.getModel());
         }
         if(plane.getYearOfProduction() != null){
-            existingPlane.get().setYearOfProduction(planeDto.getYearOfProduction());
+            existingPlane.get().setYearOfProduction(plane.getYearOfProduction());
         }
         return convertToDTO(existingPlane.get());
     }
@@ -100,8 +101,8 @@ public class PlaneService implements IPlaneService {
         return PlaneDto;
     }
 
-    private Plane convertToEntity(PlaneDTO planeDto) {
-        Plane plane = modelMapper.map(planeDto, Plane.class);
+    private Plane convertToEntity(PlaneRequestDTO planeRequestDto) {
+        Plane plane = modelMapper.map(planeRequestDto, Plane.class);
         return plane;
     }
 

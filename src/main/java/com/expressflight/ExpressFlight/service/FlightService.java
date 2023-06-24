@@ -2,9 +2,10 @@ package com.expressflight.ExpressFlight.service;
 
 import com.expressflight.ExpressFlight.domain.Flight;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
-import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
 import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
+import com.expressflight.ExpressFlight.requestdto.FlightRequestDTO;
+import com.expressflight.ExpressFlight.requestdto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
 import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
 import org.modelmapper.ModelMapper;
@@ -90,8 +91,8 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public FlightDTO addFlight(FlightDTO flightDto) {
-        Flight flight = convertToEntity(flightDto);
+    public FlightDTO addFlight(FlightRequestDTO flightRequestDto) {
+        Flight flight = convertToEntity(flightRequestDto);
         flightRepository.save(flight);
         return convertToDTO(flight);
     }
@@ -106,8 +107,8 @@ public class FlightService implements IFlightService {
 
     @Override
     @Transactional
-    public FlightDTO updateFlight(FlightDTO flightDto, Long flightId) {
-        Flight flight = convertToEntity(flightDto);
+    public FlightDTO updateFlight(FlightRequestDTO flightRequestDto, Long flightId) {
+        Flight flight = convertToEntity(flightRequestDto);
         Optional<Flight> existingFlight = flightRepository.findById(flightId);
         checkFlightExistence(flightId);
         if(flight.getDepAirport() != null){
@@ -162,8 +163,8 @@ public class FlightService implements IFlightService {
         return flightDto;
     }
 
-    private Flight convertToEntity(FlightDTO flightDto) {
-        Flight flight = modelMapper.map(flightDto, Flight.class);
+    private Flight convertToEntity(FlightRequestDTO flightRequestDto) {
+        Flight flight = modelMapper.map(flightRequestDto, Flight.class);
         return flight;
     }
 

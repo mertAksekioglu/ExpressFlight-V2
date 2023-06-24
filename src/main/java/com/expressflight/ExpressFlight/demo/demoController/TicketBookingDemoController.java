@@ -2,8 +2,8 @@ package com.expressflight.ExpressFlight.demo.demoController;
 
 
 import com.expressflight.ExpressFlight.demo.demoService.TicketBookingDemoService;
-import com.expressflight.ExpressFlight.dto.BookTicketRequestDTO;
 import com.expressflight.ExpressFlight.dto.TicketDTO;
+import com.expressflight.ExpressFlight.requestdto.BookTicketRequestDTO;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

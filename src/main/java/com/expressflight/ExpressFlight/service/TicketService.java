@@ -5,6 +5,7 @@ import com.expressflight.ExpressFlight.dto.TicketDTO;
 import com.expressflight.ExpressFlight.microservice.TicketBooker;
 import com.expressflight.ExpressFlight.repository.ISeatRepository;
 import com.expressflight.ExpressFlight.repository.ITicketRepository;
+import com.expressflight.ExpressFlight.requestdto.TicketRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.ITicketService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -54,9 +55,9 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public TicketDTO addTicket(TicketDTO ticketDto) {
-        Ticket ticket = convertToEntity(ticketDto);
-        ticketBooker.getSeatAvailability(ticketDto.getFlight(),seatRepository.findById(ticketDto.getSeat()).get().getCode());
+    public TicketDTO addTicket(TicketRequestDTO ticketRequestDto) {
+        Ticket ticket = convertToEntity(ticketRequestDto);
+        ticketBooker.getSeatAvailability(ticketRequestDto.getFlight(),seatRepository.findById(ticketRequestDto.getSeat()).get().getCode());
         ticketRepository.save(ticket);
         return convertToDTO(ticket);
 
@@ -73,8 +74,8 @@ public class TicketService implements ITicketService {
     }
 
     @Transactional
-    public TicketDTO updateTicket(TicketDTO ticketDto, Long ticketId) {
-        Ticket ticket = convertToEntity(ticketDto);
+    public TicketDTO updateTicket(TicketRequestDTO ticketRequestDto, Long ticketId) {
+        Ticket ticket = convertToEntity(ticketRequestDto);
         Optional<Ticket> existingTicket = ticketRepository.findById(ticketId);
         if(!existingTicket.isPresent()) {
             throw new IllegalStateException( "Ticket with id " + ticket.getId() + " does not exist");
@@ -99,8 +100,8 @@ public class TicketService implements ITicketService {
         return TicketDto;
     }
 
-    private Ticket convertToEntity(TicketDTO ticketDto) {
-        Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
+    private Ticket convertToEntity(TicketRequestDTO ticketRequestDto) {
+        Ticket ticket = modelMapper.map(ticketRequestDto, Ticket.class);
         return ticket;
     }
 }

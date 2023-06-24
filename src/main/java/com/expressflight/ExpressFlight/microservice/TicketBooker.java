@@ -1,7 +1,6 @@
 package com.expressflight.ExpressFlight.microservice;
 
 import com.expressflight.ExpressFlight.domain.*;
-import com.expressflight.ExpressFlight.dto.BookTicketRequestDTO;
 import com.expressflight.ExpressFlight.dto.TicketDTO;
 import com.expressflight.ExpressFlight.enums.SeatStatus;
 import com.expressflight.ExpressFlight.enums.TicketType;

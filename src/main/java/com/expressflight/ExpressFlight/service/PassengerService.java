@@ -3,6 +3,7 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.Passenger;
 import com.expressflight.ExpressFlight.dto.PassengerDTO;
 import com.expressflight.ExpressFlight.repository.IPassengerRepository;
+import com.expressflight.ExpressFlight.requestdto.PassengerRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IPassengerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -45,8 +46,8 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public PassengerDTO addPassenger(PassengerDTO passengerDto) {
-        Passenger passenger = convertToEntity(passengerDto);
+    public PassengerDTO addPassenger(PassengerRequestDTO passengerRequestDto) {
+        Passenger passenger = convertToEntity(passengerRequestDto);
         // Add Social Security number to identify
         /*
         Optional<Passenger> existingPassenger = passengerRepository.findByCode(passenger.getCode());
@@ -70,32 +71,32 @@ public class PassengerService implements IPassengerService {
 
     @Override
     @Transactional
-    public PassengerDTO updatePassenger(PassengerDTO passengerDto, Long passengerId) {
-        Passenger passenger = convertToEntity(passengerDto);
+    public PassengerDTO updatePassenger(PassengerRequestDTO passengerRequestDto, Long passengerId) {
+        Passenger passenger = convertToEntity(passengerRequestDto);
         Optional<Passenger> existingPassenger = passengerRepository.findById(passengerId);
         if(!existingPassenger.isPresent()) {
             throw new IllegalStateException("Passenger with the id " + existingPassenger.get().getId() + " does not exist.");
         }
         if(passenger.getName() != null){
-            existingPassenger.get().setName(passengerDto.getName());
+            existingPassenger.get().setName(passengerRequestDto.getName());
         }
         if(passenger.getSurname() != null){
-            existingPassenger.get().setSurname(passengerDto.getSurname());
+            existingPassenger.get().setSurname(passenger.getSurname());
         }
         if(passenger.getEmail() != null){
-            existingPassenger.get().setEmail(passengerDto.getEmail());
+            existingPassenger.get().setEmail(passenger.getEmail());
         }
         if(passenger.getPhone() != null){
-            existingPassenger.get().setPhone(passengerDto.getPhone());
+            existingPassenger.get().setPhone(passenger.getPhone());
         }
         if(passenger.getGender() != null){
-            existingPassenger.get().setGender(passengerDto.getGender());
+            existingPassenger.get().setGender(passenger.getGender());
         }
         if(passenger.getAge() != null){
-            existingPassenger.get().setAge(passengerDto.getAge());
+            existingPassenger.get().setAge(passenger.getAge());
         }
         if(passenger.getDateOfBirth() != null){
-            existingPassenger.get().setDateOfBirth(passengerDto.getDateOfBirth());
+            existingPassenger.get().setDateOfBirth(passenger.getDateOfBirth());
         }
         return convertToDTO(passenger);
     }
@@ -105,8 +106,8 @@ public class PassengerService implements IPassengerService {
         return PassengerDto;
     }
 
-    private Passenger convertToEntity(PassengerDTO passengerDto) {
-        Passenger passenger = modelMapper.map(passengerDto, Passenger.class);
+    private Passenger convertToEntity(PassengerRequestDTO passengerRequestDto) {
+        Passenger passenger = modelMapper.map(passengerRequestDto, Passenger.class);
         return passenger;
     }
 

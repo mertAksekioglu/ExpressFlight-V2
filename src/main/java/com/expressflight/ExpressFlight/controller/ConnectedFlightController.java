@@ -2,10 +2,9 @@ package com.expressflight.ExpressFlight.controller;
 
 
 import com.expressflight.ExpressFlight.dto.ConnectedFlightDTO;
-import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
-import com.expressflight.ExpressFlight.service.ConnectedFlightService;
+import com.expressflight.ExpressFlight.requestdto.ConnectedFlightRequestDTO;
+import com.expressflight.ExpressFlight.requestdto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IConnectedFlightService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,8 +36,8 @@ public class ConnectedFlightController {
     }
 
     @PostMapping(value = "/add-connectedFlight")
-    public ConnectedFlightDTO addConnectedFlight(@RequestBody ConnectedFlightDTO connectedFlightDto) {
-        return connectedFlightService.addConnectedFlight(connectedFlightDto);
+    public ConnectedFlightDTO addConnectedFlight(@RequestBody ConnectedFlightRequestDTO connectedFlightRequestDto) {
+        return connectedFlightService.addConnectedFlight(connectedFlightRequestDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -47,8 +46,8 @@ public class ConnectedFlightController {
     }
 
     @PutMapping(value = "/update-connectedFlight")
-    public ConnectedFlightDTO updateConnectedFlight(@RequestBody ConnectedFlightDTO connectedFlightDto, @RequestParam(value = "id") Long connectedFlightId) {
-        return connectedFlightService.updateConnectedFlight(connectedFlightDto, connectedFlightId);
+    public ConnectedFlightDTO updateConnectedFlight(@RequestBody ConnectedFlightRequestDTO connectedFlightRequestDto, @RequestParam(value = "id") Long connectedFlightId) {
+        return connectedFlightService.updateConnectedFlight(connectedFlightRequestDto, connectedFlightId);
     }
 
 }

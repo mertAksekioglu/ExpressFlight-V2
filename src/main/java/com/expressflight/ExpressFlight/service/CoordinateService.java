@@ -3,6 +3,7 @@ package com.expressflight.ExpressFlight.service;
 import com.expressflight.ExpressFlight.domain.Coordinate;
 import com.expressflight.ExpressFlight.dto.CoordinateDTO;
 import com.expressflight.ExpressFlight.repository.ICoordinateRepository;
+import com.expressflight.ExpressFlight.requestdto.CoordinateRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.ICoordinateService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -45,9 +46,9 @@ public class CoordinateService implements ICoordinateService {
     }
 
     @Override
-    public CoordinateDTO addCoordinate(CoordinateDTO coordinateDto) {
-        Coordinate coordinate = convertToEntity(coordinateDto);
-        checkAlreadyExistsByLongitudeAndLatitude(coordinateDto);
+    public CoordinateDTO addCoordinate(CoordinateRequestDTO coordinateRequestDto) {
+        Coordinate coordinate = convertToEntity(coordinateRequestDto);
+        checkAlreadyExistsByLongitudeAndLatitude(coordinateRequestDto);
         coordinateRepository.save(coordinate);
         return convertToDTO(coordinate);
     }
@@ -64,27 +65,27 @@ public class CoordinateService implements ICoordinateService {
 
     @Override
     @Transactional
-    public CoordinateDTO updateCoordinate(CoordinateDTO coordinateDto, Long coordinateId) {
-        Coordinate coordinate = convertToEntity(coordinateDto);
+    public CoordinateDTO updateCoordinate(CoordinateRequestDTO coordinateRequestDto, Long coordinateId) {
+        Coordinate coordinate = convertToEntity(coordinateRequestDto);
         Optional<Coordinate> existingCoordinate = coordinateRepository.findById(coordinateId);
         if(!existingCoordinate.isPresent()) {
             throw new IllegalStateException("Coordinate with the id " + existingCoordinate.get().getId() + " does not exist.");
         }
         if(coordinate.getLatitude() != null){
-            existingCoordinate.get().setLatitude(coordinateDto.getLatitude());
+            existingCoordinate.get().setLatitude(coordinate.getLatitude());
         }
         if(coordinate.getLongitude() != null){
-            existingCoordinate.get().setLongitude(coordinateDto.getLongitude());
+            existingCoordinate.get().setLongitude(coordinate.getLongitude());
         }
         return convertToDTO(existingCoordinate.get());
     }
 
 
-    private boolean checkAlreadyExistsByLongitudeAndLatitude(CoordinateDTO coordinateDto) {
-        boolean exists = coordinateRepository.existsByLongitudeAndLatitude(coordinateDto.getLongitude(),coordinateDto.getLatitude());
+    private boolean checkAlreadyExistsByLongitudeAndLatitude(CoordinateRequestDTO coordinateRequestDto) {
+        boolean exists = coordinateRepository.existsByLongitudeAndLatitude(coordinateRequestDto.getLongitude(),coordinateRequestDto.getLatitude());
         if(exists) {
-            throw new IllegalStateException("Coordinate with the longitude " + coordinateDto.getLongitude() +
-                    " and latitude " + coordinateDto.getLatitude()  + " already exists.");
+            throw new IllegalStateException("Coordinate with the longitude " + coordinateRequestDto.getLongitude() +
+                    " and latitude " + coordinateRequestDto.getLatitude()  + " already exists.");
         }
         return exists;
     }
@@ -94,8 +95,8 @@ public class CoordinateService implements ICoordinateService {
         return coordinateDto;
     }
 
-    private Coordinate convertToEntity(CoordinateDTO coordinateDto) {
-        Coordinate coordinate = modelMapper.map(coordinateDto, Coordinate.class);
+    private Coordinate convertToEntity(CoordinateRequestDTO coordinateRequestDto) {
+        Coordinate coordinate = modelMapper.map(coordinateRequestDto, Coordinate.class);
         return coordinate;
     }
 

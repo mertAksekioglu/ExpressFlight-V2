@@ -1,6 +1,7 @@
 package com.expressflight.ExpressFlight.controller;
 
 import com.expressflight.ExpressFlight.dto.AirportDTO;
+import com.expressflight.ExpressFlight.requestdto.AirportRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IAirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +37,8 @@ public class AirportController {
     }
 
     @PostMapping(value = "add-airport")
-    public AirportDTO addAirport(@RequestBody AirportDTO airportDto) {
-        return airportService.addAirport(airportDto);
+    public AirportDTO addAirport(@RequestBody AirportRequestDTO airportRequestDto) {
+        return airportService.addAirport(airportRequestDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -46,8 +47,8 @@ public class AirportController {
     }
 
     @PutMapping(value = "/update-airport")
-    public AirportDTO updateAirport(@RequestBody AirportDTO airportDto, @RequestParam(value = "id") Long airportId) {
-        return airportService.updateAirport(airportDto, airportId);
+    public AirportDTO updateAirport(@RequestBody AirportRequestDTO airportRequestDto, @RequestParam(value = "id") Long airportId) {
+        return airportService.updateAirport(airportRequestDto, airportId);
     }
 
 }

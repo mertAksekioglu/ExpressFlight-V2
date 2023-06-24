@@ -1,11 +1,10 @@
 package com.expressflight.ExpressFlight.controller;
 
-import com.expressflight.ExpressFlight.dto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
-import com.expressflight.ExpressFlight.microservice.SunExpressFlightIntegrationService;
+import com.expressflight.ExpressFlight.requestdto.FlightRequestDTO;
+import com.expressflight.ExpressFlight.requestdto.FlightSearchRequestDTO;
 import com.expressflight.ExpressFlight.service.FlightService;
 import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,8 +37,8 @@ public class FlightController {
     }
 
     @PostMapping(value = "/add-flight")
-    public FlightDTO addFlight(@RequestBody FlightDTO flightDto) {
-        return flightService.addFlight(flightDto);
+    public FlightDTO addFlight(@RequestBody FlightRequestDTO flightRequestDto) {
+        return flightService.addFlight(flightRequestDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -48,8 +47,8 @@ public class FlightController {
     }
 
     @PutMapping(value = "/update-flight")
-    public FlightDTO updateFlight(@RequestBody FlightDTO flightDto, @RequestParam(value = "id") Long flightId) {
-        return flightService.updateFlight(flightDto, flightId);
+    public FlightDTO updateFlight(@RequestBody FlightRequestDTO flightRequestDto, @RequestParam(value = "id") Long flightId) {
+        return flightService.updateFlight(flightRequestDto, flightId);
     }
 
 }

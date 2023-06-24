@@ -1,11 +1,11 @@
 package com.expressflight.ExpressFlight.demo.demoService;
 
 import com.expressflight.ExpressFlight.domain.Flight;
-import com.expressflight.ExpressFlight.dto.BookTicketRequestDTO;
 import com.expressflight.ExpressFlight.dto.TicketDTO;
 import com.expressflight.ExpressFlight.microservice.TicketBooker;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
 import com.expressflight.ExpressFlight.repository.IPassengerRepository;
+import com.expressflight.ExpressFlight.requestdto.BookTicketRequestDTO;
 import org.springframework.stereotype.Service;
 
 @Service

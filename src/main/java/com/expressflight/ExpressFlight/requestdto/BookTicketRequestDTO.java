@@ -1,4 +1,4 @@
-package com.expressflight.ExpressFlight.dto;
+package com.expressflight.ExpressFlight.requestdto;
 
 import com.expressflight.ExpressFlight.enums.TicketType;
 import lombok.Data;
