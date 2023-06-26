@@ -55,7 +55,6 @@ public class TicketBooker {
         return ticketDTO;
     }
 
-
     public Boolean getSeatAvailability(Long flightId, String seatCode) {
 
         Flight flight = flightRepository.findById(flightId).get();
@@ -69,12 +68,8 @@ public class TicketBooker {
                 isAvailable = true;
             }
         }
-
-
         return isAvailable;
     }
-
-
 
     public Seat findSeat(Flight flight, String seatCode) {
 
@@ -91,13 +86,8 @@ public class TicketBooker {
 
             seatInFlight = seatConfiguration.getSeatMap()[row-1][column-1];
         }
-
-
-
         return seatInFlight;
     }
-
-
 
     public Boolean isNull(Object object) {
 
@@ -111,7 +101,6 @@ public class TicketBooker {
 
         return isNull;
     }
-
 
     public TicketType configureTicketType(Long passengerId) {
 
@@ -132,13 +121,8 @@ public class TicketBooker {
             } else {
                 ticketType = TicketType.ADULT;
             }
-
             return ticketType;
         }
     }
-
-
-
-
 
 }
