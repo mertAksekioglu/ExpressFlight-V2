@@ -79,12 +79,12 @@ https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/95a3f277-2131
 
 The future plans of the project include in order of importance
 
-- Code Cleanup, Field Injection Removal (40%)
-- Custom DTOMappers for Entities
+- Code Cleanup, Field Injection Removal (100%)
+- Custom DTOMappers for Entities (100%)
 - Tests with JUnit and Mockito (Learning)
 - Spring Security Implementation (Learning)
 - Microservices Implementation (Learning)
-- UI/UX Design (70%)
+- UI/UX Design (80%)
   ![image](https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/0f17ec4d-8ce4-4e47-81e3-984ebf6d2cdb)
-- Front-End with React
+- Front-End with React (15%)
 - Production Release
