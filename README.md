@@ -85,6 +85,6 @@ The future plans of the project include in order of importance
 - Spring Security Implementation (Learning)
 - Microservices Implementation (Learning)
 - UI/UX Design (80%)
-  ![image](https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/0f17ec4d-8ce4-4e47-81e3-984ebf6d2cdb)
+  ![2023-07-11 08_23_43-Untitled - Figma](https://github.com/mertAksekioglu/ExpressFlight-V2/assets/40835236/e7dc8bda-0594-4ce2-b6c1-eb22fd531a3e)
 - Front-End with React (15%)
 - Production Release
