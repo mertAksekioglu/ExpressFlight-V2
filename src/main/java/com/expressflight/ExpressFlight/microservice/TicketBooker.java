@@ -45,6 +45,7 @@ public class TicketBooker {
             ticket.setSeat(seat.getId());
             ticket.setPassenger(passengerId);
             ticket.setTicketType(configureTicketType(passengerId));
+            ticket.setPrice(flight.getPrice());
             ticketRepository.save(ticket);
         }
         else {

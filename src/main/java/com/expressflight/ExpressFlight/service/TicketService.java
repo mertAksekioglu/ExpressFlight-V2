@@ -90,6 +90,9 @@ public class TicketService implements ITicketService {
         if(ticket.getTicketType() != null) {
             existingTicket.get().setTicketType(ticket.getTicketType());
         }
+        if(ticket.getPrice() != null) {
+            existingTicket.get().setPrice(ticket.getPrice());
+        }
         return convertToDTO(existingTicket.get());
     }
 

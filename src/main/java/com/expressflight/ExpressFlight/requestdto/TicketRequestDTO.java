@@ -11,5 +11,6 @@ public class TicketRequestDTO {
     private Long passenger;
     private Long seat;
     private TicketType ticketType;
+    private Double price;
 
 }

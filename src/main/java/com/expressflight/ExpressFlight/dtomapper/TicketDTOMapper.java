@@ -41,13 +41,14 @@ public class TicketDTOMapper {
                 TicketDTO d = context.getDestination();
 
                 FlightDTO flight = flightService.getFlight(s.getFlight());
+                flight.setSeatConfig(null);
                 d.setFlight(flight);
                 PassengerDTO passenger = passengerService.getPassenger(s.getPassenger());
                 d.setPassenger(passenger);
                 SeatDTO seat = seatService.getSeat(s.getSeat());
                 d.setSeat(seat);
                 d.setTicketType(s.getTicketType());
-
+                d.setPrice(s.getPrice());
                 return d;
                 
                 

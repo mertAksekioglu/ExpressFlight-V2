@@ -41,11 +41,15 @@ public class Ticket implements Serializable {
     @Column(name="ticket_type")
     private TicketType ticketType;
 
-    public Ticket(Long flight, Long passenger, Long seat, TicketType ticketType) {
+    @Column(name="price")
+    private Double price;
+
+    public Ticket(Long flight, Long passenger, Long seat, TicketType ticketType, Double price) {
         this.flight = flight;
         this.passenger = passenger;
         this.seat = seat;
         this.ticketType = ticketType;
+        this.price = price;
     }
 
     @Override
@@ -56,6 +60,7 @@ public class Ticket implements Serializable {
                 ", passenger=" + passenger +
                 ", seat=" + seat +
                 ", ticketType=" + ticketType +
+                ", price=" + price +
                 '}';
     }
 }

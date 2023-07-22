@@ -13,5 +13,6 @@ public class TicketDTO {
     private PassengerDTO passenger;
     private SeatDTO seat;
     private TicketType ticketType;
+    private Double price;
 
 }
