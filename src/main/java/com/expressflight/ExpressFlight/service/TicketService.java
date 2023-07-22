@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketService implements ITicketService {
@@ -37,12 +38,9 @@ public class TicketService implements ITicketService {
     @Override
     public List<TicketDTO> getAllTickets() {
         List<Ticket> tickets = ticketRepository.findAll();
-        List<TicketDTO> ticketDtos = new ArrayList<>();
-        for (Ticket ticket: tickets) {
-            TicketDTO ticketDto = convertToDTO(ticket);
-            ticketDtos.add(ticketDto);
-        }
-        return ticketDtos;
+        return tickets.stream()
+                .map(ticket -> convertToDTO(ticket))
+                .collect(Collectors.toList());
     }
 
     @Override

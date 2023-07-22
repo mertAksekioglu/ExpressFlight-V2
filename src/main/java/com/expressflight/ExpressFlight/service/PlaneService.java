@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PlaneService implements IPlaneService {
@@ -28,12 +29,9 @@ public class PlaneService implements IPlaneService {
     @Override
     public List<PlaneDTO> getAllPlanes() {
          List<Plane> planes = planeRepository.findAll();
-         List<PlaneDTO> planeDtos = new ArrayList<>();
-        for (Plane plane : planes) {
-            PlaneDTO planeDto = convertToDTO(plane);
-            planeDtos.add(planeDto);
-        }
-         return planeDtos;
+        return planes.stream()
+                .map(plane -> convertToDTO(plane))
+                .collect(Collectors.toList());
     }
 
     @Override

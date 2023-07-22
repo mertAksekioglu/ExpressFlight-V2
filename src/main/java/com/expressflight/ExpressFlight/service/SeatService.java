@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SeatService implements ISeatService {
@@ -29,12 +30,9 @@ public class SeatService implements ISeatService {
     @Override
     public List<SeatDTO> getAllSeats() {
         List<Seat> seats = seatRepository.findAll();
-        List<SeatDTO> seatDtos = new ArrayList<>();
-        for (Seat seat : seats) {
-            SeatDTO seatDto = convertToDTO(seat);
-            seatDtos.add(seatDto);
-        }
-        return seatDtos;
+        return seats.stream()
+                .map(seat -> convertToDTO(seat))
+                .collect(Collectors.toList());
     }
 
     @Override

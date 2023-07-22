@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AirportService implements IAirportService {
@@ -28,11 +29,9 @@ public class AirportService implements IAirportService {
     @Override
     public List<AirportDTO> getAllAirports() {
         List<Airport> airports = airportRepository.findAll();
-        List<AirportDTO> airportDtos = new ArrayList<>();
-        for (Airport airport: airports) {
-            airportDtos.add(convertToDTO(airport));
-        }
-        return airportDtos;
+        return airports.stream()
+                .map(airport -> convertToDTO(airport))
+                .collect(Collectors.toList());
     }
 
     @Override

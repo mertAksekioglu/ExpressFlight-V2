@@ -36,7 +36,7 @@ public class AppConfig {
 
     private final DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
 
-    private final String resource_path = "D:\\Spring MVC Projects\\ExpressFlight\\src\\main\\resources\\";
+    private final String resource_path = "src/main/resources/data/";
 
     private IPlaneRepository planeRepository;
 
@@ -123,13 +123,13 @@ public class AppConfig {
     }
 
     public void populateAllRepositories(Gson gson) {
-        populator.populateRepo(planeRepository, resource_path + "data/plane_data.json", Plane[].class,gson);
-        populator.populateRepo(airportRepository, resource_path + "data/airport_data.json", Airport[].class,gson);
-        populator.populateRepo(flightRepository, resource_path + "data/flight_data.json", Flight[].class,gson);
-        populator.populateRepo(connectedFlightRepository, resource_path + "data/connected_flight_data.json", ConnectedFlight[].class,gson);
-        populator.populateRepo(seatConfigurationRepository, resource_path + "data/seat_configuration_data.json", SeatConfiguration[].class,gson);
-        populator.populateRepo(passengerRepository, resource_path + "data/passenger_data.json", Passenger[].class,gson);
-        populator.populateRepo(coordinateRepository, resource_path + "data/coordinate_data.json", Coordinate[].class,gson);
+        populator.populateRepo(planeRepository, resource_path + "plane_data.json", Plane[].class,gson);
+        populator.populateRepo(airportRepository, resource_path + "airport_data.json", Airport[].class,gson);
+        populator.populateRepo(flightRepository, resource_path + "flight_data.json", Flight[].class,gson);
+        populator.populateRepo(connectedFlightRepository, resource_path + "connected_flight_data.json", ConnectedFlight[].class,gson);
+        populator.populateRepo(seatConfigurationRepository, resource_path + "seat_configuration_data.json", SeatConfiguration[].class,gson);
+        populator.populateRepo(passengerRepository, resource_path + "passenger_data.json", Passenger[].class,gson);
+        populator.populateRepo(coordinateRepository, resource_path + "coordinate_data.json", Coordinate[].class,gson);
     }
 
     public void doAllFlightIntegrations(SunExpressFlightIntegrationService sunExpressFlightIntegrationService) {

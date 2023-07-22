@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class SunExpressGetFlightsService {
 
-    String resource_path = "D:\\Spring MVC Projects\\LunEx1\\src\\main\\resources\\data\\mock\\mock_flight_data.json";
+    String resource_path = "src/main/resources/data/mock/mock_flight_data.json";
 
     public String getFlights() {
         try {

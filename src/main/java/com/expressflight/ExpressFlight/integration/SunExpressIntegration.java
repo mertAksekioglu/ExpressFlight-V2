@@ -5,6 +5,7 @@ import com.expressflight.ExpressFlight.deserializer.LocalTimeDeserializer;
 import com.expressflight.ExpressFlight.dtomapper.IDTOMapper;
 import com.expressflight.ExpressFlight.provider.IProvider;
 import com.expressflight.ExpressFlight.provider.SunExpressFlightDTO;
+import com.expressflight.ExpressFlight.provider.SunExpressFlightProvider;
 import com.expressflight.ExpressFlight.requestdto.FlightRequestDTO;
 import com.expressflight.ExpressFlight.serializer.LocalDateSerializer;
 import com.expressflight.ExpressFlight.serializer.LocalTimeSerializer;
@@ -37,7 +38,7 @@ public class SunExpressIntegration implements IIntegration {
 
     private SunExpressFlightDTO[] SunExpressFlights;
 
-    public SunExpressIntegration(IProvider sunExpressFlightProvider,IFlightService flightService,IDTOMapper mapper) {
+    public SunExpressIntegration(SunExpressFlightProvider sunExpressFlightProvider,IFlightService flightService,IDTOMapper mapper) {
         this.sunExpressFlightProvider = sunExpressFlightProvider;
         this.flightService = flightService;
         this.mapper = mapper;

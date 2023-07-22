@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightService implements IFlightService {
@@ -43,14 +44,9 @@ public class FlightService implements IFlightService {
     @Override
     public List<FlightDTO> getAllFlights() {
         List<Flight> flights = flightRepository.findAll();
-
-        List<FlightDTO> flightDtos = new ArrayList<>();
-        for (Flight existingFlight : flights)
-        {
-            FlightDTO flightDto = convertToDTO(existingFlight);
-            flightDtos.add(flightDto);
-        }
-        return flightDtos;
+        return flights.stream()
+                .map(flight -> convertToDTO(flight))
+                .collect(Collectors.toList());
     }
 
     @Override

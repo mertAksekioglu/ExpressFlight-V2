@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CoordinateService implements ICoordinateService {
@@ -28,12 +29,9 @@ public class CoordinateService implements ICoordinateService {
     @Override
     public List<CoordinateDTO> getAllCoordinates() {
         List<Coordinate> coordinates = coordinateRepository.findAll();
-        List<CoordinateDTO> coordinateDtos = new ArrayList<>();
-        for (Coordinate coordinate : coordinates) {
-            CoordinateDTO coordinateDto = convertToDTO(coordinate);
-            coordinateDtos.add(coordinateDto);
-        }
-        return coordinateDtos;
+        return coordinates.stream()
+                .map(coordinate -> convertToDTO(coordinate))
+                .collect(Collectors.toList());
     }
 
     @Override

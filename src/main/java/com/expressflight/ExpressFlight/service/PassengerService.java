@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PassengerService implements IPassengerService {
@@ -28,12 +29,9 @@ public class PassengerService implements IPassengerService {
     @Override
     public List<PassengerDTO> getAllPassengers() {
         List<Passenger> passengers = passengerRepository.findAll();
-        List<PassengerDTO> passengerDtos = new ArrayList<>();
-        for (Passenger passenger : passengers) {
-            PassengerDTO passengerDto = convertToDTO(passenger);
-            passengerDtos.add(passengerDto);
-        }
-        return passengerDtos;
+        return passengers.stream()
+                .map(passenger -> convertToDTO(passenger))
+                .collect(Collectors.toList());
     }
 
     @Override

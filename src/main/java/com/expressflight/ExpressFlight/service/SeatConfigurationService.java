@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SeatConfigurationService implements ISeatConfigurationService {
@@ -34,12 +35,9 @@ public class SeatConfigurationService implements ISeatConfigurationService {
     @Override
     public List<SeatConfigurationDTO> getAllSeatConfigurations() {
         List<SeatConfiguration> seatConfigurations = seatConfigurationRepository.findAll();
-        List<SeatConfigurationDTO> seatConfigurationDtos = new ArrayList<>();
-        for (SeatConfiguration seatConfiguration : seatConfigurations) {
-            SeatConfigurationDTO seatConfigurationDto = convertToDTO(seatConfiguration);
-            seatConfigurationDtos.add(seatConfigurationDto);
-        }
-        return seatConfigurationDtos;
+        return seatConfigurations.stream()
+                .map(seatConfiguration -> convertToDTO(seatConfiguration))
+                .collect(Collectors.toList());
     }
 
     @Override

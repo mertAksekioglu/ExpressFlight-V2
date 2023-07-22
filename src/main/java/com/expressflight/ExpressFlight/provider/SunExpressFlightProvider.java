@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,10 +16,11 @@ import org.springframework.web.client.RestTemplate;
 public class SunExpressFlightProvider implements IProvider {
 
     String apiUrl = "http://localhost:8080/api/mock/flight";
-    String jsonString;
+    String jsonString = "";
 
     private RestTemplate restTemplate;
 
+    @Autowired
     public SunExpressFlightProvider(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }

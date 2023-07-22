@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ConnectedFlightService implements IConnectedFlightService {
@@ -36,12 +37,9 @@ public class ConnectedFlightService implements IConnectedFlightService {
     @Override
     public List<ConnectedFlightDTO> getAllConnectedFlights() {
         List<ConnectedFlight> connectedFlights = connectedFlightRepository.findAll();
-        List<ConnectedFlightDTO> connectedFlightDtos = new ArrayList<>();
-        for (ConnectedFlight existingConnectedFlight : connectedFlights)
-        {
-            connectedFlightDtos.add(convertToDTO(existingConnectedFlight));
-        }
-        return connectedFlightDtos;
+        return connectedFlights.stream()
+                .map(connectedFlight -> convertToDTO(connectedFlight))
+                .collect(Collectors.toList());
     }
     @Override
     public ConnectedFlightDTO getConnectedFlight(Long connectedFlightId) {
