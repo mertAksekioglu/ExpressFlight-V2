@@ -41,6 +41,7 @@ public class TicketDTOMapper {
                 TicketDTO d = context.getDestination();
 
                 FlightDTO flight = flightService.getFlight(s.getFlight());
+                // Set to null so that no unnecessary data is leaked.
                 flight.setSeatConfig(null);
                 d.setFlight(flight);
                 PassengerDTO passenger = passengerService.getPassenger(s.getPassenger());

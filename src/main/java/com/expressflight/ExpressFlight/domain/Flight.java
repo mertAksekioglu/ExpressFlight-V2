@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Entity
 public class Flight implements Serializable {
-
     @Id
     @SequenceGenerator(
             name = "flight_sequence",

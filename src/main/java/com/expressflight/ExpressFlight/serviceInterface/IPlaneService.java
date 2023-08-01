@@ -18,4 +18,5 @@ public interface IPlaneService {
     public PlaneDTO deletePlane(Long planeId);
 
     public PlaneDTO updatePlane(PlaneRequestDTO planeRequestDto, Long planeId);
+
 }

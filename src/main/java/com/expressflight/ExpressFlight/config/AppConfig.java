@@ -52,6 +52,8 @@ public class AppConfig {
 
     private IPassengerRepository passengerRepository;
 
+    private IMemberRepository memberRepository;
+
     private SeatMapFactory seatMapFactory;
 
     private JPARepoPopulator populator;
@@ -59,7 +61,7 @@ public class AppConfig {
     public AppConfig(JPARepoPopulator populator, IPlaneRepository planeRepository, IAirportRepository airportRepository,
                      ICoordinateRepository coordinateRepository, IFlightRepository flightRepository,
                      IConnectedFlightRepository connectedFlightRepository, ISeatConfigurationRepository seatConfigurationRepository,
-                     IPassengerRepository passengerRepository, SeatMapFactory seatMapFactory) {
+                     IPassengerRepository passengerRepository, SeatMapFactory seatMapFactory, IMemberRepository memberRepository) {
 
         this.populator = populator;
         this.planeRepository = planeRepository;
@@ -70,6 +72,7 @@ public class AppConfig {
         this.seatConfigurationRepository = seatConfigurationRepository;
         this.passengerRepository = passengerRepository;
         this.seatMapFactory = seatMapFactory;
+        this.memberRepository = memberRepository;
     }
 
     @Bean
@@ -130,6 +133,7 @@ public class AppConfig {
         populator.populateRepo(seatConfigurationRepository, resource_path + "seat_configuration_data.json", SeatConfiguration[].class,gson);
         populator.populateRepo(passengerRepository, resource_path + "passenger_data.json", Passenger[].class,gson);
         populator.populateRepo(coordinateRepository, resource_path + "coordinate_data.json", Coordinate[].class,gson);
+        populator.populateRepo(memberRepository, resource_path + "member_data.json", Member[].class,gson);
     }
 
     public void doAllFlightIntegrations(SunExpressFlightIntegrationService sunExpressFlightIntegrationService) {
