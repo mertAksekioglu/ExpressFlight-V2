@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>ExpressFlight Home Page</title>
+</head>
+<body>
+<h2>ExpressFlight</h2>
+<hr>
+<p>
+    Welcome to ExpressFlight API!
+</p>
+
+
+<hr>
+
+<p>
+    User: <span sec:authentication="principal.username"></span>
+    <br><br>
+    Roles: <span sec:authentication="principal.authorities"></span>
+
+</p>
+
+<hr>
+
+<div sec:authorize="hasRole('MEMBER')">
+    <p>
+        Member Authorized Endpoints: Only Flight(search-flight) endpoint.
+    </p>
+    <hr>
+</div>
+
+<div sec:authorize="hasRole('EMPLOYEE')">
+    <p>
+        Employee Authorized Endpoints: Airport, ConnectedFlight, Coordinate, Flight, Passenger, Plane, SeatConfiguration, Seat, Ticket.
+    </p>
+    <hr>
+</div>
+
+<div sec:authorize="hasRole('ADMIN')">
+    <p>
+        Admin Authorized Endpoints: Role, Member.
+    </p>
+    <hr>
+</div>
+
+
+<form action="#" th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+
+</form>
+
+</body>
+</html>

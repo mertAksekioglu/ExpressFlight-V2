@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "email" : "caesar@gmail.com",
+    "role" : "ROLE_ADMIN"
+  },
+  {
+    "id": 2,
+    "email" : "caesar@gmail.com",
+    "role" : "ROLE_EMPLOYEE"
+  },
+  {
+    "id": 3,
+    "email" : "caesar@gmail.com",
+    "role" : "ROLE_MEMBER"
+  },
+  {
+    "id": 4,
+    "email" : "pompey@gmail.com",
+    "role" : "ROLE_EMPLOYEE"
+  },
+  {
+    "id": 5,
+    "email" : "pompey@gmail.com",
+    "role" : "ROLE_MEMBER"
+  }
+]

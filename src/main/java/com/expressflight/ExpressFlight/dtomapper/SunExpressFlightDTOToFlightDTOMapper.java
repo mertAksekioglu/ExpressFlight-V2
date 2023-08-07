@@ -1,7 +1,6 @@
 package com.expressflight.ExpressFlight.dtomapper;
 
 import com.expressflight.ExpressFlight.domain.SeatConfiguration;
-import com.expressflight.ExpressFlight.dto.FlightDTO;
 import com.expressflight.ExpressFlight.provider.SunExpressFlightDTO;
 import com.expressflight.ExpressFlight.repository.IAirportRepository;
 import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;

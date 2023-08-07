@@ -6,22 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Member {
+public class Role {
 
     @Id
     @SequenceGenerator(
-            name = "member_sequence",
-            sequenceName = "member_sequence",
+            name = "role_sequence",
+            sequenceName = "role_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "member_sequence"
+            generator = "role_sequence"
     )
     @Column(name = "id")
     private Long id;
@@ -29,30 +30,20 @@ public class Member {
     @Column(name="email")
     private String email;
 
-    @Column(name="password")
-    private String password;
+    @Column(name="role")
+    private String role;
 
-    @Column(name="active")
-    private Integer active;
-
-    @Column(name="passenger")
-    private Long passenger;
-
-    public Member(String email, String password, Integer active, Long passenger) {
+    public Role(String email, String role) {
         this.email = email;
-        this.password = password;
-        this.active = active;
-        this.passenger = passenger;
+        this.role = role;
     }
 
     @Override
     public String toString() {
-        return "Member{" +
+        return "Role{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", active=" + active +
-                ", passenger=" + passenger +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
