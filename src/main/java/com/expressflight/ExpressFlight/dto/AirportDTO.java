@@ -1,6 +1,5 @@
 package com.expressflight.ExpressFlight.dto;
 
-import com.expressflight.ExpressFlight.domain.Coordinate;
 import lombok.Data;
 
 @Data

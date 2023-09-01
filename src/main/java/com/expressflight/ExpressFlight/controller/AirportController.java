@@ -3,7 +3,6 @@ package com.expressflight.ExpressFlight.controller;
 import com.expressflight.ExpressFlight.dto.AirportDTO;
 import com.expressflight.ExpressFlight.requestdto.AirportRequestDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IAirportService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

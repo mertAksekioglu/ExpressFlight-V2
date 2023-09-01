@@ -37,8 +37,8 @@ public class FlightController {
     }
 
     @PostMapping(value = "/add-flight")
-    public FlightDTO addFlight(@RequestBody FlightRequestDTO flightRequestDto) {
-        return flightService.addFlight(flightRequestDto);
+    public FlightDTO addFlight(@RequestBody FlightRequestDTO flightLegRequestDto) {
+        return flightService.addFlight(flightLegRequestDto);
     }
 
     @DeleteMapping(value = "/delete-id")
@@ -47,8 +47,8 @@ public class FlightController {
     }
 
     @PutMapping(value = "/update-flight")
-    public FlightDTO updateFlight(@RequestBody FlightRequestDTO flightRequestDto, @RequestParam(value = "id") Long flightId) {
-        return flightService.updateFlight(flightRequestDto, flightId);
+    public FlightDTO updateFlight(@RequestBody FlightRequestDTO flightLegRequestDto, @RequestParam(value = "id") Long flightId) {
+        return flightService.updateFlight(flightLegRequestDto, flightId);
     }
 
 }

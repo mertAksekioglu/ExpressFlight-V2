@@ -1,15 +1,18 @@
 import { Outlet, NavLink, ScrollRestoration } from "react-router-dom";
 import React from "react";
-import ".RootLayout.css";
+import "./RootLayout.scss";
+import Logo from "../assets/vectors/logo.svg";
+import Wallpaper from "../assets/images/background-night.png";
 
 function RootLayout() {
   return (
     <div className="background-container">
       <div className="app-container">
         <ScrollRestoration />
-        <header>
+        <header className="header">
           <nav>
-            <h1>Lufthansa Lufthansa</h1>
+            <img class="logo" src={Logo} />
+            <h1 class="noto-sans">Hehe Airlines</h1>
             <NavLink to="/">Home</NavLink>
             <NavLink to="login">Login</NavLink>
             <NavLink to="adminPanel">Admin Panel</NavLink>
@@ -20,6 +23,7 @@ function RootLayout() {
           <Outlet />
         </main>
       </div>
+      <img src={Wallpaper} className="background-image" />
     </div>
   );
 }

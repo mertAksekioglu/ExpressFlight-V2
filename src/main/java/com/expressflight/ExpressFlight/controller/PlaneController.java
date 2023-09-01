@@ -4,7 +4,6 @@ import com.expressflight.ExpressFlight.dto.PlaneDTO;
 import com.expressflight.ExpressFlight.requestdto.PlaneRequestDTO;
 import com.expressflight.ExpressFlight.service.PlaneService;
 import com.expressflight.ExpressFlight.serviceInterface.IPlaneService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

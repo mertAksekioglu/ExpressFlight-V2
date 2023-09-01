@@ -31,6 +31,8 @@ import Flights from "./pages/Flights/Flights";
 import PersonalInformation from "./pages/personalInformation/PersonalInformation";
 import SeatSelection from "./pages/seatSelection/SeatSelection";
 import Checkout from "./pages/checkout/Checkout";
+
+import { loadFlightData } from "./pages/home/Home";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
@@ -49,7 +51,7 @@ const router = createBrowserRouter(
         <Route path="ticket" element={<TicketTable />} />
       </Route>
       <Route path="searchFlight" element={<SearchFlight />} />
-      <Route path="Flights" element={<Flights />} />
+      <Route path="flights" element={<Flights />} />
       <Route path="personalInformation" element={<PersonalInformation />} />
       <Route path="seatSelection" element={<SeatSelection />} />
       <Route path="checkout" element={<Checkout />} />

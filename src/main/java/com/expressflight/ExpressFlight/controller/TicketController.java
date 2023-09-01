@@ -5,7 +5,6 @@ import com.expressflight.ExpressFlight.dto.TicketDTO;
 import com.expressflight.ExpressFlight.requestdto.TicketRequestDTO;
 import com.expressflight.ExpressFlight.service.TicketService;
 import com.expressflight.ExpressFlight.serviceInterface.ITicketService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -63,7 +63,7 @@ public class ConnectedFlightService implements IConnectedFlightService {
             Long lastDesAirport = lastFlight.getDepAirport();
             if(firstDepAirport.equals(connectedFlightSearchRequestDto.getDepAirport()) &&
                     lastDesAirport.equals(connectedFlightSearchRequestDto.getDesAirport()) &&
-                    firstConnectedFlightDate.equals(connectedFlightSearchRequestDto.getDepDateTime().toLocalDate())){
+                    firstConnectedFlightDate.equals(connectedFlightSearchRequestDto.getDepDate())){
                 resultConnectedFlightDtos.add(convertToDTO(connectedFlight));
             }
         }

@@ -1,11 +1,9 @@
 package com.expressflight.ExpressFlight.controller;
 
 import com.expressflight.ExpressFlight.dto.PassengerDTO;
-import com.expressflight.ExpressFlight.repository.IPassengerRepository;
 import com.expressflight.ExpressFlight.requestdto.PassengerRequestDTO;
 import com.expressflight.ExpressFlight.service.PassengerService;
 import com.expressflight.ExpressFlight.serviceInterface.IPassengerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

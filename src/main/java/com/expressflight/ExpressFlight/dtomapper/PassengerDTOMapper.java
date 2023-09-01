@@ -2,15 +2,10 @@ package com.expressflight.ExpressFlight.dtomapper;
 
 import com.expressflight.ExpressFlight.domain.Passenger;
 import com.expressflight.ExpressFlight.dto.PassengerDTO;
-import com.expressflight.ExpressFlight.dto.CoordinateDTO;
-import com.expressflight.ExpressFlight.enums.Gender;
-import com.expressflight.ExpressFlight.serviceInterface.ICoordinateService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
 
 @Component
 public class PassengerDTOMapper {

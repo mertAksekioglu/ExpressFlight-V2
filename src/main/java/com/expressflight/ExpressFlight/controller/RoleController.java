@@ -4,7 +4,6 @@ import com.expressflight.ExpressFlight.dto.RoleDTO;
 import com.expressflight.ExpressFlight.requestdto.RoleRequestDTO;
 import com.expressflight.ExpressFlight.service.RoleService;
 import com.expressflight.ExpressFlight.serviceInterface.IRoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

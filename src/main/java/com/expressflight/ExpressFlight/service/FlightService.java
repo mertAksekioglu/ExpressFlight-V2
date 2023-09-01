@@ -2,6 +2,7 @@ package com.expressflight.ExpressFlight.service;
 
 import com.expressflight.ExpressFlight.domain.Flight;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
+import com.expressflight.ExpressFlight.repository.IAirportRepository;
 import com.expressflight.ExpressFlight.repository.IFlightRepository;
 import com.expressflight.ExpressFlight.repository.ISeatConfigurationRepository;
 import com.expressflight.ExpressFlight.requestdto.FlightRequestDTO;
@@ -12,7 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 public class FlightService implements IFlightService {
 
     private IFlightRepository flightRepository;
+
+    private IAirportRepository airportRepository;
 
     private ISeatConfigurationRepository seatConfigurationRepository;
 
@@ -33,12 +36,13 @@ public class FlightService implements IFlightService {
 
     public FlightService(IFlightRepository flightRepository, ISeatConfigurationRepository seatConfigurationRepository,
                          SeatConfigurationService seatConfigurationService, ModelMapper modelMapper,
-                         SeatMapFactory seatMapFactory) {
+                         SeatMapFactory seatMapFactory, IAirportRepository airportRepository) {
         this.flightRepository = flightRepository;
         this.seatConfigurationRepository = seatConfigurationRepository;
         this.seatConfigurationService = seatConfigurationService;
         this.modelMapper = modelMapper;
         this.seatMapFactory = seatMapFactory;
+        this.airportRepository = airportRepository;
     }
 
     @Override
@@ -60,13 +64,13 @@ public class FlightService implements IFlightService {
     public List<FlightDTO> getFlightByCode(String flightCode) {
         // TODO Check the validity of the code.
         List<Flight> flights = flightRepository.findByFlightCode(flightCode);
-        List<FlightDTO> flightDtos = new ArrayList<>();
+        List<FlightDTO> flightLegDtos = new ArrayList<>();
         for (Flight existingFlight : flights)
         {
-            FlightDTO flightDto = convertToDTO(existingFlight);
-            flightDtos.add(flightDto);
+            FlightDTO flightLegDto = convertToDTO(existingFlight);
+            flightLegDtos.add(flightLegDto);
         }
-        return flightDtos;
+        return flightLegDtos;
     }
 
     @Override
@@ -74,14 +78,20 @@ public class FlightService implements IFlightService {
         List<Flight> allFlights = flightRepository.findAll();
         List<FlightDTO> resultFlightDtos = new ArrayList<>();
         for (Flight flight: allFlights) {
-            LocalDateTime firstFlightDateTime = flight.getDepDateTime();
-            Long firstDepAirport = flight.getDepAirport();
-            Long lastDesAirport = flight.getArvAirport();
-            if(firstDepAirport.equals(flightSearchRequestDto.getDepAirport()) &&
-               lastDesAirport.equals(flightSearchRequestDto.getDesAirport()) &&
-               firstFlightDateTime.equals(flightSearchRequestDto.getDepDateTime())){
-                resultFlightDtos.add(convertToDTO(flight));
+            LocalDate flightDate = flight.getDepDateTime().toLocalDate();
+            Long requestDepAirport = airportRepository.findByCodeIATA(
+                    flightSearchRequestDto.getDepAirport()).get().getId();
+            Long requestDesAirport = airportRepository.findByCodeIATA(
+                    flightSearchRequestDto.getDesAirport()).get().getId();
+            Long depAirport = flight.getDepAirport();
+            Long desAirport = flight.getArvAirport();
+
+            if(flightDate.isEqual(flightSearchRequestDto.getDepDate())) {
+                if(depAirport.equals(requestDepAirport) && desAirport.equals(requestDesAirport)){
+                    resultFlightDtos.add(convertToDTO(flight));
+                }
             }
+
         }
         return resultFlightDtos;
     }
@@ -137,14 +147,14 @@ public class FlightService implements IFlightService {
     @Override
     public List<FlightDTO> configureAllFlightSeats() {
         List<Flight> flights = flightRepository.findAll();
-        List<FlightDTO> flightDtos = new ArrayList<>();
+        List<FlightDTO> flightLegDtos = new ArrayList<>();
         List<Flight> unconfiguredFlights = new ArrayList<>();
         for (Flight existingFlight : unconfiguredFlights)
         {
-            FlightDTO flightDto = convertToDTO(existingFlight);
-            flightDtos.add(flightDto);
+            FlightDTO flightLegDto = convertToDTO(existingFlight);
+            flightLegDtos.add(flightLegDto);
         }
-        return flightDtos;
+        return flightLegDtos;
     }
 
     public void checkFlightExistence(Long flightId) {
@@ -155,8 +165,8 @@ public class FlightService implements IFlightService {
     }
 
     private FlightDTO convertToDTO(Flight flight) {
-        FlightDTO flightDto = modelMapper.map(flight, FlightDTO.class);
-        return flightDto;
+        FlightDTO flightLegDto = modelMapper.map(flight, FlightDTO.class);
+        return flightLegDto;
     }
 
     private Flight convertToEntity(FlightRequestDTO flightRequestDto) {

@@ -1,15 +1,8 @@
 package com.expressflight.ExpressFlight.dtomapper;
 
-import com.expressflight.ExpressFlight.domain.Airport;
 import com.expressflight.ExpressFlight.domain.ConnectedFlight;
-import com.expressflight.ExpressFlight.domain.Coordinate;
-import com.expressflight.ExpressFlight.domain.Flight;
-import com.expressflight.ExpressFlight.dto.AirportDTO;
 import com.expressflight.ExpressFlight.dto.ConnectedFlightDTO;
-import com.expressflight.ExpressFlight.dto.CoordinateDTO;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
-import com.expressflight.ExpressFlight.repository.ICoordinateRepository;
-import com.expressflight.ExpressFlight.repository.IFlightRepository;
 import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;

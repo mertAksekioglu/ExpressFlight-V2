@@ -4,7 +4,6 @@ import com.expressflight.ExpressFlight.dto.CoordinateDTO;
 import com.expressflight.ExpressFlight.requestdto.CoordinateRequestDTO;
 import com.expressflight.ExpressFlight.service.CoordinateService;
 import com.expressflight.ExpressFlight.serviceInterface.ICoordinateService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

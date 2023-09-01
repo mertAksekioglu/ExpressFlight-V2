@@ -2,8 +2,6 @@ package com.expressflight.ExpressFlight.dtomapper;
 
 import com.expressflight.ExpressFlight.domain.Coordinate;
 import com.expressflight.ExpressFlight.dto.CoordinateDTO;
-import com.expressflight.ExpressFlight.dto.CoordinateDTO;
-import com.expressflight.ExpressFlight.serviceInterface.ICoordinateService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;

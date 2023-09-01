@@ -1,6 +1,5 @@
 package com.expressflight.ExpressFlight.requestdto;
 
-import com.expressflight.ExpressFlight.dto.PassengerDTO;
 import lombok.Data;
 
 @Data

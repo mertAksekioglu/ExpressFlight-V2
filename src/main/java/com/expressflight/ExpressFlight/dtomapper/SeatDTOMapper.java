@@ -2,10 +2,6 @@ package com.expressflight.ExpressFlight.dtomapper;
 
 import com.expressflight.ExpressFlight.domain.Seat;
 import com.expressflight.ExpressFlight.dto.SeatDTO;
-import com.expressflight.ExpressFlight.dto.CoordinateDTO;
-import com.expressflight.ExpressFlight.enums.SeatStatus;
-import com.expressflight.ExpressFlight.enums.SeatType;
-import com.expressflight.ExpressFlight.serviceInterface.ICoordinateService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;

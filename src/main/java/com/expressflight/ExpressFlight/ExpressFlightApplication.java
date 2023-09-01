@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
-@SpringBootApplication
-//@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+//@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableJpaAuditing
 public class ExpressFlightApplication {
 

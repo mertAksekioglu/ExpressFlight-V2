@@ -1,21 +1,16 @@
 package com.expressflight.ExpressFlight.dtomapper;
 
-import com.expressflight.ExpressFlight.domain.Airport;
 import com.expressflight.ExpressFlight.domain.Flight;
 import com.expressflight.ExpressFlight.dto.AirportDTO;
-import com.expressflight.ExpressFlight.dto.CoordinateDTO;
 import com.expressflight.ExpressFlight.dto.FlightDTO;
 import com.expressflight.ExpressFlight.dto.SeatConfigurationDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IAirportService;
-import com.expressflight.ExpressFlight.serviceInterface.ICoordinateService;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatConfigurationService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 @Component
 public class FlightDTOMapper {
 
@@ -50,6 +45,7 @@ public class FlightDTOMapper {
                 d.setDepDateTime(s.getDepDateTime());
                 d.setArvDateTime(s.getArvDateTime());
                 SeatConfigurationDTO seatConfiguration = seatConfigurationService.getSeatConfiguration(s.getSeatConfig());
+                seatConfiguration = null;
                 d.setSeatConfig(seatConfiguration);
                 return d;
             }

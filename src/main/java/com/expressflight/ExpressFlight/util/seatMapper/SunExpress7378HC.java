@@ -1,13 +1,9 @@
 package com.expressflight.ExpressFlight.util.seatMapper;
 
 import com.expressflight.ExpressFlight.domain.Seat;
-import com.expressflight.ExpressFlight.dto.SeatDTO;
 import com.expressflight.ExpressFlight.enums.SeatStatus;
 import com.expressflight.ExpressFlight.enums.SeatType;
 import com.expressflight.ExpressFlight.repository.ISeatRepository;
-import com.expressflight.ExpressFlight.service.SeatService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

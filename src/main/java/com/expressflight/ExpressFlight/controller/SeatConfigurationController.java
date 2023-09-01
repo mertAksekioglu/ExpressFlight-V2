@@ -4,7 +4,6 @@ import com.expressflight.ExpressFlight.dto.SeatConfigurationDTO;
 import com.expressflight.ExpressFlight.requestdto.SeatConfigurationRequestDTO;
 import com.expressflight.ExpressFlight.service.SeatConfigurationService;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatConfigurationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

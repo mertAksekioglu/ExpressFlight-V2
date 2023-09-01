@@ -1,9 +1,10 @@
 package com.expressflight.ExpressFlight.dtomapper;
 
 import com.expressflight.ExpressFlight.domain.Ticket;
-import com.expressflight.ExpressFlight.dto.*;
-import com.expressflight.ExpressFlight.enums.TicketType;
-import com.expressflight.ExpressFlight.serviceInterface.ICoordinateService;
+import com.expressflight.ExpressFlight.dto.FlightDTO;
+import com.expressflight.ExpressFlight.dto.PassengerDTO;
+import com.expressflight.ExpressFlight.dto.SeatDTO;
+import com.expressflight.ExpressFlight.dto.TicketDTO;
 import com.expressflight.ExpressFlight.serviceInterface.IFlightService;
 import com.expressflight.ExpressFlight.serviceInterface.IPassengerService;
 import com.expressflight.ExpressFlight.serviceInterface.ISeatService;

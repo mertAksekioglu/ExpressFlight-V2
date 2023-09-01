@@ -9,6 +9,7 @@ import com.expressflight.ExpressFlight.microservice.TicketBooker;
 import com.expressflight.ExpressFlight.repository.*;
 import com.expressflight.ExpressFlight.serializer.LocalDateSerializer;
 import com.expressflight.ExpressFlight.serializer.LocalDateTimeSerializer;
+import com.expressflight.ExpressFlight.util.IDatabasePopulator;
 import com.expressflight.ExpressFlight.util.JPARepoPopulator;
 import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -60,11 +62,13 @@ public class AppConfig {
 
     private JPARepoPopulator populator;
 
+    private IDatabasePopulator databasePopulator;
+
     public AppConfig(JPARepoPopulator populator, IPlaneRepository planeRepository, IAirportRepository airportRepository,
                      ICoordinateRepository coordinateRepository, IFlightRepository flightRepository,
                      IConnectedFlightRepository connectedFlightRepository, ISeatConfigurationRepository seatConfigurationRepository,
                      IPassengerRepository passengerRepository, SeatMapFactory seatMapFactory,
-                     IMemberRepository memberRepository, IRoleRepository roleRepository) {
+                     IMemberRepository memberRepository, IRoleRepository roleRepository, IDatabasePopulator databasePopulator) {
 
         this.populator = populator;
         this.planeRepository = planeRepository;
@@ -77,8 +81,10 @@ public class AppConfig {
         this.seatMapFactory = seatMapFactory;
         this.memberRepository = memberRepository;
         this.roleRepository = roleRepository;
+        this.databasePopulator = databasePopulator;
     }
 
+    @Primary
     @Bean
     public Gson gson() {
         return new GsonBuilder()
@@ -94,11 +100,11 @@ public class AppConfig {
         return new ModelMapper();
     }
 
-    @Bean
+  /*  @Bean
     public JPARepoPopulator jpaRepoPopulator() {
         var gson = gson();
         return new JPARepoPopulator(gson);
-    }
+    }*/
 
     @Bean
     public RestTemplate restTemplate() {return new RestTemplate();}
@@ -115,7 +121,8 @@ public class AppConfig {
                                         Gson gson) {
 
         return args -> {
-            populateAllRepositories(gson);
+            //populateAllRepositories(gson);
+            databasePopulator.populateDatabase(gson);
         };
     }
 

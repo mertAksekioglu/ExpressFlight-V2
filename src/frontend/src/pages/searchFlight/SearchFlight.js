@@ -1,6 +1,6 @@
 import React from "react";
 
-function SearchFlight() {
+function SearchFlight(apiResponse) {
   return <div>SearchFlight</div>;
 }
 
