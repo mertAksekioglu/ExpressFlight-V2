@@ -1,0 +1,47 @@
+$text-gray: #636d84;
+$card-light-gray: #eef1f8;
+$button-orange: #de7800;
+
+.home-page-container {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  flex-direction: row;
+  background-color: #ffaaff;
+  margin-left: 26.1%;
+}
+
+.vertical-line {
+  position: relative;
+  top: -256px;
+  height: 1080px;
+  width: 2px;
+  background-color: #fff;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.title {
+  font-size: 40;
+}
+
+.right-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  width: 100%;
+}
+
+.search-flight-card {
+  width: 45vw;
+  height: 32vh;
+  background-color: $card-light-gray;
+  margin-top: 5%;
+  padding: 3%;
+  border-radius: 12px;
+}
+
+.search-flight-card-title {
+  font-size: 22;
+  color: $text-gray;
+}

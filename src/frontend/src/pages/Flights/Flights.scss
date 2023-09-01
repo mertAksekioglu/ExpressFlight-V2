@@ -1,0 +1,38 @@
+$background-blue: #72708c96;
+$card-light-gray: #eef1f8;
+
+.flights-page-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-left: 9.16vh;
+}
+
+.flight-card {
+  width: 57.36vw;
+  height: 9.16vh;
+  background-color: $background-blue;
+  margin-bottom: 2.47vh;
+}
+
+.flights-subtitle {
+}
+
+.flights-title {
+}
+
+.flight-logo-card {
+  width: 6.94vw;
+  height: 9.07vh;
+  background-color: $card-light-gray;
+  border-radius: 24;
+  opacity: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flight-symbol {
+  width: 50%;
+  height: 68%;
+}
