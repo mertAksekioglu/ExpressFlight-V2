@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import "./Home.scss";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import PlaneDepartureIcon from "../../assets/vectors/plane-departure-solid.svg";
+import PlaneArrivalIcon from "../../assets/vectors/plane-arrival-solid.svg";
+import CalendarIcon from "../../assets/vectors/calendar-days-solid.svg";
 function Home() {
   return (
     <div className="home-page-container">
       <div className="vertical-line" />
       <div className="right-container">
-        <h1 className="title">Creating the future of Airline & IT Solutions</h1>
+        <h1 className="title">A Hobby project on Passenger Ticket Systems</h1>
         <FlightCard />
       </div>
     </div>
@@ -61,51 +64,66 @@ export function FlightCard() {
     <div className="search-flight-card">
       <h2 className="search-flight-card-title">Search Flight</h2>
       <form onSubmit={handleFormSubmit}>
-        <div>
-          <div>
-            <label htmlFor="depAirport">Departure Airport:</label>
+        <div className="submit-row">
+          <div className="flight-search-input-container">
+            <img
+              className="flight-search-input-icon"
+              src={PlaneDepartureIcon}
+            />
             <input
+              className="flight-search-input"
               type="text"
               id="depAirport"
               name="depAirport"
+              placeholder="Departure Airport"
               value={formData.depAirport}
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label htmlFor="desAirport">Destination Airport:</label>
+          <div className="flight-search-input-container">
+            <img className="flight-search-input-icon" src={PlaneArrivalIcon} />
             <input
+              className="flight-search-input"
               type="text"
               id="desAirport"
               name="desAirport"
+              placeholder="Destination Airport"
               value={formData.desAirport}
               onChange={handleInputChange}
             />
           </div>
-          <div></div>
-          <div>
-            <label htmlFor="depDate">Departure Date:</label>
+        </div>
+        <div className="submit-row">
+          <div className="flight-search-input-container">
+            <img className="flight-search-input-icon" src={CalendarIcon} />
             <input
+              className="flight-search-input"
               type="text"
               id="depDate"
               name="depDate"
+              placeholder="Departure Date"
               value={formData.depDate}
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label htmlFor="desDate">Arrival Date:</label>
+          <div className="flight-search-input-container">
+            <img className="flight-search-input-icon" src={CalendarIcon} />
             <input
+              className="flight-search-input"
               type="text"
               id="desDate"
               name="desDate"
+              placeholder="Arrival Date"
               value={formData.desDate}
               onChange={handleInputChange}
             />
           </div>
         </div>
-
-        <button type="submit">Search Flight</button>
+        <div className="submit-row">
+          <button className="flight-search-button" type="submit">
+            Search Flight
+          </button>
+        </div>
       </form>
     </div>
   );

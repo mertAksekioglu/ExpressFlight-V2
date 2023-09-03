@@ -6,15 +6,15 @@ function PassengerForm() {
   const navigate = useNavigate();
   const location = useLocation();
   const { flight } = location.state;
-  const [passengerData, setPassengerData] = useState({
+  const [passenger, setPassenger] = useState({
     suffix: "Mr",
     name: "",
     surname: "",
-    dob: "",
-    residenceCountry: "",
+    dateOfBirth: "",
+    country: "",
   });
 
-  const [contactData, setContactData] = useState({
+  const [contact, setContact] = useState({
     suffix: "Mr",
     name: "",
     surname: "",
@@ -28,19 +28,24 @@ function PassengerForm() {
 
   const handlePassengerChange = (e) => {
     const { name, value } = e.target;
-    setPassengerData({ ...passengerData, [name]: value });
+    setPassenger({ ...passenger, [name]: value });
   };
 
   const handleContactChange = (e) => {
     const { name, value } = e.target;
-    setContactData({ ...contactData, [name]: value });
+    setContact({ ...contact, [name]: value });
+  };
+
+  const setJuliusData = () => {
+    setPassenger({});
+    setContact({});
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // You can handle form submission here
 
-    navigate("/checkout", { state: { flight, passengerData, contactData } });
+    navigate("/checkout", { state: { flight, passenger, contact } });
   };
 
   return (
@@ -52,7 +57,7 @@ function PassengerForm() {
             Suffix:
             <select
               name="suffix"
-              value={passengerData.suffix}
+              value={passenger.suffix}
               onChange={handlePassengerChange}
             >
               <option value="Mr">Mr</option>
@@ -66,7 +71,7 @@ function PassengerForm() {
             <input
               type="text"
               name="name"
-              value={passengerData.name}
+              value={passenger.name}
               onChange={handlePassengerChange}
             />
           </label>
@@ -76,7 +81,7 @@ function PassengerForm() {
             <input
               type="text"
               name="surname"
-              value={passengerData.surname}
+              value={passenger.surname}
               onChange={handlePassengerChange}
             />
           </label>
@@ -85,8 +90,8 @@ function PassengerForm() {
             Date of Birth:
             <input
               type="text"
-              name="dob"
-              value={passengerData.dob}
+              name="dateOfBirth"
+              value={passenger.dateOfBirth}
               onChange={handlePassengerChange}
             />
           </label>
@@ -95,8 +100,8 @@ function PassengerForm() {
             Country of Residence:
             <input
               type="text"
-              name="residenceCountry"
-              value={passengerData.residenceCountry}
+              name="country"
+              value={passenger.country}
               onChange={handlePassengerChange}
             />
           </label>
@@ -111,7 +116,7 @@ function PassengerForm() {
             Suffix:
             <select
               name="suffix"
-              value={contactData.suffix}
+              value={contact.suffix}
               onChange={handleContactChange}
             >
               <option value="Mr">Mr</option>
@@ -125,7 +130,7 @@ function PassengerForm() {
             <input
               type="text"
               name="name"
-              value={contactData.name}
+              value={contact.name}
               onChange={handleContactChange}
             />
           </label>
@@ -135,7 +140,7 @@ function PassengerForm() {
             <input
               type="text"
               name="surname"
-              value={contactData.surname}
+              value={contact.surname}
               onChange={handleContactChange}
             />
           </label>
@@ -145,7 +150,7 @@ function PassengerForm() {
             <input
               type="text"
               name="email"
-              value={contactData.email}
+              value={contact.email}
               onChange={handleContactChange}
             />
           </label>
@@ -155,7 +160,7 @@ function PassengerForm() {
             <input
               type="text"
               name="phoneNumber"
-              value={contactData.phoneNumber}
+              value={contact.phoneNumber}
               onChange={handleContactChange}
             />
           </label>
@@ -165,7 +170,7 @@ function PassengerForm() {
             <input
               type="text"
               name="streetAddress"
-              value={contactData.streetAddress}
+              value={contact.streetAddress}
               onChange={handleContactChange}
             />
           </label>
@@ -175,7 +180,7 @@ function PassengerForm() {
             <input
               type="text"
               name="zipCode"
-              value={contactData.zipCode}
+              value={contact.zipCode}
               onChange={handleContactChange}
             />
           </label>
@@ -185,7 +190,7 @@ function PassengerForm() {
             <input
               type="text"
               name="city"
-              value={contactData.city}
+              value={contact.city}
               onChange={handleContactChange}
             />
           </label>
@@ -195,7 +200,7 @@ function PassengerForm() {
             <input
               type="text"
               name="country"
-              value={contactData.country}
+              value={contact.country}
               onChange={handleContactChange}
             />
           </label>

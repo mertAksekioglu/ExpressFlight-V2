@@ -5,9 +5,8 @@ $button-orange: #de7800;
 .home-page-container {
   display: flex;
   flex-grow: 1;
-  width: 100%;
+  width: 75%;
   flex-direction: row;
-  background-color: #ffaaff;
   margin-left: 26.1%;
 }
 
@@ -25,16 +24,25 @@ $button-orange: #de7800;
   font-size: 40;
 }
 
+label {
+  color: $text-gray;
+}
+
+button {
+  margin: 5px;
+  color: $text-gray;
+}
+
 .right-container {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  width: 100%;
+  width: 70%;
 }
 
 .search-flight-card {
-  width: 45vw;
-  height: 32vh;
+  width: 716.66px;
+  height: 290px;
   background-color: $card-light-gray;
   margin-top: 5%;
   padding: 3%;
@@ -44,4 +52,47 @@ $button-orange: #de7800;
 .search-flight-card-title {
   font-size: 22;
   color: $text-gray;
+  margin-bottom: 15px;
+}
+
+.submit-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+.flight-search-input {
+  border-width: 0px;
+  margin-left: 10px;
+}
+
+.flight-search-input-container {
+  width: 300px;
+  height: 45.55px;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  border-width: 0px;
+  background-color: #fff;
+}
+
+.flight-search-input-icon {
+  width: 23.33px;
+  height: 18.66px;
+  margin: 3px;
+  margin-left: 10px;
+}
+
+.flight-search-button {
+  width: 156.91px;
+  height: 45.55px;
+  background-color: $button-orange;
+  color: #fff;
+  border-radius: 50px;
+  border-width: 0px;
+  font-size: 17px;
+  margin-top: 25px;
 }

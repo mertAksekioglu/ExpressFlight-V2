@@ -37,10 +37,7 @@ public class AppConfig {
 
     private final DateTimeFormatter yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private final DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
-
     private IDatabasePopulator databasePopulator;
-
 
     public AppConfig(IDatabasePopulator databasePopulator) {
         this.databasePopulator = databasePopulator;

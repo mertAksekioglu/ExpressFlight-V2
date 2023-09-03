@@ -10,9 +10,11 @@ function RootLayout() {
       <div className="app-container">
         <ScrollRestoration />
         <header className="header">
-          <nav>
+          <div className="logo-container">
             <img class="logo" src={Logo} />
-            <h1 class="noto-sans">Hehe Airlines</h1>
+            <h1 class="noto-sans">ExpressFlight</h1>
+          </div>
+          <nav>
             <NavLink to="/">Home</NavLink>
             <NavLink to="login">Login</NavLink>
             <NavLink to="adminPanel">Admin Panel</NavLink>

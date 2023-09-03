@@ -55,7 +55,9 @@ export function FlightLogoCard(props) {
   return (
     <div className="flight-logo-card">
       <h1>{props.airline}</h1>
-      {true ? <img className="flight-symbol" src={SunExpressSymbol} /> : null}
+      {true ? (
+        <img className="flight-company-icon" src={SunExpressSymbol} />
+      ) : null}
     </div>
   );
 }

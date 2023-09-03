@@ -10,13 +10,6 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class DatabasePopulator implements IDatabasePopulator {
 
-
-    private final DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-
-    private final DateTimeFormatter yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    private final DateTimeFormatter HH_mm = DateTimeFormatter.ofPattern("HH:mm");
-
     private final String resource_path = "src/main/resources/data/";
 
     private IPlaneRepository planeRepository;
