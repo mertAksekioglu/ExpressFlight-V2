@@ -93,6 +93,12 @@ public class AirportService implements IAirportService {
         if(airport.getLocation() != null) {
             existingAirport.get().setLocation(airport.getLocation());
         }
+        if(airport.getCity() != null) {
+            existingAirport.get().setCity(airport.getCity());
+        }
+        if(airport.getCountry() != null) {
+            existingAirport.get().setCountry(airport.getCountry());
+        }
         if(airport.getRunwayCount() != null) {
             existingAirport.get().setRunwayCount(airport.getRunwayCount());
         }

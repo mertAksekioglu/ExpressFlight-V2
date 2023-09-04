@@ -8,6 +8,8 @@ public class AirportRequestDTO {
     private String codeIATA;
     private String codeICAO;
     private Long location;
+    private String city;
+    private String country;
     private Integer terminalCount;
     private Integer runwayCount;
 }

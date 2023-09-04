@@ -35,6 +35,8 @@ public class AirportDTOMapper {
                 d.setCodeICAO(s.getCodeICAO());
                 CoordinateDTO location = coordinateService.getCoordinate(s.getLocation());
                 d.setLocation(location);
+                d.setCity(s.getCity());
+                d.setCountry(s.getCountry());
                 d.setTerminalCount(s.getTerminalCount());
                 d.setRunwayCount(s.getRunwayCount());
                 return d;

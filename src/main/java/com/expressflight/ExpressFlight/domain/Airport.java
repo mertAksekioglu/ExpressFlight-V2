@@ -40,18 +40,26 @@ public class Airport implements Serializable {
     @Column(name = "location")
     private Long location;
 
+    @Column(name ="city")
+    private String city;
+
+    @Column(name ="country")
+    private String country;
+
     @Column(name = "terminal_count")
     private Integer terminalCount;
 
     @Column(name = "runway_count")
     private Integer runwayCount;
 
-    public Airport(String name, String codeIATA, String codeICAO, Long location,
-                   Integer terminalCount, Integer runwayCount) {
+    public Airport(String name, String codeIATA, String codeICAO,
+                   Long location, String city, String country, Integer terminalCount, Integer runwayCount) {
         this.name = name;
         this.codeIATA = codeIATA;
         this.codeICAO = codeICAO;
         this.location = location;
+        this.city = city;
+        this.country = country;
         this.terminalCount = terminalCount;
         this.runwayCount = runwayCount;
     }
@@ -64,8 +72,11 @@ public class Airport implements Serializable {
                 ", codeIATA='" + codeIATA + '\'' +
                 ", codeICAO='" + codeICAO + '\'' +
                 ", location=" + location +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
                 ", terminalCount=" + terminalCount +
                 ", runwayCount=" + runwayCount +
                 '}';
     }
+
 }
