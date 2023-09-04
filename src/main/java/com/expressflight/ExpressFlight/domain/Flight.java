@@ -55,31 +55,5 @@ public class Flight implements Serializable {
     @Column(name="seat_config")
     private Long seatConfig;
 
-    public Flight(String airline, String flightCode, Double price,
-                  Long depAirport, Long arvAirport, LocalDateTime depDateTime,
-                  LocalDateTime arvDateTime, Long seatConfig) {
-        this.airline = airline;
-        this.flightCode = flightCode;
-        this.price = price;
-        this.depAirport = depAirport;
-        this.arvAirport = arvAirport;
-        this.depDateTime = depDateTime;
-        this.arvDateTime = arvDateTime;
-        this.seatConfig = seatConfig;
-    }
 
-    @Override
-    public String toString() {
-        return "Flight{" +
-                "id=" + id +
-                ", airline='" + airline + '\'' +
-                ", flightCode='" + flightCode + '\'' +
-                ", price=" + price +
-                ", depAirport=" + depAirport +
-                ", arvAirport=" + arvAirport +
-                ", depDateTime=" + depDateTime +
-                ", arvDateTime=" + arvDateTime +
-                ", seatConfig=" + seatConfig +
-                '}';
-    }
 }

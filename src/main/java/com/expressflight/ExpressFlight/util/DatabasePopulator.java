@@ -12,8 +12,6 @@ public class DatabasePopulator implements IDatabasePopulator {
 
     private final String resource_path = "src/main/resources/data/";
 
-    private IPlaneRepository planeRepository;
-
     private IAirportRepository airportRepository;
 
     private ICoordinateRepository coordinateRepository;
@@ -34,14 +32,13 @@ public class DatabasePopulator implements IDatabasePopulator {
 
     private JPARepoPopulator populator;
 
-    public DatabasePopulator(JPARepoPopulator populator, IPlaneRepository planeRepository, IAirportRepository airportRepository,
+    public DatabasePopulator(JPARepoPopulator populator, IAirportRepository airportRepository,
                      ICoordinateRepository coordinateRepository, IFlightRepository flightRepository,
                      IConnectedFlightRepository connectedFlightRepository, ISeatConfigurationRepository seatConfigurationRepository,
                      IPassengerRepository passengerRepository, SeatMapFactory seatMapFactory,
                      IMemberRepository memberRepository, IRoleRepository roleRepository) {
 
         this.populator = populator;
-        this.planeRepository = planeRepository;
         this.airportRepository = airportRepository;
         this.coordinateRepository = coordinateRepository;
         this.flightRepository = flightRepository;
@@ -55,7 +52,6 @@ public class DatabasePopulator implements IDatabasePopulator {
 
     @Override
     public void populateDatabase(Gson gson) {
-        populator.populateRepo(planeRepository, resource_path + "plane_data.json", Plane[].class,gson);
         populator.populateRepo(airportRepository, resource_path + "airport_data.json", Airport[].class,gson);
         populator.populateRepo(flightRepository, resource_path + "flight_data.json", Flight[].class,gson);
         populator.populateRepo(connectedFlightRepository, resource_path + "connected_flight_data.json", ConnectedFlight[].class,gson);
