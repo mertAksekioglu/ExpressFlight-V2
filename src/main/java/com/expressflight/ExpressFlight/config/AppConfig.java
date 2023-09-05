@@ -10,6 +10,8 @@ import com.expressflight.ExpressFlight.microservice.TicketBooker;
 import com.expressflight.ExpressFlight.repository.*;
 import com.expressflight.ExpressFlight.serializer.LocalDateSerializer;
 import com.expressflight.ExpressFlight.serializer.LocalDateTimeSerializer;
+import com.expressflight.ExpressFlight.service.SeatConfigurationService;
+import com.expressflight.ExpressFlight.serviceInterface.ISeatConfigurationService;
 import com.expressflight.ExpressFlight.util.IDatabasePopulator;
 import com.expressflight.ExpressFlight.util.JPARepoPopulator;
 import com.expressflight.ExpressFlight.util.seatMapper.SeatMapFactory;
@@ -64,16 +66,22 @@ public class AppConfig {
     public RestTemplate restTemplate() {return new RestTemplate();}
 
     @Bean
-    CommandLineRunner commandLineRunner(SunExpressFlightIntegrationService sunExpressFlightIntegrationService) {
+    CommandLineRunner commandLineRunner(SunExpressFlightIntegrationService sunExpressFlightIntegrationService,
+    ISeatConfigurationService seatConfigurationService) {
         return args -> {
             var gson = gson();
             databasePopulator.populateDatabase(gson);
             doAllFlightIntegrations(sunExpressFlightIntegrationService);
+            configureAllUnconfiguredSeatConfigurations(seatConfigurationService);
         };
     }
 
     public void doAllFlightIntegrations(SunExpressFlightIntegrationService sunExpressFlightIntegrationService) {
         sunExpressFlightIntegrationService.integrate();
+    }
+
+    public void configureAllUnconfiguredSeatConfigurations(ISeatConfigurationService seatConfigurationService) {
+        seatConfigurationService.configureAllUnconfiguredSeatConfigurations();
     }
 
     public void bookExampleTickets(TicketBooker ticketBooker) {

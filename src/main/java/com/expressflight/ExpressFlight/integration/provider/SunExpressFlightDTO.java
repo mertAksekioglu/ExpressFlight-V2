@@ -1,4 +1,4 @@
-package com.expressflight.ExpressFlight.provider;
+package com.expressflight.ExpressFlight.integration.provider;
 
 import lombok.Data;
 

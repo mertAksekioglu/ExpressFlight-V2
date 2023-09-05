@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Checkout.css"; // You can create a Checkout.css file for styling
+import "./Checkout.scss"; // You can create a Checkout.css file for styling
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Checkout() {

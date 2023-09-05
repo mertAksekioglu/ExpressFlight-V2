@@ -52,8 +52,45 @@ public class Flight implements Serializable {
     @Column(name = "arrival_date_time")
     private LocalDateTime arvDateTime;
 
+    @Column(name = "is_international")
+    private Boolean isInternational;
+
+    @Column(name = "seat_config_name")
+    private String seatConfigName;
+
     @Column(name="seat_config")
     private Long seatConfig;
 
+    public Flight(String airline, String flightCode, Double price, Long depAirport, Long arvAirport,
+                  LocalDateTime depDateTime, LocalDateTime arvDateTime, Boolean isInternational,
+                  String seatConfigName, Long seatConfig) {
+        this.airline = airline;
+        this.flightCode = flightCode;
+        this.price = price;
+        this.depAirport = depAirport;
+        this.arvAirport = arvAirport;
+        this.depDateTime = depDateTime;
+        this.arvDateTime = arvDateTime;
+        this.isInternational = isInternational;
+        this.seatConfigName = seatConfigName;
+        this.seatConfig = seatConfig;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id=" + id +
+                ", airline='" + airline + '\'' +
+                ", flightCode='" + flightCode + '\'' +
+                ", price=" + price +
+                ", depAirport=" + depAirport +
+                ", arvAirport=" + arvAirport +
+                ", depDateTime=" + depDateTime +
+                ", arvDateTime=" + arvDateTime +
+                ", isInternational=" + isInternational +
+                ", seatConfigName='" + seatConfigName + '\'' +
+                ", seatConfig=" + seatConfig +
+                '}';
+    }
 
 }

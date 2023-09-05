@@ -1,3 +1,7 @@
+$text-gray: #636d84;
+$card-light-gray: #eef1f8;
+$button-orange: #de7800;
+
 .checkout-container {
   display: flex;
   flex-direction: column;
@@ -10,7 +14,7 @@
 }
 
 .checkout-div {
-  background-color: #eef1f8;
+  background-color: $card-light-gray;
   border-radius: 12px;
   padding: 10px;
   text-align: left;
@@ -18,7 +22,7 @@
 }
 
 .payment-form {
-  background-color: #eef1f8;
+  background-color: $card-light-gray;
   border-radius: 12px;
   padding: 20px;
   text-align: center;
@@ -49,13 +53,13 @@ select {
 
 h2 {
   margin-bottom: 10px;
-  color: #000;
+  color: $text-gray;
 }
 
 p {
-  color: #000;
+  color: $text-gray;
 }
 
 option {
-  color: #000;
+  color: $text-gray;
 }

@@ -16,6 +16,8 @@ public class FlightDTO {
     private AirportDTO arvAirport;
     private LocalDateTime depDateTime;
     private LocalDateTime arvDateTime;
+    private Boolean isInternational;
+    private String seatConfigName;
     private SeatConfigurationDTO seatConfig;
 
 }

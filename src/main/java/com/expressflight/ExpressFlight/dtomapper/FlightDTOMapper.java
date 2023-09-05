@@ -44,6 +44,8 @@ public class FlightDTOMapper {
                 d.setArvAirport(arvAirport);
                 d.setDepDateTime(s.getDepDateTime());
                 d.setArvDateTime(s.getArvDateTime());
+                d.setIsInternational(s.getIsInternational());
+                d.setSeatConfigName(s.getSeatConfigName());
                 SeatConfigurationDTO seatConfiguration = seatConfigurationService.getSeatConfiguration(s.getSeatConfig());
                 seatConfiguration = null;
                 d.setSeatConfig(seatConfiguration);

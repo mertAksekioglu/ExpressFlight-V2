@@ -138,6 +138,12 @@ public class FlightService implements IFlightService {
         if(flight.getPrice() != null){
             existingFlight.get().setPrice(flight.getPrice());
         }
+        if(flight.getIsInternational() != null){
+            existingFlight.get().setIsInternational(flight.getIsInternational());
+        }
+        if(flight.getSeatConfigName() != null){
+            existingFlight.get().setSeatConfigName(flight.getSeatConfigName());
+        }
         if(flight.getSeatConfig() != null){
             existingFlight.get().setSeatConfig(flight.getSeatConfig());
         }
